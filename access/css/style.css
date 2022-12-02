@@ -13,18 +13,23 @@ body {
 .voucher,
 .blog, 
 .aboutus {
-  color: rgb(139, 98, 81);
+  color: rgb(62, 7, 7);
   cursor: pointer;
 }
 
-.copyright {
-  color: rgb(139, 98, 81);
+.home:hover,
+.thechocolates:hover, 
+.voucher:hover,
+.blog:hover, 
+.aboutus:hover {
+  color: #b32366;
 }
 
 .modal {
   z-index: 3;
   position: relative;
 }
+
 .sub-menu {
   z-index: 2;
   position: relative;
