@@ -384,12 +384,12 @@ function renderProduct(category, object,paginationIndex) {
     
     // listProductObject.innerHTML = HTML;
     loadSearchProduct(paginationIndex,listProducts);
-    let selectedObject = document.getElementsByClassName('title-left')[0];
+    let selectedObject = document.getElementsByClassName('title-left-'+objectName)[0];
     let title = document.getElementsByClassName('heading-'+objectName)[0];
     title.innerText = category;
     selectedObject.setAttribute('class', '');
     selectedObject.nextElementSibling.setAttribute('class', 'left-space hidden');
-    object.setAttribute('class', 'title-left active');
+    object.setAttribute('class', 'title-left title-left-'+objectName+' active');
     object.nextElementSibling.setAttribute('class', 'left-space');
 }
 function renderProductAndRedirect(category, object, link) {

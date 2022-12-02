@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", loadSearchProduct(1));
 function loadSearchProduct(paginationIndex,findArray) {
-  let productList = document.getElementsByClassName("container")[0];
+  let prefixObjectName='';
+  if(localStorage.getItem('currentPage')=="search.html"){
+    prefixObjectName='search';
+  }else{
+    prefixObjectName='chocolate';
+  }
+  let productList = document.getElementsByClassName("container-"+prefixObjectName)[0];
   let products ;
   if(typeof findArray =="undefined"){
     products= JSON.parse(localStorage.getItem("findProduct"))
@@ -22,9 +28,9 @@ function loadSearchProduct(paginationIndex,findArray) {
   let HTML = `
       <div class="left">
         <ul class="list-product">
-          <li onclick="renderProduct('BRANDS',this)" class="title-left active">BRANDS</li>
+          <li onclick="renderProduct('BRANDS',this)" class="title-left title-left-${prefixObjectName} active">BRANDS</li>
           <hr class="left-space" />
-          <li onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
+          <li  onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
           <hr class="left-space hidden" />
           <li onclick="renderProduct('Coracao Confections',this)">Coracao Confections</li>
           <hr class="left-space hidden" />

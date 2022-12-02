@@ -7,7 +7,7 @@ window.onload = () => {
         localStorage.removeItem('redirectAction');
     }
 }
-window.onload=thongKe();
+window.onload = thongKe();
 
 
 // Lựa chọn các item trên nav-item
@@ -138,7 +138,7 @@ function showProduct() {
                 <i class="fa fa-wrench"></i>
                 <span class="tooltiptext" >Sửa</span>
             </div>
-            <div class="tooltip delete" onclick="deleteProduct(${i})">
+            <div class="tooltip delete" onclick="deleteProduct(${arr[i].id})">
                 <i class="fa fa-trash"></i>  
                 <span class="tooltiptext">Xóa</span>
             </div>
@@ -234,7 +234,7 @@ addProduct();
 // Xử lý xóa sản phẩm
 const notifyDelete = document.querySelector('.notify__delete');
 
-function deleteProduct(i, j) {
+function deleteProduct(id) {
     notifyDelete.innerHTML = `<div class="notify__delete-text">
                 Bạn có chắc sẽ xóa sản phẩm này không?
             </div>
@@ -251,13 +251,13 @@ function deleteProduct(i, j) {
         notifyDelete.style.transform = 'translate(-50%, 0)';
         notifyDelete.style.opacity = '1';
         document.querySelector('.notify__delete-ok').onclick = function () {
-            const arr = JSON.parse(localStorage.getItem('product'));
+            const arr = JSON.parse(localStorage.getItem('products'));
             notifyDelete.style.transform = 'translate(-50%, -270%)';
             notifyDelete.style.opacity = '0';
 
-            arr[i].splice(j, 1);
-
-            localStorage.setItem("product", JSON.stringify(arr));
+            let deleteIndex= arr.findIndex(x=>x.id=id);
+            arr.splice(deleteIndex,1);
+            localStorage.setItem("products", JSON.stringify(arr));
             showProduct();
         }
         document.querySelector('.notify__delete-cancel').onclick = function () {
