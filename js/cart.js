@@ -1,16 +1,17 @@
 window.onload = renderCart();
 function addToCart(product) {
+  let currentUser = JSON.parse(localStorage.getItem('user'));
+  if(currentUser == null)
+    alert("Bạn cần đăng nhập để mua hàng");
+  let currentUserId = currentUser.id;
   let currentDate = new Date();
   let time = currentDate.getHours() + ":" + currentDate.getMinutes() + " " + currentDate.getDate() + "/" + Number(currentDate.getMonth() + 1) + "/" + currentDate.getFullYear();
   let cartId = Math.random();
   let duplicateIndex;
   let listCart = JSON.parse(localStorage.getItem('carts'));
-  let currentUser = JSON.parse(localStorage.getItem('user'));
-  let currentUserId = currentUser.id;
   let listProduct = JSON.parse(localStorage.getItem('products'));
   let productId = product.getAttribute('id');
   let productIndex = listProduct.findIndex(element => element.id == productId);
-  console.log(productIndex)
   if ((duplicateIndex = findByProductId(productId, listCart[currentUserId])) != -1) {
     listCart[currentUserId][duplicateIndex].soluong += 1;
   } else {
@@ -21,6 +22,7 @@ function addToCart(product) {
     listProduct[productIndex].cartId = cartId;
     listCart[currentUserId].push(listProduct[productIndex]);
   }
+  alert("Đã thêm vào giỏ hàng");
   localStorage.setItem('carts', JSON.stringify(listCart));
 }
 function findByProductId(productId, userCart) {
@@ -28,47 +30,63 @@ function findByProductId(productId, userCart) {
 }
 function renderCart() {
   if (localStorage.getItem('currentPage') == "cart.html") {
-    let currentId = JSON.parse(localStorage.getItem('user')).id;
-    let listCart = (JSON.parse(localStorage.getItem('carts')))[currentId];
+    let isLogged = false;
+    let currentUser = JSON.parse(localStorage.getItem('user'));
+    if(currentUser != null) {
+      isLogged = true;
+      let listCart = (JSON.parse(localStorage.getItem('carts')))[currentUser.id];
+      let checkCartEmpty = true;
+      for(let i=0; i<listCart.length; i++){
+        if(listCart[i].status != "Đã nhận hàng"){
+          checkCartEmpty = false;
+          break;
+        }
+      }
+    }
     let HTML = '';
     let totalCost = 0;
     let subCart = document.getElementsByClassName('sub-cart-container')[0];
-
-    if (listCart.length == 0) {
+    if(!isLogged){
       subCart.classList.add('showCart');
       subCart.nextElementSibling.classList.add('hiddenCart');
-    } else {
-      subCart.classList.remove('showCart');
-      subCart.nextElementSibling.classList.remove('hiddenCart');
-      listCart.map((x) => {
-        if (x.status != "Đã nhận hàng") {
-          HTML += `
-            <div class="product">
-              <ul class="title-cart">
-                <li class="item">
-                  <img src="${x.image}" alt="" />${x.name}
-                </li>
-                <li class="price">${x.price}</li>
-                <li class="qty">
-                  <input onchange="changeCount(this)"
-                    type="number"
-                    min="0"
-                    size="2"
-                    class="quantity"
-                    name="updates[]"
-                    id="${x.id}"
-                    value="${x.soluong}"
-                  />
-                </li>
-                <li class="total">£${((x.price.split('£'))[1] * x.soluong).toFixed(2)}<i onclick="deleteProductFromCart(this)" class="ti-close hover_icon"></i></li>
-                
-              </ul>
-              <hr>
-            </div>`
-
-          totalCost += ((x.price.split('£'))[1] * x.soluong);
-        }
-      })
+    }
+    else {
+      if(listCart.length == 0 || checkCartEmpty) {
+        subCart.classList.add('showCart');
+        subCart.nextElementSibling.classList.add('hiddenCart');
+      } else {
+        subCart.classList.remove('showCart');
+        subCart.nextElementSibling.classList.remove('hiddenCart');
+        listCart.map((x) => {
+          if (x.status != "Đã nhận hàng") {
+            HTML += `
+              <div class="product">
+                <ul class="title-cart">
+                  <li class="item">
+                    <img src="${x.image}" alt="" />${x.name}
+                  </li>
+                  <li class="price">${x.price}</li>
+                  <li class="qty">
+                    <input onchange="changeCount(this)"
+                      type="number"
+                      min="0"
+                      size="2"
+                      class="quantity"
+                      name="updates[]"
+                      id="${x.id}"
+                      value="${x.soluong}"
+                    />
+                  </li>
+                  <li class="total">£${((x.price.split('£'))[1] * x.soluong).toFixed(2)}<i onclick="deleteProductFromCart(this)" class="ti-close hover_icon"></i></li>
+                  
+                </ul>
+                <hr>
+              </div>`
+  
+            totalCost += ((x.price.split('£'))[1] * x.soluong);
+          }
+        })
+      }
     }
     let subTotalObject = document.getElementsByClassName("subtotal-price")[0];
     subTotalObject.firstElementChild.innerText = '£' + totalCost.toFixed(2);
@@ -100,5 +118,5 @@ function deleteProductFromCart(object) {
   let productCartIndex = listCart[currentId].findIndex(x => x.id == deleteId);
   listCart[currentId].splice(productCartIndex, 1);
   localStorage.setItem('carts', JSON.stringify(listCart));
-  window.location = "cart.html";
+  redirectPage('cart.html')
 }

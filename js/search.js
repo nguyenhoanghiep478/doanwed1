@@ -21,7 +21,7 @@ function loadSearchProduct(paginationIndex,findArray) {
   if (user.role === "admin") {
     iconHandle = 'ti-settings icon_hover';
     functionHandle = 'redirectUpdateProduct(this)';
-  } else {
+  } else if(user.role === "user") {
     iconHandle = 'ti-shopping-cart-full icon_hover';
     functionHandle = 'addToCart(this);'
   }
@@ -66,12 +66,12 @@ function loadSearchProduct(paginationIndex,findArray) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a class="btn-addto-cart">
                 <span></span>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a class="btn-addto-cart">
                 <span id="${products[i].id}" onclick="${functionHandle}" class="${iconHandle}"></span>
             </a>
           </li>

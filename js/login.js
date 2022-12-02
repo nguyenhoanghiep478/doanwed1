@@ -1,26 +1,26 @@
-window.onload=setUser();
+window.onload=setDefaultUser();
 window.onload=getSession();
 window.onload=setCurrentPage();
 function setCurrentPage(){
     localStorage.setItem('currentPage','index.html');
 }
-function setUser(){
+function setDefaultUser(){
     let carts=[[{}]];
     if(localStorage.getItem("userData")==null){
         let userData=[
-            {   
-                "id":'1',
-                "user":"hiep",
-                "password":"1",
-                "name":"Nguyễn Hoàng Hiệp",
-                "email":"nguyenhoanghiep478@gmail.com",
-                "Địa chỉ":"Sgu",
-                "phone":'0965478891',
-                "sex":"nam",
-                "Tôn giáo":'Phật giáo',
-                "status":"working",
-                "role":"user"
-            },  
+            // {   
+            //     "id":'1',
+            //     "user":"hiep",
+            //     "password":"1",
+            //     "name":"Nguyễn Hoàng Hiệp",
+            //     "email":"nguyenhoanghiep478@gmail.com",
+            //     "Địa chỉ":"Sgu",
+            //     "phone":'0965478891',
+            //     "sex":"nam",
+            //     "Tôn giáo":'Phật giáo',
+            //     "status":"working",
+            //     "role":"user"
+            // },  
             {
                 "user":"admin",
                 "password":"1",
@@ -128,16 +128,20 @@ function checkLogin(){
     let password=document.getElementById("modal-password").value;
     let passwordInput=document.getElementById("modal-password");
     let userData=JSON.parse(localStorage.getItem("userData"));
-    console.log(userData[0]);
+    let flag = false;
     if(user!==''&&password!==''){
         for(let i=0;i<userData.length;i++){
             if(userData[i].user===user&&userData[i].password===password){
-                localStorage.setItem("user",JSON.stringify(userData[i]));
-                if(userData[i].role==="user"){
-                    window.location="index.html";
-                }else if(userData[i].role==="admin"){
-                    window.location="settings.html";
+                if(userData[i].status=="working") {
+                    localStorage.setItem("user",JSON.stringify(userData[i]));
+                    if(userData[i].role==="user"){
+                        window.location="index.html";
+                    }else if(userData[i].role==="admin"){
+                        window.location="settings.html";
+                    }
                 }
+                else
+                    alert("Tài khoản này đã bị khóa"); 
             }
         }
         if(localStorage.getItem("user")===null){
@@ -146,8 +150,6 @@ function checkLogin(){
             let message="<span class='warning-alert' style='margin-left:40%;margin-bottom:20px' > <strong>Your user or password incorrect</strong> </span>";
             messageLogin.innerHTML=message;
         }
-    }else{
-        
     }
     
 }
@@ -177,6 +179,13 @@ function isCorrect(username,name,date,sex,email,password){
         emailNof.innerHTML=messageAlert("email can't empty");
         check=false;
     }
+    // let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    let regex = new RegExp('[a-z0-9]+@gmail.com');
+    if (!(regex.test(email.value))){
+        let emailNof=document.getElementById("emailNofication");
+        emailNof.innerHTML=messageAlert("email is invalid");
+        check=false;
+    }
     if(password.value===''){
         let passwordNof=document.getElementById("passwordNofication");
         passwordNof.innerHTML=messageAlert("password can't empty");
@@ -195,7 +204,7 @@ function Register(){
     if(isCorrect(username,name,date,sex,email,password)){
         let userData=JSON.parse(localStorage.getItem("userData"));
         let role;
-        let id=userData.length+1;
+        let id=userData.length;
         if((username.value).includes("admin"))role="admin";
         else role="user";
         userData.push({
@@ -209,7 +218,8 @@ function Register(){
             "role":role,
             "status":"working"
         })
-        let carts=JSON.parse(localStorage.getItem('carts'))[id]=[];
+        let carts=JSON.parse(localStorage.getItem("carts"));
+        carts[parseInt(id)] = [];
         localStorage.setItem('carts',JSON.stringify(carts));
         localStorage.setItem("userData",JSON.stringify(userData));
         window.location="index.html";

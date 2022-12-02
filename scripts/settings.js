@@ -7,8 +7,7 @@ window.onload = () => {
         localStorage.removeItem('redirectAction');
     }
 }
-window.onload = thongKe();
-
+// window.onload = thongKe();
 
 // Lựa chọn các item trên nav-item
 const navItems = document.querySelectorAll('.nav-item');
@@ -24,7 +23,8 @@ navItems.forEach(function (navItem, index) {
 
         switch (index) {
             case 0:
-                document.querySelector('.section__stats').style.display = "block";
+                document.querySelector('.section__stats').style.display = "flex";
+                window.onload = thongKe();
                 break;
             case 1:
                 document.querySelector('.section__product').style.display = "block";
@@ -312,6 +312,9 @@ function getSubTotal() {
             }
         }
     }
+    for (let i = 0; i < 7; i++) {
+        listSoldOut[i] = listSoldOut[i].toFixed(2);
+    }
     return listSoldOut;
 }
 function renderAdminCart() {
@@ -407,10 +410,11 @@ function renderUserData() {
             <td style="width: 20%;border:1px solid">${userData[i].user}</td>
             <td style="width: 10%;border:1px solid">${userData[i].password}</td>
             <td style="width: 10%;border:1px solid">
-               <img src="../image/`+ imageName + `" style="max-width:10px">  ${userData[i].status}
-            <div class="tooltip removeUser delete" onclick="deleteUser('${userData[i].user}')">
-                <i class="fa fa-trash margin-2px"></i>  
-                <span class="tooltiptext">Xóa</span>
+               <img src="../image/`+ imageName + `" style="max-width:13px"> 
+               <span> ${userData[i].status} </span> 
+            <div class="tooltip changestatus" onclick="changeStatusUser('${userData[i].user}')">
+                <i class="ti-loop"></i>  
+                <span class="tooltiptext">Đổi trạng thái</span>
             </div>
             </td>
             </tr>
@@ -421,38 +425,53 @@ function renderUserData() {
     document.getElementById('table-customer').innerHTML = HTML;
 
 }
-function deleteUser(user) {
-    let notifyDeleteCustomer = document.getElementsByClassName('notify__delete_customer')[0];
-    notifyDeleteCustomer.innerHTML = `<div class="notify__delete_customer-text">
-                Bạn có chắc sẽ xóa người dùng này không?
-            </div>
-            <div class="notify__delete_customer-btn">
-                <div class="notify__delete_customer-ok">
-                    OK
-                </div>
-                <div class="notify__delete_customer-cancel">
-                    Hủy
-                </div>
-            </div>`
-    setTimeout(function () {
-        notifyDeleteCustomer.style.transform = 'translate(-50%, 0)';
-        notifyDeleteCustomer.style.opacity = '1';
-        document.querySelector('.notify__delete_customer-ok').onclick = function () {
-            let userData = JSON.parse(localStorage.getItem("userData"));
-            for (let i = 0; i < userData.length; i++) {
-                if (userData[i].user === user) {
-                    userData.splice(i, 1);
-                }
-            }
+function changeStatusUser(user) {
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    for (let i=0; i <userData.length; i++) {
+        if (userData[i].user === user) {
+            if(userData[i].status == "blocked")
+                userData[i].status = "working"
+            else
+                userData[i].status = "blocked"
             localStorage.setItem('userData', JSON.stringify(userData));
-            sessionStorage.setItem("action", "3");
-            window.location = "settings.html";
+            let alertNof = "Đổi trạng thái khách hàng " + user + " thành công";
+            alert(alertNof);
+            break;
         }
-        document.querySelector('.notify__delete_customer-cancel').onclick = function () {
-            notifyDelete.style.transform = 'translate(-50%, -270%)';
-            notifyDelete.style.opacity = '0';
-        }
-    }, 200)
+    }
+    renderUserData();
+    // document.querySelector('.blockUser > span')
+    // let notifyDeleteCustomer = document.getElementsByClassName('notify__delete_customer')[0];
+    // notifyDeleteCustomer.innerHTML = `<div class="notify__delete_customer-text">
+    //             Bạn có chắc sẽ xóa người dùng này không?
+    //         </div>
+    //         <div class="notify__delete_customer-btn">
+    //             <div class="notify__delete_customer-ok">
+    //                 OK
+    //             </div>
+    //             <div class="notify__delete_customer-cancel">
+    //                 Hủy
+    //             </div>
+    //         </div>`
+    // setTimeout(function () {
+    //     notifyDeleteCustomer.style.transform = 'translate(-50%, 0)';
+    //     notifyDeleteCustomer.style.opacity = '1';
+    //     document.querySelector('.notify__delete_customer-ok').onclick = function () {
+    //         let userData = JSON.parse(localStorage.getItem("userData"));
+    //         for (let i = 0; i < userData.length; i++) {
+    //             if (userData[i].user === user) {
+    //                 userData.splice(i, 1);
+    //             }
+    //         }
+    //         localStorage.setItem('userData', JSON.stringify(userData));
+    //         sessionStorage.setItem("action", "3");
+    //         window.location = "settings.html";
+    //     }
+    //     document.querySelector('.notify__delete_customer-cancel').onclick = function () {
+    //         notifyDelete.style.transform = 'translate(-50%, -270%)';
+    //         notifyDelete.style.opacity = '0';
+    //     }
+    // }, 200)
 
 }
 function openThemNguoiDung() {
