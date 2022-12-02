@@ -110,6 +110,10 @@ header h2 {
 }
 
 
+.section .section__stats #myChart {
+    
+}
+
 /* HOME */
 
 .home .canvasContainer {
@@ -124,6 +128,8 @@ header h2 {
     flex-direction: row;
     justify-content: center;
 }
+
+
 
 /* Table */
 

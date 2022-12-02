@@ -9,7 +9,7 @@ function addToCart(product) {
   let currentUserId = currentUser.id;
   let listProduct = JSON.parse(localStorage.getItem('products'));
   let productId = product.getAttribute('id');
-  let productIndex = listProduct.findIndex(element => element.id === productId);
+  let productIndex = listProduct.findIndex(element => element.id == productId);
   console.log(productIndex)
   if ((duplicateIndex = findByProductId(productId, listCart[currentUserId])) != -1) {
     listCart[currentUserId][duplicateIndex].soluong += 1;
@@ -41,8 +41,9 @@ function renderCart() {
       subCart.classList.remove('showCart');
       subCart.nextElementSibling.classList.remove('hiddenCart');
       listCart.map((x) => {
-        HTML += `
-        <div class="product">
+        if (x.status != "Đã nhận hàng") {
+          HTML += `
+            <div class="product">
               <ul class="title-cart">
                 <li class="item">
                   <img src="${x.image}" alt="" />${x.name}
@@ -65,12 +66,13 @@ function renderCart() {
               <hr>
             </div>`
 
-        totalCost += ((x.price.split('£'))[1] * x.soluong);
+          totalCost += ((x.price.split('£'))[1] * x.soluong);
+        }
       })
     }
     let subTotalObject = document.getElementsByClassName("subtotal-price")[0];
     subTotalObject.firstElementChild.innerText = '£' + totalCost.toFixed(2);
-    document.getElementsByClassName('list-product-cart')[0].innerHTML=HTML;
+    document.getElementsByClassName('list-product-cart')[0].innerHTML = HTML;
   }
 
 }

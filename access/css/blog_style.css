@@ -71,8 +71,9 @@ hr {
 }
 
 .content-blog .page-list #page {
-  display: inline-block;
+  display: flex;
   float: right;
+  cursor: pointer;
   padding: 6px;
 }
 
