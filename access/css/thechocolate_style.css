@@ -18,9 +18,11 @@ html {
   display: block;
 }
 
+.header-thechocolate .heading, 
 .header-search .heading {
   text-align: center;
   letter-spacing: 9px;
+  margin-bottom: 10px;
 }
 
 /* hr {

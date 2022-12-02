@@ -7,10 +7,29 @@ body {
   font-family: "Poppins", sans-serif;
   color: #3e0707;
 }
+
+.home,
+.thechocolates, 
+.voucher,
+.blog, 
+.aboutus {
+  color: rgb(62, 7, 7);
+  cursor: pointer;
+}
+
+.home:hover,
+.thechocolates:hover, 
+.voucher:hover,
+.blog:hover, 
+.aboutus:hover {
+  color: #b32366;
+}
+
 .modal {
   z-index: 3;
   position: relative;
 }
+
 .sub-menu {
   z-index: 2;
   position: relative;
@@ -367,9 +386,6 @@ body {
   align-items: center;
   justify-content: center;
   letter-spacing: 2px;
-  font-size: 22px;
-  line-height: 2;
-  margin-top: 12px;
 }
 .title-theraw .title {
   font-size: 18px;

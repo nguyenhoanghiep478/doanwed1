@@ -14,7 +14,7 @@ hr {
 }
 
 .aboutus-title {
-  font-size: 25px;
+  font-size: 32px;
   margin: 10px 0;
   letter-spacing: 3px;
   text-align: center;
@@ -27,7 +27,7 @@ hr {
 
 #container-content {
   width: 800px;
-  margin: 100px auto;
+  margin: 0 auto;
 }
 
 #content .content-aboutus {

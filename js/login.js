@@ -223,6 +223,7 @@ function redirectPage(page){
     }else if(page=="search.html"){
         loadSearchProduct()
     }
+    window.scrollTo(0,0); //focus first page
 }
 function getSession(){
     let user;
@@ -238,7 +239,7 @@ function getSession(){
             childs=list.childNodes;
             list.removeChild(childs[4]);
             item2.innerHTML="Admin Page";
-            item2.setAttribute('onclick',"redirectPage('settings.html')");
+            item2.setAttribute('onclick',"redirectAdminPage('settings.html')");
             item2.setAttribute("cursor","pointer");
             list.appendChild(item2);
         }

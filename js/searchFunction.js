@@ -320,7 +320,7 @@ function addHideListSearch() {
 
 function renderProduct(category, object) {
     let listProducts = controllerFindProduct('', category, '', '');
-    let listProductObject = document.getElementsByClassName("right")[0];
+    let listProductObject = document.getElementsByClassName("right-chocolate")[0];
     listProductObject.innerHTML = '';
     let user = JSON.parse(localStorage.getItem('user'));
     let HTML = '';
