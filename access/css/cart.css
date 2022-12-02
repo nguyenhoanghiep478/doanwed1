@@ -37,11 +37,18 @@ hr {
   color: #3e0707;
   font-size: 20px;
 }
+
 .sub-cart-container .ti-angle-right {
   font-size: 14px;
 }
+
 .sub-cart-container a:hover {
   color: #b32366;
+}
+
+.continue-shopping:hover {
+  color: #b32366;
+  cursor: pointer;
 }
 
 .cart-price {

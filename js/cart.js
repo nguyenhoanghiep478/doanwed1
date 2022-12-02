@@ -33,8 +33,14 @@ function renderCart() {
     let HTML = '';
     let totalCost = 0;
     let subCart = document.getElementsByClassName('sub-cart-container')[0];
-
-    if (listCart.length == 0) {
+    let checkCartEmpty = true;
+    for(let i=0; i<listCart.length; i++){
+      if(listCart[i].status != "Đã nhận hàng"){
+        checkCartEmpty = false;
+        break;
+      }
+    }
+    if (listCart.length == 0 || checkCartEmpty) {
       subCart.classList.add('showCart');
       subCart.nextElementSibling.classList.add('hiddenCart');
     } else {
@@ -100,5 +106,5 @@ function deleteProductFromCart(object) {
   let productCartIndex = listCart[currentId].findIndex(x => x.id == deleteId);
   listCart[currentId].splice(productCartIndex, 1);
   localStorage.setItem('carts', JSON.stringify(listCart));
-  window.location = "cart.html";
+  redirectPage('cart.html')
 }
