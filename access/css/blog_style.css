@@ -1,4 +1,4 @@
-* {title
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -6,17 +6,24 @@
 
 html {
   font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: #3e0707;
 }
 
 hr {
   border-top: 1px solid rgb(139, 98, 81);
 }
+#blog {
+  width: 1000px;
+  margin: 100px auto;
+}
 
-.blog-title {
+.title-blog .title {
   font-size: 32px;
   margin-bottom: 10px;
   letter-spacing: 3px;
   text-align: center;
+  text-transform: uppercase;
 }
 
 #content {
@@ -28,61 +35,21 @@ hr {
   width: 800px;
   margin: 0 auto;
 }
-
-#content .link {
-  font-style: italic;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  font-size: 12px;
-  height: 25px;
-  line-height: 25px;
-}
-
-#content .link > div {
-  float: left;
-}
-
-#content .link a {
-  color: rgb(62, 7, 7);
-  text-decoration: none;
-}
-
-.ti-angle-right {
-  margin-left: 3px;
-  font-size: 8px;
-}
-
-.full-box {
+.container-blog {
   display: grid;
-  grid-template-columns: 65% auto;
-  gap: 42px;
+  grid-template-columns: 700px 300px;
+  gap: 24px;
 }
-
-#content .content-blog {
+.title-blog {
+  grid-column: 1/-1;
 }
-
-.content-blog .blog-status .author {
-  margin: 10px 0;
-}
-
-.content-blog .page-list a {
-  text-decoration: none;
-  color: rgb(62, 7, 7);
-}
-
-.content-blog .page-list #page {
-  display: flex;
-  float: right;
-  cursor: pointer;
-  padding: 6px;
+.left-side {
+  grid-column: 1/-2;
 }
 
 .ti-angle-double-right {
   font-size: 8px;
   margin-left: 3px;
-}
-
-#content .content-menu {
 }
 
 .content-menu .follow-subcribe {
@@ -101,40 +68,123 @@ hr {
   width: 49%;
   display: inline-block;
   text-align: center;
-  justify-content: space-between;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 3px;
 }
-
-.content-menu .subcribe div,
-.content-menu .follow div {
-  display: inline-block;
-  margin-left: 12px;
-  line-height: 34px;
+.link {
+  font-size: 14px;
+  font-style: italic;
 }
-
-.content-menu .subcribe span,
-.content-menu .follow span {
-  display: inline-block;
+.link a {
+  text-decoration: none;
+  color: #3e0707;
 }
-
-.content-menu .ti-rss-alt,
-.content-menu .ti-twitter-alt {
-  font-size: 20px;
-  padding: 6px;
-  border: solid 1px rgb(139, 98, 81);
-  border-radius: 50%;
+.content-chocolate .title {
+  font-size: 22px;
+  letter-spacing: 1px;
+  line-height: 2;
 }
-
-#search-blog {
-  position: relative;
-  width: 100%;
+.content-chocolate .sub-title {
+  font-size: 14px;
+  color: #495057;
+  line-height: 3;
+}
+.content-chocolate .text {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
   margin-top: 12px;
 }
+.img {
+  display: flex;
+  justify-content: center;
+}
+.icon .text {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 500;
+}
+.icon {
+  display: flex;
+  gap: 15px;
+  line-height: 3;
+  justify-content: flex-start;
+  align-items: center;
+}
+.btn {
+  font-size: 14px;
+  padding: 9px;
+  border: solid 1px #3e0707;
+  border-radius: 50%;
+}
+.recent-articles .title {
+  font-size: 22px;
+  letter-spacing: 1px;
+  line-height: 2;
+  text-transform: uppercase;
+}
+.text-form {
+  margin: 20px 0;
+}
+.recent-articles .text {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+}
+.recent-articles .sub-text {
+  font-size: 14px;
+  color: #495057;
+}
+.categories .title {
+  font-size: 22px;
+  letter-spacing: 1px;
+  line-height: 2;
+  text-transform: uppercase;
+}
+.categories .line-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+}
+.categories .num {
+  font-size: 14px;
+  color: #495057;
+}
 
-#search-blog input {
-  height: 28px;
-  width: 100%;
-  padding-left: 28px;
-  padding-right: 9px;
-  border: 1px solid rgb(223, 223, 223);
-  font-size: 13px;
+.change-page {
+  display: flex;
+  justify-content: center;
+  grid-column: 1/-1;
+  text-align: center;
+  gap: 24px;
+}
+
+.change-page p {
+  padding: 6px;
+}
+
+.change-page p:hover {
+  color: pink;
+  cursor: pointer;
+}
+
+.img .img3,
+.img .img4,
+.img .img5,
+.img .img6,
+.img .img7,
+.img .img8,
+.img .img9,
+.img .img10,
+.img .img11,
+.img .img12,
+.img .img13,
+.img .img14 {
+  width: 700px;
+  height: 50%;
 }
