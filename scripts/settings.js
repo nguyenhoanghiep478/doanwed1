@@ -7,8 +7,7 @@ window.onload = () => {
         localStorage.removeItem('redirectAction');
     }
 }
-window.onload = thongKe();
-
+// window.onload = thongKe();
 
 // Lựa chọn các item trên nav-item
 const navItems = document.querySelectorAll('.nav-item');
@@ -24,7 +23,8 @@ navItems.forEach(function (navItem, index) {
 
         switch (index) {
             case 0:
-                document.querySelector('.section__stats').style.display = "block";
+                document.querySelector('.section__stats').style.display = "flex";
+                window.onload = thongKe();
                 break;
             case 1:
                 document.querySelector('.section__product').style.display = "block";

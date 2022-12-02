@@ -177,6 +177,13 @@ function isCorrect(username,name,date,sex,email,password){
         emailNof.innerHTML=messageAlert("email can't empty");
         check=false;
     }
+    // let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    let regex = new RegExp('[a-z0-9]+@gmail.com');
+    if (!(regex.test(email.value))){
+        let emailNof=document.getElementById("emailNofication");
+        emailNof.innerHTML=messageAlert("email is invalid");
+        check=false;
+    }
     if(password.value===''){
         let passwordNof=document.getElementById("passwordNofication");
         passwordNof.innerHTML=messageAlert("password can't empty");
