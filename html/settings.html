@@ -27,15 +27,15 @@
 <body>
     <div id="main">
         <header>
-            <h2>Chocolate Store - Admin</h2>
+            <h2>The Raw Chocolate - Admin</h2>
         </header>
         <!-- Menu -->
         <aside class="sidebar">
             <ul class="nav">
                 <li class="nav-title">MENU</li>
-                <li onclick="redirectPage('index.html')" class="nav-item home active">
+                <li class="nav-item home active">
                     <i class="fa fa-home"></i> 
-                    Trang chủ
+                    Thống Kê
                 </li>
                 <li class="nav-item product">
                     <i class="fa fa-th-large"></i> 
@@ -59,7 +59,7 @@
         
         <!-- Khung hiển thị chính -->
         <div class="section">
-            <div class="section__home">
+            <!-- <div class="section__home">
                 <div class="canvasContainer">
                     <canvas id="myChart1"></canvas>
                 </div>
@@ -75,6 +75,10 @@
                 <div class="canvasContainer">
                     <canvas id="myChart4"></canvas>
                 </div>
+            </div> -->
+
+            <div class="section__stats">
+                <canvas id="myChart" style="width:100%;max-width:1300px"></canvas>
             </div>
     
             <!-- Sản Phẩm -->
@@ -240,6 +244,7 @@
     <!-- Javascript -->
     <script src="../scripts/json.js"></script>
     <script src="../scripts/settings.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </body>
 </html>
 

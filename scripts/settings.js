@@ -24,7 +24,7 @@ navItems.forEach(function (navItem, index) {
 
         switch (index) {
             case 0:
-                window.location = "index.html";
+                document.querySelector('.section__stats').style.display = "block";
                 break;
             case 1:
                 document.querySelector('.section__product').style.display = "block";
@@ -272,13 +272,62 @@ function deleteProduct(i, j) {
 function editProduct(i, j) {
 
 }
+function getSubTotal() {
+    let listCart = JSON.parse(localStorage.getItem('carts'));
+    let listProductByCategory = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
+    let listSoldOut = [6];
+    for(let i=0; i<listCart[1].length; i++){
+        switch(listCart[1][i].category){
+            case "Consious Chocolate": {
+                listSoldOut[0] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Coracao Confections":{
+                listSoldOut[1] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Element for life":{
+                listSoldOut[2] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Enjoy":{
+                listSoldOut[3] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Forever Cacao":{
+                listSoldOut[4] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Ombar":{
+                listSoldOut[5] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            default :{
+                break;
+            }
+        }
+    }
+    return listSoldOut;
+}
 function renderCart() {
-    let temp=1;
+    let temp = 1;
     let listCart = JSON.parse(localStorage.getItem('carts'));
     let HTML = `<table> <tbody>`;
+    let actionHTML = '';
+
     for (let i = 1; i < listCart.length; i++) {
         for (let j = 0; j < listCart[i].length; j++) {
-            if (listCart[i][j].status === "chờ xác nhận") {
+            if (listCart[i][j].status != "Đã nhận hàng") {
+                actionHTML += ` <div  id=${listCart[i][j].id} class="tooltip update" onclick="changeStatus(this,${i})">
+                    <i class="ti-check"></i>
+                    <span class="tooltiptext">Xác nhận</span>
+                </div>
+                <div class="tooltip delete" onclick="deleteCart(${listCart[i][j].id})">
+                    <i class="fa fa-trash"></i>  
+                    <span class="tooltiptext">Xóa</span>
+                </div>`
+            }
+            if (listCart[i][j].status === "Chờ xác nhận") {
                 imageName = 'redpoint.png';
             } else {
                 imageName = 'greenpoint.png';
@@ -289,20 +338,13 @@ function renderCart() {
             <td style="width: 13%;border:1px solid">${listCart[i][j].cartId}</td>
             <td style="width: 7%;border:1px solid" class="fa__left">${listCart[i][j].userName}</td>
             <td style="width: 20%;border:1px solid"><img src="../image/`+ listCart[i][j].image + `" style="max-width:90px"></td>
-            <td style="width: 15%;border:1px solid">£${parseFloat((listCart[i][j].price).split('£')[1]) * parseInt(listCart[i][j].soluong)}</td>
+            <td style="width: 15%;border:1px solid">£${(parseFloat((listCart[i][j].price).split('£')[1]) * parseInt(listCart[i][j].soluong)).toFixed(2)}</td>
             <td style="width: 10%;border:1px solid">${listCart[i][j].time}</td>
             <td style="width: 10%;border:1px solid">
             <img src="../image/`+ imageName + `" style="max-width:10px"> ${listCart[i][j].status}
            </td>
             <td style="width: 10%;border:1px solid">
-                    <div  id=${listCart[i][j].id} class="tooltip update" onclick="changeStatus(this,${i})">
-                    <i class="ti-check"></i>
-                    <span class="tooltiptext">Xác nhận</span>
-                </div>
-                <div class="tooltip delete" onclick="deleteCart(${listCart[i][j].id})">
-                    <i class="fa fa-trash"></i>  
-                    <span class="tooltiptext">Xóa</span>
-                </div>
+                    ${actionHTML}
             </td>
             </tr>                                                                                                                                                                                                                                                                                                                                                                                                                                                  
             `
@@ -315,20 +357,23 @@ function renderCart() {
 
 
 }
-function changeStatus(object,userId){
-    let parentNode=object.parentElement;
-    let listCart=JSON.parse(localStorage.getItem('carts'));
-    let productId=object.getAttribute('id');
+function changeStatus(object, userId) {
+    let parentNode = object.parentElement;
+    let listCart = JSON.parse(localStorage.getItem('carts'));
+    let productId = object.getAttribute('id');
     console.log(listCart[1][1]);
-    let productIndex=listCart[userId].findIndex(x=>x.id==productId);
-    if(listCart[userId][productIndex].status=="chờ xác nhận"){
-        listCart[userId][productIndex].status="đang giao hàng";
-    }else if(listCart[userId][productIndex].status=="đang giao hàng"){
-        listCart[userId][productIndex].status="Chờ lấy hàng";
+    let productIndex = listCart[userId].findIndex(x => x.id == productId);
+    if (listCart[userId][productIndex].status == "Chờ xác nhận") {
+        listCart[userId][productIndex].status = "Đang giao hàng";
+    } else if (listCart[userId][productIndex].status == "Đang giao hàng") {
+        listCart[userId][productIndex].status = "Chờ lấy hàng";
+    } else {
+        listCart[userId][productIndex].status = "Đã nhận hàng";
+        parentNode.innerHTML = '';
     }
-    localStorage.setItem('carts',JSON.stringify(listCart));
-    let HTML=`<img src="../image/greenpoint.png" style="max-width:10px">  ${listCart[userId][productIndex].status}`
-    parentNode.previousElementSibling.innerHTML=HTML;
+    localStorage.setItem('carts', JSON.stringify(listCart));
+    let HTML = `<img src="../image/greenpoint.png" style="max-width:10px">  ${listCart[userId][productIndex].status}`
+    parentNode.previousElementSibling.innerHTML = HTML;
 }
 function redirectPage(page) {
     window.location = page;
@@ -445,4 +490,27 @@ function openThemNguoiDung() {
     document.getElementById('test').innerHTML = x;
 }*/
 
+//thong ke
+//console.log(getSubTotal());
+var xValues = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
+var yValues = [55, 49, 44, 24, 15, 22];
+// var yValues = getSubTotal();
+var barColors = ["red", "green","blue","orange","brown", "purple"];
+
+new Chart("myChart", {
+    type: "pie",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Thống kê doanh thu theo loại sản phẩm"
+      }
+    }
+  });
 

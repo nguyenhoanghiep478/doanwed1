@@ -223,6 +223,7 @@ function redirectPage(page){
     }else if(page=="search.html"){
         loadSearchProduct()
     }
+    window.scrollTo(0,0); //focus first page
 }
 function getSession(){
     let user;
