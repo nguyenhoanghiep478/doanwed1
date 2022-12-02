@@ -273,9 +273,41 @@ function editProduct(i, j) {
 
 }
 function getSubTotal() {
-    let listCart = JSON.parse('carts');
-    let listProductByCategory = [6];
-    let listSoldOut
+    let listCart = JSON.parse(localStorage.getItem('carts'));
+    let listProductByCategory = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
+    let listSoldOut = [6];
+    for(let i=0; i<listCart[1].length; i++){
+        switch(listCart[1][i].category){
+            case "Consious Chocolate": {
+                listSoldOut[0] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Coracao Confections":{
+                listSoldOut[1] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Element for life":{
+                listSoldOut[2] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Enjoy":{
+                listSoldOut[3] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Forever Cacao":{
+                listSoldOut[4] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            case "Ombar":{
+                listSoldOut[5] += listCart[1][i].price.split('£')[1];
+                break;
+            }
+            default :{
+                break;
+            }
+        }
+    }
+    return listSoldOut;
 }
 function renderCart() {
     let temp = 1;
@@ -306,7 +338,7 @@ function renderCart() {
             <td style="width: 13%;border:1px solid">${listCart[i][j].cartId}</td>
             <td style="width: 7%;border:1px solid" class="fa__left">${listCart[i][j].userName}</td>
             <td style="width: 20%;border:1px solid"><img src="../image/`+ listCart[i][j].image + `" style="max-width:90px"></td>
-            <td style="width: 15%;border:1px solid">£${parseFloat((listCart[i][j].price).split('£')[1]) * parseInt(listCart[i][j].soluong)}</td>
+            <td style="width: 15%;border:1px solid">£${(parseFloat((listCart[i][j].price).split('£')[1]) * parseInt(listCart[i][j].soluong)).toFixed(2)}</td>
             <td style="width: 10%;border:1px solid">${listCart[i][j].time}</td>
             <td style="width: 10%;border:1px solid">
             <img src="../image/`+ imageName + `" style="max-width:10px"> ${listCart[i][j].status}
@@ -331,9 +363,9 @@ function changeStatus(object, userId) {
     let productId = object.getAttribute('id');
     console.log(listCart[1][1]);
     let productIndex = listCart[userId].findIndex(x => x.id == productId);
-    if (listCart[userId][productIndex].status == "chờ xác nhận") {
-        listCart[userId][productIndex].status = "đang giao hàng";
-    } else if (listCart[userId][productIndex].status == "đang giao hàng") {
+    if (listCart[userId][productIndex].status == "Chờ xác nhận") {
+        listCart[userId][productIndex].status = "Đang giao hàng";
+    } else if (listCart[userId][productIndex].status == "Đang giao hàng") {
         listCart[userId][productIndex].status = "Chờ lấy hàng";
     } else {
         listCart[userId][productIndex].status = "Đã nhận hàng";
@@ -459,8 +491,10 @@ function openThemNguoiDung() {
 }*/
 
 //thong ke
+//console.log(getSubTotal());
 var xValues = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
 var yValues = [55, 49, 44, 24, 15, 22];
+// var yValues = getSubTotal();
 var barColors = ["red", "green","blue","orange","brown", "purple"];
 
 new Chart("myChart", {

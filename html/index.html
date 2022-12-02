@@ -56,7 +56,7 @@
         </div>
         <div id="menu-container">
             <ul id="menu-list">
-                <li class="home" onclick="redirectPage('index.html')" >HOME</li>
+                <li class="home" onclick="redirectPage('index.html')">HOME</li>
                 <li class="thechocolates" onclick="redirectPage('thechocolates.html')">
                     THE CHOCOLATE
                     <i class="ti-angle-down"></i>
@@ -159,8 +159,9 @@
             </div>
         </div>
     </div>
+
     <div id="search.html" class="hiddenPage">
-        <div>
+        <div style="margin-top: 30px">
             <div class="form">
                 <div class="header-search">
                     <h1 class="heading">SEARCH</h1>
@@ -171,149 +172,152 @@
             </div>
         </div>
     </div>
+
     <div id="thechocolates.html" class="hiddenPage">
-        <div class="form">
-            <div class="header">
-                <h1 class="heading">THE CHOCOLATES</h1>
-            </div>
-            <hr />
-            <div class="container">
-                <div class="left">
-                    <ul class="list-product">
-                        <li onclick="renderProduct('BRANDS',this)" class="title-left active">BRANDS</li>
-                        <hr class="left-space" />
-                        <li onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
-                        <hr class="left-space hidden" />
-                        <li onclick="renderProduct('Coracao Confections',this)">Coracao Confections</li>
-                        <hr class="left-space hidden" />
-                        <li onclick="renderProduct('Element for life',this)">Element for life</li>
-                        <hr class="left-space hidden" />
-                        <li onclick="renderProduct('Enjoy',this)">Enjoy</li>
-                        <hr class="left-space hidden" />
-                        <li onclick="renderProduct('Forever Cacao',this)">Forever Cacao</li>
-                        <hr class="left-space hidden" />
-                        <li onclick="renderProduct('Ombar',this)">Ombar</li>
-                        <hr class="left-space hidden" />
-                    </ul>
+        <div style="margin-top: 30px">
+            <div class="form">
+                <div class="title">
+                    <h1 class="heading">THE CHOCOLATES</h1>
                 </div>
+                <hr />
+                <div class="container">
+                    <div class="left">
+                        <ul class="list-product">
+                            <li onclick="renderProduct('BRANDS',this)" class="title-left active">BRANDS</li>
+                            <hr class="left-space" />
+                            <li onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
+                            <hr class="left-space hidden" />
+                            <li onclick="renderProduct('Coracao Confections',this)">Coracao Confections</li>
+                            <hr class="left-space hidden" />
+                            <li onclick="renderProduct('Element for life',this)">Element for life</li>
+                            <hr class="left-space hidden" />
+                            <li onclick="renderProduct('Enjoy',this)">Enjoy</li>
+                            <hr class="left-space hidden" />
+                            <li onclick="renderProduct('Forever Cacao',this)">Forever Cacao</li>
+                            <hr class="left-space hidden" />
+                            <li onclick="renderProduct('Ombar',this)">Ombar</li>
+                            <hr class="left-space hidden" />
+                        </ul>
+                    </div>
 
-                <div class="right">
+                    <div class="right">
 
-                    <div class="card">
-                        <div class="card-header" style="position: relative;">
+                        <div class="card">
+                            <div class="card-header" style="position: relative;">
+                                <img class="img-card" src="../access/img/img_1.webp" alt="Sr error !" />
+                                <ul class="product_hover">
+                                    <li>
+                                        <a href="../access/img/img_1.webp">
+                                            <span class="ti-arrows-corner icon_hover" style="color: white;"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span onclick="addToCart()" class="ti-shopping-cart-full icon_hover"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-reviews">
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i> 1
+                                    <p class="status-review">review</p>
+                                </div>
+                                <div class="card-info">
+                                    <span class="info-name">
+                                        Peruvian Organic Raw Cacao Butter (250g)
+                                    </span>
+                                    <span class="info-price"> £7.49 </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <img src="../access/img/img_1.webp" class="img-card" alt="Sr error !" />
+                            <div class="card-body">
+                                <div class="card-reviews">
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <p class="status-review">review</p>
+                                </div>
+                                <div class="card-info">
+                                    <span class="info-name">
+                                        Peruvian Organic Raw Cacao Butter (250g)
+                                    </span>
+                                    <span class="info-price"> £7.49 </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <img src="../access/img/img_1.webp" class="img-card" alt="Sr error !" />
+                            <div class="card-body">
+                                <div class="card-reviews">
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <p class="status-review">review</p>
+                                </div>
+                                <div class="card-info">
+                                    <span class="info-name">
+                                        Peruvian Organic Raw Cacao Butter (250g)
+                                    </span>
+                                    <span class="info-price"> £7.49 </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
                             <img class="img-card" src="../access/img/img_1.webp" alt="Sr error !" />
-                            <ul class="product_hover">
-                                <li>
-                                    <a href="../access/img/img_1.webp">
-                                        <span class="ti-arrows-corner icon_hover" style="color: white;"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span onclick="addToCart()" class="ti-shopping-cart-full icon_hover"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-reviews">
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i> 1
-                                <p class="status-review">review</p>
-                            </div>
-                            <div class="card-info">
-                                <span class="info-name">
-                                    Peruvian Organic Raw Cacao Butter (250g)
-                                </span>
-                                <span class="info-price"> £7.49 </span>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="card">
-                        <img src="../access/img/img_1.webp" class="img-card" alt="Sr error !" />
-                        <div class="card-body">
-                            <div class="card-reviews">
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <p class="status-review">review</p>
-                            </div>
-                            <div class="card-info">
-                                <span class="info-name">
-                                    Peruvian Organic Raw Cacao Butter (250g)
-                                </span>
-                                <span class="info-price"> £7.49 </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <img src="../access/img/img_1.webp" class="img-card" alt="Sr error !" />
-                        <div class="card-body">
-                            <div class="card-reviews">
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <p class="status-review">review</p>
-                            </div>
-                            <div class="card-info">
-                                <span class="info-name">
-                                    Peruvian Organic Raw Cacao Butter (250g)
-                                </span>
-                                <span class="info-price"> £7.49 </span>
+                            <div class="card-body">
+                                <div class="card-reviews">
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <p class="status-review">review</p>
+                                </div>
+                                <div class="card-info">
+                                    <span class="info-name">
+                                        Peruvian Organic Raw Cacao Butter (250g)
+                                    </span>
+                                    <span class="info-price"> £7.49 </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="card">
-                        <img class="img-card" src="../access/img/img_1.webp" alt="Sr error !" />
-
-                        <div class="card-body">
-                            <div class="card-reviews">
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <p class="status-review">review</p>
-                            </div>
-                            <div class="card-info">
-                                <span class="info-name">
-                                    Peruvian Organic Raw Cacao Butter (250g)
-                                </span>
-                                <span class="info-price"> £7.49 </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="img-card" src="../access/img/img_1.webp" alt="Sr error !" />
-                        <div class="card-body">
-                            <div class="card-reviews">
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <i class="ti-star"></i>
-                                <p class="status-review">review</p>
-                            </div>
-                            <div class="card-info">
-                                <span class="info-name">
-                                    Peruvian Organic Raw Cacao Butter (250g)
-                                </span>
-                                <span class="info-price"> £7.49 </span>
+                        <div class="card">
+                            <img class="img-card" src="../access/img/img_1.webp" alt="Sr error !" />
+                            <div class="card-body">
+                                <div class="card-reviews">
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <i class="ti-star"></i>
+                                    <p class="status-review">review</p>
+                                </div>
+                                <div class="card-info">
+                                    <span class="info-name">
+                                        Peruvian Organic Raw Cacao Butter (250g)
+                                    </span>
+                                    <span class="info-price"> £7.49 </span>
+                                </div>
                             </div>
                         </div>
                     </div>
