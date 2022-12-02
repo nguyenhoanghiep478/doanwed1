@@ -26,11 +26,11 @@ function loadSearchProduct(paginationIndex,findArray) {
     functionHandle = 'addToCart(this);'
   }
   let HTML = `
-      <div class="left">
+      <div class="left left-${prefixObjectName}">
         <ul class="list-product">
-          <li onclick="renderProduct('BRANDS',this)" class="title-left title-left-${prefixObjectName} active">BRANDS</li>
+          <li  onclick="renderProduct('BRANDS',this)" class="title-left title-left-${prefixObjectName} active">BRANDS</li>
           <hr class="left-space" />
-          <li  onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
+          <li class="title-left-${prefixObjectName}" onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
           <hr class="left-space hidden" />
           <li onclick="renderProduct('Coracao Confections',this)">Coracao Confections</li>
           <hr class="left-space hidden" />

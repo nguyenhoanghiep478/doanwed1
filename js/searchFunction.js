@@ -389,8 +389,15 @@ function renderProduct(category, object,paginationIndex) {
     title.innerText = category;
     selectedObject.setAttribute('class', '');
     selectedObject.nextElementSibling.setAttribute('class', 'left-space hidden');
-    object.setAttribute('class', 'title-left title-left-'+objectName+' active');
-    object.nextElementSibling.setAttribute('class', 'left-space');
+    let listLeftChild=document.getElementsByClassName('left-'+objectName)[0].firstElementChild.children;
+    for(let i=0;i<listLeftChild.length;i+=2){
+        if(listLeftChild[i].innerText.includes(category)){
+            listLeftChild[i].setAttribute('class', 'title-left title-left-'+objectName+' active');
+            listLeftChild[i].nextElementSibling.setAttribute('class','left-space');
+            break;
+        }
+    }
+    
 }
 function renderProductAndRedirect(category, object, link) {
     window.location = link;
