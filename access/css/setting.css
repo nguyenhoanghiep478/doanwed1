@@ -433,8 +433,9 @@ button, select, input {
 .margin-2px{
     margin-bottom: 5px;
 }
-.removeUser:hover{
+.changestatus:hover{
     color: #de1818;
+    cursor: pointer;
 }
 .tooltip .tooltiptext {
     visibility: hidden;

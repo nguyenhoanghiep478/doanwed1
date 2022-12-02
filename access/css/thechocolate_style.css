@@ -75,6 +75,12 @@ html {
   margin-right: 12px;
 }
 
+/* button add to cart */
+.btn-addto-cart:hover {
+  color: #b32366;
+  cursor: pointer;
+}
+
 .full-screen {
   width: 100%;
   margin-left: 10px;
