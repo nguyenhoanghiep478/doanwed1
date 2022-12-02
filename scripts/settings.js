@@ -330,7 +330,7 @@ function changeStatus(object,userId){
     let HTML=`<img src="../image/greenpoint.png" style="max-width:10px">  ${listCart[userId][productIndex].status}`
     parentNode.previousElementSibling.innerHTML=HTML;
 }
-function redirectPage(page) {
+function redirectAdminPage(page) {
     window.location = page;
 }
 function renderUserData() {
