@@ -1,10 +1,17 @@
-document.addEventListener("DOMContentLoaded", loadSearchProduct());
-function loadSearchProduct(category) {
+document.addEventListener("DOMContentLoaded", loadSearchProduct(1));
+function loadSearchProduct(paginationIndex,findArray) {
   let productList = document.getElementsByClassName("container")[0];
-  let products = JSON.parse(localStorage.getItem("findProduct"));
+  let products ;
+  if(typeof findArray =="undefined"){
+    products= JSON.parse(localStorage.getItem("findProduct"))
+  }else{
+    products=findArray;
+  }
   let user = JSON.parse(localStorage.getItem('user'));
   let iconHandle = '';
   let functionHandle = '';
+  let startIndex = 0;
+  let finalIndex = 0;
   if (user.role === "admin") {
     iconHandle = 'ti-settings icon_hover';
     functionHandle = 'redirectUpdateProduct(this)';
@@ -13,7 +20,7 @@ function loadSearchProduct(category) {
     functionHandle = 'addToCart(this);'
   }
   let HTML = `
-  <div class="left">
+      <div class="left">
         <ul class="list-product">
           <li onclick="renderProduct('BRANDS',this)" class="title-left active">BRANDS</li>
           <hr class="left-space" />
@@ -32,47 +39,84 @@ function loadSearchProduct(category) {
         </ul>
       </div>
 
-      <div class="right">`
-  for (var i = 0; i < products.length; i++) {
-    HTML += `<div class="card">
-       <div class="card-header" style="position: relative;">
-         <img class="img-card" src="${products[i].image}" alt="Sr error !" />
-         <ul class="product_hover">
-           <li>
-             <a href="${products[i].image}">
-               <span class="ti-arrows-corner icon_hover" style="color: white;"></span>
-             </a>
-           </li>
-           <li>
-             <a href="#">
-                 <span></span>
-             </a>
-           </li>
-           <li>
-             <a href="#">
-                 <span id="${products[i].id}" onclick="${functionHandle}" class="${iconHandle}"></span>
-             </a>
-           </li>
-         </ul>
-       </div>
-       <div class="card-body">
-         <div class="card-reviews">
-           <i class="ti-star"></i>
-           <i class="ti-star"></i>
-           <i class="ti-star"></i>
-           <i class="ti-star"></i>
-           <i class="ti-star"></i>
-           <p class="status-review">review</p>
-         </div>
-         <div class="card-infor">
-           <span class="infor-name">
-            ${products[i].name}
-           </span>
-           <span class="infor-price">${products[i].price}</span>
-         </div>
-       </div>
-     </div>`
+      <div class="right right-search">`
+
+
+  if (typeof paginationIndex != "undefined") {
+    startIndex = 8 * Number(paginationIndex - 1);
+    finalIndex = startIndex + 8;
+  } else {
+    paginationIndex = 1;
   }
-  HTML += "</div>"
+  for (var i = startIndex; i < finalIndex; i++) {
+    if (typeof products[i] != "undefined") {
+      HTML += `<div class="card">
+      <div class="card-header" style="position: relative;">
+        <img class="img-card" src="${products[i].image}" alt="Sr error !" />
+        <ul class="product_hover">
+          <li>
+            <a href="${products[i].image}">
+              <span class="ti-arrows-corner icon_hover" style="color: white;"></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+                <span></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+                <span id="${products[i].id}" onclick="${functionHandle}" class="${iconHandle}"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <div class="card-reviews">
+          <i class="ti-star"></i>
+          <i class="ti-star"></i>
+          <i class="ti-star"></i>
+          <i class="ti-star"></i>
+          <i class="ti-star"></i>
+          <p class="status-review">review</p>
+        </div>
+        <div class="card-infor">
+          <span class="infor-name">
+           ${products[i].name}
+          </span>
+          <span class="infor-price">${products[i].price}</span>
+        </div>
+      </div>
+    </div>`
+    } else {
+      break;
+    }
+  }
+  let numberPagination = 0;
+  if (products.length % 8 == 0) {
+    numberPagination = parseInt(products.length / 8);
+  } else {
+    numberPagination = parseInt(products.length / 8) + 1;
+  }
+  HTML += `<div class="pagination-container">`
+  HTML += `<ul class="pagination-list">`
+  if (parseInt(paginationIndex) > 1) {
+    HTML += ` <li onclick=loadSearchProduct(${paginationIndex - 1}) class="pagination"><a  href="#"><<</a></li>`;
+  }
+  for (let i = 1; i <= numberPagination; i++) {
+    if (i == parseInt(paginationIndex)) {
+      HTML += `<li  class="pagination"><a class="pagination-active" onclick="loadSearchProduct(this.innerText)" href="#">${i}</a></li>`
+    } else {
+      HTML += `<li  class="pagination"><a onclick="loadSearchProduct(this.innerText)" href="#">${i}</a></li>`
+    }
+  }
+  if (parseInt(paginationIndex) < numberPagination) {
+    HTML += ` <li onclick=loadSearchProduct(${paginationIndex + 1}) class="pagination"><a  href="#">>></a></li>`;
+  }
+  HTML += `</ul>`
+  HTML += `</div>`
+  HTML += "</div>";
   productList.innerHTML = HTML;
 }
+
+

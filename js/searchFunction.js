@@ -302,7 +302,7 @@ function addKeyBoardSearch() {
             localStorage.setItem("findProduct", JSON.stringify(controllerFindProduct(searchKeyboard.value, category, minPrice, maxPrice)));
             document.getElementById('requiredContainer').setAttribute('class', 'hidden');
             redirectPage('search.html');
-            loadSearchProduct();
+            loadSearchProduct(1);
         }
     })
 };
@@ -318,64 +318,74 @@ function addHideListSearch() {
     // });
 }
 
-function renderProduct(category, object) {
+function renderProduct(category, object,paginationIndex) {
+    if(typeof paginationIndex =="undefined"){
+        paginationIndex=1;
+    }
     let listProducts = controllerFindProduct('', category, '', '');
-    let listProductObject = document.getElementsByClassName("right-chocolate")[0];
-    listProductObject.innerHTML = '';
-    let user = JSON.parse(localStorage.getItem('user'));
-    let HTML = '';
-    let functionHandle = '';
-    if (user.role === "admin") {
-        iconHandle = 'ti-settings icon_hover';
-        functionHandle = 'redirectUpdateProduct(this)';
-    } else {
-        iconHandle = 'ti-shopping-cart-full icon_hover';
-        functionHandle = 'addToCart(this);'
+    let objectName='';
+    if(localStorage.getItem('currentPage')=="thechocolates.html"){
+            objectName="chocolate";
+    }else if(localStorage.getItem('currentPage')=="search.html"){
+            objectName="search";
     }
-    for (let i = 0; i < listProducts.length; i++) {
-        HTML += `
-        <div class="card">
-       <div class="card-header" style="position: relative;">
-         <img class="img-card" src="${listProducts[i].image}" alt="Sr error !" />
-         <ul class="product_hover">
-           <li>
-             <a href="${listProducts[i].image}">
-               <span class="ti-arrows-corner icon_hover" style="color: white;"></span>
-             </a>
-           </li>
-           <li>
-             <a href="#">
-                 <span></span>
-             </a>
-           </li>
-           <li>
-             <a href="#">
-                 <span id="${listProducts[i].id}" onclick="${functionHandle}" class="${iconHandle}"></span>
-             </a>
-           </li>
-         </ul>
-       </div>
-       <div class="card-body">
-         <div class="card-reviews">
-           <i class="ti-star"></i>
-           <i class="ti-star"></i>
-           <i class="ti-star"></i>
-           <i class="ti-star"></i>
-           <i class="ti-star"></i>
-           <p class="status-review">review</p>
-         </div>
-         <div class="card-infor">
-           <span class="infor-name">
-            ${listProducts[i].name}
-           </span>
-           <span class="infor-price">${listProducts[i].price}</span>
-         </div>
-       </div>
-     </div>`
-    }
-    listProductObject.innerHTML = HTML;
+    // let listProductObject = document.getElementsByClassName('right-'+objectName)[0];
+    // let user = JSON.parse(localStorage.getItem('user'));
+    // let HTML = '';
+    // let functionHandle = '';
+    // if (user.role === "admin") {
+    //     iconHandle = 'ti-settings icon_hover';
+    //     functionHandle = 'redirectUpdateProduct(this)';
+    // } else {
+    //     iconHandle = 'ti-shopping-cart-full icon_hover';
+    //     functionHandle = 'addToCart(this);'
+    // }
+    // for (let i = 0; i < listProducts.length; i++) {
+    //     HTML += `
+    //     <div class="card">
+    //    <div class="card-header" style="position: relative;">
+    //      <img class="img-card" src="${listProducts[i].image}" alt="Sr error !" />
+    //      <ul class="product_hover">
+    //        <li>
+    //          <a href="${listProducts[i].image}">
+    //            <span class="ti-arrows-corner icon_hover" style="color: white;"></span>
+    //          </a>
+    //        </li>
+    //        <li>
+    //          <a href="#">
+    //              <span></span>
+    //          </a>
+    //        </li>
+    //        <li>
+    //          <a href="#">
+    //              <span id="${listProducts[i].id}" onclick="${functionHandle}" class="${iconHandle}"></span>
+    //          </a>
+    //        </li>
+    //      </ul>
+    //    </div>
+    //    <div class="card-body">
+    //      <div class="card-reviews">
+    //        <i class="ti-star"></i>
+    //        <i class="ti-star"></i>
+    //        <i class="ti-star"></i>
+    //        <i class="ti-star"></i>
+    //        <i class="ti-star"></i>
+    //        <p class="status-review">review</p>
+    //      </div>
+    //      <div class="card-infor">
+    //        <span class="infor-name">
+    //         ${listProducts[i].name}
+    //        </span>
+    //        <span class="infor-price">${listProducts[i].price}</span>
+    //      </div>
+    //    </div>
+    //  </div>`
+    // }
+    
+    // listProductObject.innerHTML = HTML;
+    loadSearchProduct(paginationIndex,listProducts);
     let selectedObject = document.getElementsByClassName('title-left')[0];
-    let title = document.getElementsByClassName('heading')[0];
+    let title = document.getElementsByClassName('heading-'+objectName)[0];
     title.innerText = category;
     selectedObject.setAttribute('class', '');
     selectedObject.nextElementSibling.setAttribute('class', 'left-space hidden');
@@ -392,6 +402,7 @@ function controllerFindProduct(productName, category, minPrice, maxPrice) {
 //arrow funtion
 
 function findProductBycategory(category) {
+    let products=JSON.parse(localStorage.getItem('products'));
     if (category != 'All' && typeof category !== 'undefined') {
         let findProduct = [];
         for (let i = 0; i < products.length; i++) {

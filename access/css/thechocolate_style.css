@@ -18,7 +18,7 @@ html {
   display: block;
 }
 
-.header-thechocolate .heading, 
+.header-thechocolate .heading,
 .header-search .heading {
   text-align: center;
   letter-spacing: 9px;
@@ -74,7 +74,8 @@ html {
   width: 90%;
   margin-right: 12px;
 }
-.full-screen{
+
+.full-screen {
   width: 100%;
   margin-left: 10px;
   display: grid;
@@ -82,6 +83,7 @@ html {
   grid-template-rows: repeat(2, 1fr);
   gap: 24px;
 }
+
 .right {
   width: 80%;
   margin-left: 10px;
@@ -113,38 +115,31 @@ html {
   transition-property: max-height;
   transition-duration: 1s;
 }
-
-@keyframes moveFromBottomToMiddle {
-
-  from {
-    bottom: -10px;
-  }
-
-  to {
-    bottom: 40%;
-  }
+.pagination-container{
+  grid-column: 1/-1;
+  width: 100%;
+}
+.pagination-list{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.pagination {
+  display: inline-block;
 }
 
-@keyframes zoomOut {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 105%
-  }
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+.pagination a.pagination-active {
+  background-color: #4CAF50;
+  color: white;
 }
 
-@keyframes moveFromMiddleToBottom {
-  from {
-    bottom: 40%;
-  }
-
-  to {
-    bottom: -10px;
-  }
-}
-
+.pagination a:hover:not(.pagination-active) {background-color: #ddd;}
 .right .card .card-reviews i {
   color: #f5a570;
 }
@@ -198,7 +193,7 @@ footer {
 .right .card:hover .img-card {
   max-width: 150%;
   max-height: 150px;
-  
+
 }
 
 .product_hover {

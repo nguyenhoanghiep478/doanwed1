@@ -7,7 +7,7 @@ window.onload = () => {
         localStorage.removeItem('redirectAction');
     }
 }
-
+window.onload=thongKe();
 
 
 // Lựa chọn các item trên nav-item
@@ -31,7 +31,7 @@ navItems.forEach(function (navItem, index) {
                 break;
             case 2:
                 document.querySelector('.section__order').style.display = "block";
-                renderCart();
+                renderAdminCart();
                 break;
             case 3:
                 document.querySelector('.section__customer').style.display = "block";
@@ -275,32 +275,36 @@ function editProduct(i, j) {
 function getSubTotal() {
     let listCart = JSON.parse(localStorage.getItem('carts'));
     let listProductByCategory = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
-    let listSoldOut = Array(6).fill(0);
-    for(let j=1; j<listCart.length; j++) {
-        for(let i=0; i<listCart[j].length; i++){
-            if(listCart[j][i].status == "Đã nhận hàng") {
-                switch(listCart[j][i].category) {
+    let listSoldOut = Array(7).fill(0);
+    for (let j = 1; j < listCart.length; j++) {
+        for (let i = 0; i < listCart[j].length; i++) {
+            if (listCart[j][i].status == "Đã nhận hàng") {
+                switch (listCart[j][i].category) {
                     case "Consious Chocolate": {
-                        listSoldOut[0] += parseFloat(listCart[j][i].price.split('£')[1]);
+                        listSoldOut[0] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
                         break;
                     }
-                    case "Coracao Confections":{
-                        listSoldOut[1] += parseFloat(listCart[j][i].price.split('£')[1]);
+                    case "Coracao Confections": {
+                        listSoldOut[1] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
                         break;
                     }
-                    case "Element for life":{
-                        listSoldOut[2] += parseFloat(listCart[j][i].price.split('£')[1]);
+                    case "Element for life": {
+                        listSoldOut[2] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
                         break;
                     }
-                    case "Enjoy":{
-                        listSoldOut[3] += parseFloat(listCart[j][i].price.split('£')[1]);
+                    case "BRANDS": {
+                        listSoldOut[6] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
                         break;
                     }
-                    case "Forever Cacao":{
-                        listSoldOut[4] += parseFloat(listCart[j][i].price.split('£')[1]);
+                    case "Enjoy": {
+                        listSoldOut[3] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
                         break;
                     }
-                    case "Ombar":{
+                    case "Forever Cacao": {
+                        listSoldOut[4] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Ombar": {
                         listSoldOut[5] += parseFloat(listCart[j][i].price.split('£')[1]);
                         break;
                     }
@@ -310,7 +314,7 @@ function getSubTotal() {
     }
     return listSoldOut;
 }
-function renderCart() {
+function renderAdminCart() {
     let temp = 1;
     let listCart = JSON.parse(localStorage.getItem('carts'));
     let HTML = `<table> <tbody>`;
@@ -372,6 +376,7 @@ function changeStatus(object, userId) {
     } else {
         listCart[userId][productIndex].status = "Đã nhận hàng";
         parentNode.innerHTML = '';
+        thongKe();
     }
     localStorage.setItem('carts', JSON.stringify(listCart));
     let HTML = `<img src="../image/greenpoint.png" style="max-width:10px">  ${listCart[userId][productIndex].status}`
@@ -493,24 +498,26 @@ function openThemNguoiDung() {
 }*/
 
 //thong ke
-var xValues = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
-var yValues = getSubTotal();
-var barColors = ["red", "green","blue","orange","brown", "purple"];
+function thongKe() {
+    var xValues = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar", "BRANDS"];
+    var yValues = getSubTotal();
+    var barColors = ["red", "green", "blue", "orange", "brown", "purple", "yellow"];
 
-new Chart("myChart", {
-    type: "pie",
-    data: {
-      labels: xValues,
-      datasets: [{
-        backgroundColor: barColors,
-        data: yValues
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: "Thống kê doanh thu theo loại sản phẩm"
-      }
-    }
-  });
+    new Chart("myChart", {
+        type: "pie",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Thống kê doanh thu theo loại sản phẩm"
+            }
+        }
+    });
+}
 
