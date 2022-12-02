@@ -239,7 +239,7 @@ function getSession(){
             childs=list.childNodes;
             list.removeChild(childs[4]);
             item2.innerHTML="Admin Page";
-            item2.setAttribute('onclick',"redirectPage('settings.html')");
+            item2.setAttribute('onclick',"redirectAdminPage('settings.html')");
             item2.setAttribute("cursor","pointer");
             list.appendChild(item2);
         }
