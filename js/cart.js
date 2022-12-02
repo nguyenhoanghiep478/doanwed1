@@ -17,7 +17,7 @@ function addToCart(product) {
     listProduct[productIndex].userName = currentUser.name;
     listProduct[productIndex].soluong = 1;
     listProduct[productIndex].time = time;
-    listProduct[productIndex].status = "chờ xác nhận";
+    listProduct[productIndex].status = "Chờ xác nhận";
     listProduct[productIndex].cartId = cartId;
     listCart[currentUserId].push(listProduct[productIndex]);
   }

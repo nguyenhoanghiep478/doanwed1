@@ -275,35 +275,36 @@ function editProduct(i, j) {
 function getSubTotal() {
     let listCart = JSON.parse(localStorage.getItem('carts'));
     let listProductByCategory = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
-    let listSoldOut = [6];
-    for(let i=0; i<listCart[1].length; i++){
-        switch(listCart[1][i].category){
-            case "Consious Chocolate": {
-                listSoldOut[0] += listCart[1][i].price.split('£')[1];
-                break;
-            }
-            case "Coracao Confections":{
-                listSoldOut[1] += listCart[1][i].price.split('£')[1];
-                break;
-            }
-            case "Element for life":{
-                listSoldOut[2] += listCart[1][i].price.split('£')[1];
-                break;
-            }
-            case "Enjoy":{
-                listSoldOut[3] += listCart[1][i].price.split('£')[1];
-                break;
-            }
-            case "Forever Cacao":{
-                listSoldOut[4] += listCart[1][i].price.split('£')[1];
-                break;
-            }
-            case "Ombar":{
-                listSoldOut[5] += listCart[1][i].price.split('£')[1];
-                break;
-            }
-            default :{
-                break;
+    let listSoldOut = Array(6).fill(0);
+    for(let j=1; j<listCart.length; j++) {
+        for(let i=0; i<listCart[j].length; i++){
+            if(listCart[j][i].status == "Đã nhận hàng") {
+                switch(listCart[j][i].category) {
+                    case "Consious Chocolate": {
+                        listSoldOut[0] += parseFloat(listCart[j][i].price.split('£')[1]);
+                        break;
+                    }
+                    case "Coracao Confections":{
+                        listSoldOut[1] += parseFloat(listCart[j][i].price.split('£')[1]);
+                        break;
+                    }
+                    case "Element for life":{
+                        listSoldOut[2] += parseFloat(listCart[j][i].price.split('£')[1]);
+                        break;
+                    }
+                    case "Enjoy":{
+                        listSoldOut[3] += parseFloat(listCart[j][i].price.split('£')[1]);
+                        break;
+                    }
+                    case "Forever Cacao":{
+                        listSoldOut[4] += parseFloat(listCart[j][i].price.split('£')[1]);
+                        break;
+                    }
+                    case "Ombar":{
+                        listSoldOut[5] += parseFloat(listCart[j][i].price.split('£')[1]);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -317,6 +318,7 @@ function renderCart() {
 
     for (let i = 1; i < listCart.length; i++) {
         for (let j = 0; j < listCart[i].length; j++) {
+            actionHTML = '';
             if (listCart[i][j].status != "Đã nhận hàng") {
                 actionHTML += ` <div  id=${listCart[i][j].id} class="tooltip update" onclick="changeStatus(this,${i})">
                     <i class="ti-check"></i>
@@ -375,7 +377,7 @@ function changeStatus(object, userId) {
     let HTML = `<img src="../image/greenpoint.png" style="max-width:10px">  ${listCart[userId][productIndex].status}`
     parentNode.previousElementSibling.innerHTML = HTML;
 }
-function redirectPage(page) {
+function redirectAdminPage(page) {
     window.location = page;
 }
 function renderUserData() {
@@ -491,10 +493,8 @@ function openThemNguoiDung() {
 }*/
 
 //thong ke
-//console.log(getSubTotal());
 var xValues = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
-var yValues = [55, 49, 44, 24, 15, 22];
-// var yValues = getSubTotal();
+var yValues = getSubTotal();
 var barColors = ["red", "green","blue","orange","brown", "purple"];
 
 new Chart("myChart", {
