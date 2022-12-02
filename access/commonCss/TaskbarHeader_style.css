@@ -83,9 +83,9 @@
   text-decoration: none;
   text-transform: uppercase;
 }
-#menu-list li:hover {
+/* #menu-list li:hover {
   color: #b32366;
-}
+} */
 .ti-angle-down {
   font-size: 16px;
 }
