@@ -206,7 +206,8 @@ function Register(){
             "sex":sex.value,
             "email":email.value,
             "password":password.value,
-            "role":role
+            "role":role,
+            "status":"working"
         })
         let carts=JSON.parse(localStorage.getItem('carts'))[id]=[];
         localStorage.setItem('carts',JSON.stringify(carts));
