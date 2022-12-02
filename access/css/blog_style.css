@@ -15,7 +15,7 @@ hr {
 }
 #blog {
   width: 1000px;
-  margin: 100px auto;
+  margin: 30px auto;
 }
 
 .title-blog .title {
@@ -31,10 +31,6 @@ hr {
   margin-top: 30px;
 }
 
-#container-content {
-  width: 800px;
-  margin: 0 auto;
-}
 .container-blog {
   display: grid;
   grid-template-columns: 700px 300px;
