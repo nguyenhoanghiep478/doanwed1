@@ -6,7 +6,22 @@ var i = 1;
 //         login_href.innerText=sessionStorage.getItem("username");
 //     }
 // })
-
+window.onload = loadNumberProductInCart();
+function loadNumberProductInCart(){
+    let currentUser=JSON.parse(localStorage.getItem('user'));
+    let currentUserId;
+    if(currentUser!=null){
+        currentUserId=currentUser.id;
+    }else{
+        currentUserId=0;
+    }
+    let listCart=JSON.parse(localStorage.getItem('carts'))[currentUserId];
+    let totalProductInCart=0;
+    listCart.map(x=>{
+        totalProductInCart+=parseInt(x.soluong);
+    })
+    document.getElementById('countOrderCart').innerText=totalProductInCart;
+}
 function changeimg() {
     var imgs = ["../slideshow_1.webp", "../slideshow_2.webp", "../slideshow_3.webp"];
     document.getElementById("img-slider").src = imgs[index];

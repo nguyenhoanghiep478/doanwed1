@@ -18,10 +18,10 @@ function loadSearchProduct(paginationIndex,findArray) {
   let functionHandle = '';
   let startIndex = 0;
   let finalIndex = 0;
-  if (user.role === "admin") {
-    iconHandle = 'ti-settings icon_hover';
-    functionHandle = 'redirectUpdateProduct(this)';
-  } else if(user.role === "user") {
+  if(user!=null&&user.role==="admin"){
+      iconHandle = 'ti-settings icon_hover';
+      functionHandle = 'redirectUpdateProduct(this)';
+  } else {
     iconHandle = 'ti-shopping-cart-full icon_hover';
     functionHandle = 'addToCart(this);'
   }

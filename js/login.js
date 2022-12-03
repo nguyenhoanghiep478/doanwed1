@@ -5,22 +5,22 @@ function setCurrentPage(){
     localStorage.setItem('currentPage','index.html');
 }
 function setDefaultUser(){
-    let carts=[[{}]];
+    let carts=[[]];
     if(localStorage.getItem("userData")==null){
         let userData=[
-            // {   
-            //     "id":'1',
-            //     "user":"hiep",
-            //     "password":"1",
-            //     "name":"Nguyễn Hoàng Hiệp",
-            //     "email":"nguyenhoanghiep478@gmail.com",
-            //     "Địa chỉ":"Sgu",
-            //     "phone":'0965478891',
-            //     "sex":"nam",
-            //     "Tôn giáo":'Phật giáo',
-            //     "status":"working",
-            //     "role":"user"
-            // },  
+            {   
+                "id":'1',
+                "user":"hiep",
+                "password":"1",
+                "name":"Nguyễn Hoàng Hiệp",
+                "email":"nguyenhoanghiep478@gmail.com",
+                "Địa chỉ":"Sgu",
+                "phone":'0965478891',
+                "sex":"nam",
+                "Tôn giáo":'Phật giáo',
+                "status":"working",
+                "role":"user"
+            },  
             {
                 "user":"admin",
                 "password":"1",
@@ -135,7 +135,9 @@ function checkLogin(){
                 if(userData[i].status=="working") {
                     localStorage.setItem("user",JSON.stringify(userData[i]));
                     if(userData[i].role==="user"){
+                        addNoneUserCartToUserCart(userData[i].id);
                         window.location="index.html";
+
                     }else if(userData[i].role==="admin"){
                         window.location="settings.html";
                     }
@@ -234,7 +236,7 @@ function redirectPage(page){
     }else if(page=="search.html"){
         loadSearchProduct()
     }
-    window.scrollTo(0,0); //focus first page
+    window.scrollTo(0,0); 
 }
 function getSession(){
     let user;

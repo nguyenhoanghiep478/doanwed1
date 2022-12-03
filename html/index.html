@@ -46,8 +46,10 @@
             </div>
             <ul id="contact-list">
                 <li id="login-href" class="js-login">LOG IN</li>
-                <li class="shopping-cart" onclick="redirectPage('cart.html')"><span
-                        class=" ti-shopping-cart"></span>CART</li>
+                <li class="shopping-cart" onclick="redirectPage('cart.html')" style="width: 95px;position: relative;"><span
+                        class=" ti-shopping-cart"></span>CART
+                        <span id="countOrderCart" class="countOrder"></span>
+                    </li>
                 <li>CHECKOUT</li>
             </ul>
         </div>
@@ -61,10 +63,10 @@
                     THE CHOCOLATE
                     <i class="ti-angle-down"></i>
                     <ul class="sub-menu">
-                        <li onclick="renderProductAndRedirect('Consious Chocolate',this,'thechocolates.html')"><a
+                        <li onclick="redirectPage('thechocolate.html')"><a
                                 href="#">Conscious Chocolate</a></li>
-                        <li onclick="renderProduct('Elements for Life')"><a href="#">Elements for Life</a></li>
-                        <li><a href="#">Enjoy!</a></li>
+                        <li onclick="redirectPage('thechocolate.html')"><a href="#">Elements for Life</a></li>
+                        <li onclick="redirectPage('thechocolate.html')"><a href="#">Enjoy!</a></li>
                     </ul>
                 </li>
                 <li class="voucher">VOUCHERS</li>
@@ -372,7 +374,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="checkout"><input type="button" value="CHECKOUT"></div>
+                    <div class="checkout"><input onclick="checkOutCart()" type="button" value="CHECKOUT"></div>
                 </div>
             </div>
         </div>

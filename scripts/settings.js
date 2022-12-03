@@ -172,23 +172,25 @@ function addProduct() {
     })
 
     confirmAdd.onclick = function () {
-        const arr = JSON.parse(localStorage.getItem('product'));
+        const arr = JSON.parse(localStorage.getItem('products'));
         const img = imgProduct.value;
         const imgArr = img.split(/\/|\\/g)
         const imgDir = "../access/img/" + imgArr[imgArr.length - 1]
         const type = typeProduct.selectedOptions[0].text;
         const name = nameProduct.value;
-        const price = priceProduct.value
-
+        const price = '£'+priceProduct.value
+        const id=arr[arr.length].id+1;
+        const category=type;
         if (img != "" && name != "" && price != "") {
-            arr[indexType.value].push({
-                type: type,
+            arr.push({
+                category: category,
                 image: imgDir,
                 name: name,
-                price: price
+                price: price,
+                id:id,
             })
 
-            localStorage.setItem("product", JSON.stringify(arr));
+            localStorage.setItem("products", JSON.stringify(arr));
 
             setTimeout(function () {
                 notify.classList.add('success');
@@ -235,6 +237,7 @@ addProduct();
 const notifyDelete = document.querySelector('.notify__delete');
 
 function deleteProduct(id) {
+    window.scrollTo(0,0);
     notifyDelete.innerHTML = `<div class="notify__delete-text">
                 Bạn có chắc sẽ xóa sản phẩm này không?
             </div>
@@ -251,12 +254,13 @@ function deleteProduct(id) {
         notifyDelete.style.transform = 'translate(-50%, 0)';
         notifyDelete.style.opacity = '1';
         document.querySelector('.notify__delete-ok').onclick = function () {
+            
             const arr = JSON.parse(localStorage.getItem('products'));
             notifyDelete.style.transform = 'translate(-50%, -270%)';
             notifyDelete.style.opacity = '0';
 
-            let deleteIndex= arr.findIndex(x=>x.id=id);
-            arr.splice(deleteIndex,1);
+            let deleteIndex = arr.findIndex(x => x.id == id);
+            arr.splice(deleteIndex, 1);
             localStorage.setItem("products", JSON.stringify(arr));
             showProduct();
         }
@@ -331,7 +335,7 @@ function renderAdminCart() {
                     <i class="ti-check"></i>
                     <span class="tooltiptext">Xác nhận</span>
                 </div>
-                <div class="tooltip delete" onclick="deleteCart(${listCart[i][j].id})">
+                <div class="tooltip delete" onclick="deleteAdminCart(${listCart[i][j].id},this)">
                     <i class="fa fa-trash"></i>  
                     <span class="tooltiptext">Xóa</span>
                 </div>`
@@ -341,22 +345,25 @@ function renderAdminCart() {
             } else {
                 imageName = 'greenpoint.png';
             }
-            HTML += `
-            <tr>
-            <td style="width: 5%;border:1px solid">${temp++}</td>
-            <td style="width: 13%;border:1px solid">${listCart[i][j].cartId}</td>
-            <td style="width: 7%;border:1px solid" class="fa__left">${listCart[i][j].userName}</td>
-            <td style="width: 20%;border:1px solid"><img src="../image/`+ listCart[i][j].image + `" style="max-width:90px"></td>
-            <td style="width: 15%;border:1px solid">£${(parseFloat((listCart[i][j].price).split('£')[1]) * parseInt(listCart[i][j].soluong)).toFixed(2)}</td>
-            <td style="width: 10%;border:1px solid">${listCart[i][j].time}</td>
-            <td style="width: 10%;border:1px solid">
-            <img src="../image/`+ imageName + `" style="max-width:10px"> ${listCart[i][j].status}
-           </td>
-            <td style="width: 10%;border:1px solid">
-                    ${actionHTML}
-            </td>
-            </tr>                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-            `
+            if (typeof listCart[i][j].status != "undefined") {
+                HTML += `
+                <tr>
+                <td style="width: 5%;border:1px solid">${temp++}</td>
+                <td style="width: 13%;border:1px solid">${listCart[i][j].cartId}</td>
+                <td style="width: 7%;border:1px solid" class="fa__left">${listCart[i][j].userName}</td>
+                <td style="width: 20%;border:1px solid"><img src="../image/`+ listCart[i][j].image + `" style="max-width:90px"></td>
+                <td style="width: 15%;border:1px solid">£${(parseFloat((listCart[i][j].price).split('£')[1]) * parseInt(listCart[i][j].soluong)).toFixed(2)}</td>
+                <td style="width: 10%;border:1px solid">${listCart[i][j].time}</td>
+                <td style="width: 10%;border:1px solid">
+                <img src="../image/`+ imageName + `" style="max-width:10px"> ${listCart[i][j].status}
+               </td>
+                <td style="width: 10%;border:1px solid">
+                        ${actionHTML}
+                </td>
+                </tr>                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                `
+            }
+
         }
     }
 
@@ -427,9 +434,9 @@ function renderUserData() {
 }
 function changeStatusUser(user) {
     let userData = JSON.parse(localStorage.getItem('userData'));
-    for (let i=0; i <userData.length; i++) {
+    for (let i = 0; i < userData.length; i++) {
         if (userData[i].user === user) {
-            if(userData[i].status == "blocked")
+            if (userData[i].status == "blocked")
                 userData[i].status = "working"
             else
                 userData[i].status = "blocked"
@@ -478,7 +485,20 @@ function openThemNguoiDung() {
     sessionStorage.setItem('isRegister', "true");
     window.location = "adminRegister.html"
 }
-
+function deleteAdminCart(id, object) {
+    let allCart = JSON.parse(localStorage.getItem('carts'));
+    for (let i = 1; i < allCart.length; i++) {
+        for (let j = 0; j < allCart[i].length; j++) {
+            if (allCart[i][j].id == id) {
+                allCart[i].splice(j, 1);
+                break;
+            }
+        }
+    }
+    localStorage.setItem('carts', JSON.stringify(allCart));
+    let tableOrder = document.getElementById('table-order');
+    tableOrder.removeChild(object.parentElement.parentElement);
+}
 /*function timSanPham() {
     const arr = JSON.parse(localStorage.getItem('product'))
     var list = [];
