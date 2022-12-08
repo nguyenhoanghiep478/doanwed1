@@ -14,10 +14,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="../access/css/cart.css">
-    <link rel="stylesheet" href="../access/css/trade.css">
+    <link rel="stylesheet" href="../access//css/trade.css">
     <link rel="stylesheet" href="../access/css/thechocolate_style.css">
     <link rel="stylesheet" href="../access//css//aboutus_style.css">
     <link rel="stylesheet" href="../access/css/blog_style.css">
+    <link rel="stylesheet" href="../access/css/responsive.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
         rel="stylesheet">
     <title>Welcome to The Raw Chocolate Shop</title>
@@ -47,38 +48,46 @@
             </div>
             <ul id="contact-list">
                 <li id="login-href" class="js-login">LOG IN</li>
-                <li class="shopping-cart" onclick="redirectPage('cart.html')" style="width: 95px;position: relative;"><span
-                        class=" ti-shopping-cart"></span>CART
-                        <span id="countOrderCart" class="countOrder"></span>
-                    </li>
+                <li class="shopping-cart" onclick="redirectPage('cart.html')" style="width: 95px;position: relative;">
+                    <span class=" ti-shopping-cart"></span>CART
+                    <span id="countOrderCart" class="countOrder"></span>
+                </li>
                 <li class="trade" onclick="redirectPage('trade.html')">TRADE</li>
             </ul>
         </div>
         <div id="logo">
             <img id="header-img" src="../access/img/logo.png" alt="img">
         </div>
-        <div id="menu-container">
-            <ul id="menu-list">
-                <li class="home" onclick="redirectPage('index.html')">HOME</li>
-                <li class="thechocolates" onclick="redirectPage('thechocolates.html')">
-                    THE CHOCOLATE
-                    <i class="ti-angle-down"></i>
-                    <ul class="sub-menu">
-                        <li onclick="renderProduct('BRANDS',this)">BRANDS</li>
-                        <li onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
-                        <li onclick="renderProduct('Coracao Confections',this)">Coracao Confections</li>
-                        <li onclick="renderProduct('Element for life',this)">Element for life</li>
-                        <li onclick="renderProduct('Enjoy',this)">Enjoy</li>
-                        <li onclick="renderProduct('Forever Caca',this)">Forever Caca</li>
-                        <li onclick="renderProduct('Ombar',this)">Ombar</li>
-                    </ul>
-                </li>
-                <li class="voucher">VOUCHERS</li>
-                <li class="blog" onclick="redirectPage('blog_page1.html')">BLOG</li>
-                <li class="aboutus" onclick="redirectPage('aboutus.html')">ABOUT US</li>
-            </ul>
+        <div class="nav-mobile">
+            <button class="btn-mobile-nav">
+                <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
+                <ion-icon class="icon-mobile-nav" name="close-outline" style="display:none;"></ion-icon>
+            </button>
+            <div id="menu-container">
+                <ul id="menu-list">
+                    <li class="home" onclick="redirectPage('index.html')">HOME</li>
+                    <li class="thechocolates" onclick="redirectPage('thechocolates.html')">
+                        THE CHOCOLATE
+                        <i class="ti-angle-down"></i>
+                        <ul class="sub-menu">
+                            <li onclick="renderProduct('BRANDS',this)">BRANDS</li>
+                            <li onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
+                            <li onclick="renderProduct('Coracao Confections',this)">Coracao Confections</li>
+                            <li onclick="renderProduct('Element for life',this)">Element for life</li>
+                            <li onclick="renderProduct('Enjoy',this)">Enjoy</li>
+                            <li onclick="renderProduct('Forever Cacao',this)">Forever Cacao</li>
+                            <li onclick="renderProduct('Ombar',this)">Ombar</li>
+                        </ul>
+                    </li>
+                    <li class="voucher">VOUCHERS</li>
+                    <li class="blog" onclick="redirectPage('blog_page1.html')">BLOG</li>
+                    <li class="aboutus" onclick="redirectPage('aboutus.html')">ABOUT US</li>
+                </ul>
+            </div>
         </div>
     </div>
+
+    <!-- INDEX -->
     <div id="index.html">
         <div class="container-slider">
             <img onclick="changeimg()" id="img-slider" src="../slideshow_1.webp" alt="">
@@ -91,7 +100,6 @@
                 <span class="badge-img" onclick="showDiv(2)"></span>
                 <span class="badge-img" onclick="showDiv(3)"></span>
             </div>
-
         </div>
 
 
@@ -115,7 +123,6 @@
                 <div class="third-img">
                     <img src="../access/img/vegan.webp" alt="vegan">
                 </div>
-
             </div>
             <div class="blog-in-page">
                 <div class="blog-title">
@@ -165,6 +172,7 @@
         </div>
     </div>
 
+    <!-- SEARCH -->
     <div id="search.html" class="hiddenPage">
         <div style="margin-top: 30px">
             <div class="form">
@@ -178,6 +186,7 @@
         </div>
     </div>
 
+    <!-- CHOCOLATE -->
     <div id="thechocolates.html" class="hiddenPage">
         <div style="margin-top: 30px">
             <div class="form">
@@ -410,9 +419,10 @@
                     <hr>
                 </div>
                 <div class="link">
-                    <div><a href="index.html">Home</a><span class="ti-angle-right"></span> 
-                    <a href="#">Blog</a> <span class="ti-angle-right"></span>
-                    Page 1 of 3</div>
+                    <div><a href="index.html">Home</a><span class="ti-angle-right"></span>
+                        <a href="#">Blog</a> <span class="ti-angle-right"></span>
+                        Page 1 of 3
+                    </div>
                 </div>
                 <div class="left-side">
                     <div class="content-chocolate">
@@ -420,7 +430,8 @@
                         <hr>
                         <p class="sub-title">Posted on November 16, 2020 by Kate Magic</p>
                         <p class="text">
-                            There comes a time when every raw chocolate addict decides to make their own. Making raw chocolate at home is fun, and easier than you might think!
+                            There comes a time when every raw chocolate addict decides to make their own. Making raw
+                            chocolate at home is fun, and easier than you might think!
                             Here's a recipe to get you started. You can purchase all the ingredients from the shop.
                         </p>
                         <p class="sub-title">Posted in raw chocolate, raw chocolate recipe, recipe</p>
@@ -431,7 +442,10 @@
                         <hr>
                         <p class="sub-title">Posted on October 27, 2020 by Kate Magic</p>
                         <p class="text">
-                            Cacao ceremonies are a gently shamanic way of entering into our heartspace and creating a shift in our energy. As humans, we need ritual to mark the passage of time, and as we grow in our personal journeys, we find the rituals that we grew up with (like the pub on a Friday night, the club on a Saturday night, and a Sunday roast), no longer serve us.
+                            Cacao ceremonies are a gently shamanic way of entering into our heartspace and creating a
+                            shift in our energy. As humans, we need ritual to mark the passage of time, and as we grow
+                            in our personal journeys, we find the rituals that we grew up with (like the pub on a Friday
+                            night, the club on a Saturday night, and a Sunday roast), no longer serve us.
                         </p>
                         <p class="sub-title">Posted in cacao ceremony, Chocolate facts, kate magic</p>
                         <hr>
@@ -442,7 +456,9 @@
                         <p class="sub-title">Posted on June 15, 2018 by Accounts Access</p>
                         <div class="img"><img src="../access/img/blog-page-img1.webp" alt=""></div>
                         <p class="text">
-                            Kate Magic of Raw Living interviews Richard Turner, founder of Ombar Chocolate. Richard tells us how he got started in the raw chocolate world back in 2006, and discusses his product range.
+                            Kate Magic of Raw Living interviews Richard Turner, founder of Ombar Chocolate. Richard
+                            tells us how he got started in the raw chocolate world back in 2006, and discusses his
+                            product range.
                         </p>
                         <p class="sub-title">Posted in</p>
                         <hr>
@@ -454,7 +470,8 @@
                         <div class="img"><img src="../access/img/blog-pape-img2.jpg" alt=""></div>
                         <p class="text">
                             If you're visiting our site, one thing's for sure, you must be a fan of raw chocolate!
-                            But have you ever stopped to wonder actually what makes raw chocolate different from conventional chocolate?
+                            But have you ever stopped to wonder actually what makes raw chocolate different from
+                            conventional chocolate?
                         </p>
                         <p class="sub-title">Posted in raw chocolate, raw chocolate recipe, recipe</p>
                         <hr>
@@ -465,8 +482,12 @@
                         <p class="sub-title">Posted on January 27, 2017 by Chloe Menage</p>
                         <div class="img"><img src="../access/img/blog-page-img3.webp" alt="" class="img3"></div>
                         <p class="text">
-                            Veganuary is a great way to try out a new lifestyle! If you’ve been taking part and discovered being vegan is a lot easier than you thought – or you just loved how your body and energy levels feel after a month of no meat or dairy - then perhaps you’re considering taking the plunge with *gasp* being a full-time vegan.
-                            If so, we’ve compiled some of the very best tried and tested hints and tips to make moving from a month-long vegan to full-time vegan a breeze.
+                            Veganuary is a great way to try out a new lifestyle! If you’ve been taking part and
+                            discovered being vegan is a lot easier than you thought – or you just loved how your body
+                            and energy levels feel after a month of no meat or dairy - then perhaps you’re considering
+                            taking the plunge with *gasp* being a full-time vegan.
+                            If so, we’ve compiled some of the very best tried and tested hints and tips to make moving
+                            from a month-long vegan to full-time vegan a breeze.
                         </p>
                         <p class="sub-title">Posted in vegan</p>
                         <hr>
@@ -477,7 +498,10 @@
                         <p class="sub-title">Posted on December 21, 2016 by Richard Turner</p>
                         <div class="img"><img src="../access/img/blog-page-img4.webp" alt="" class="img4"></div>
                         <p class="text">
-                            It’s easy to make assumptions about our favourite foods – we all do it, and there are lots of things said about chocolate that simply are not true. If you’ve ever wondered if chocolate can really be bad for you, whether it can ‘go off’ or if diabetics can include it in their diet, read on!
+                            It’s easy to make assumptions about our favourite foods – we all do it, and there are lots
+                            of things said about chocolate that simply are not true. If you’ve ever wondered if
+                            chocolate can really be bad for you, whether it can ‘go off’ or if diabetics can include it
+                            in their diet, read on!
                         </p>
                         <p class="sub-title">Posted in Chocolate facts, raw chocolate</p>
                         <hr>
@@ -488,8 +512,12 @@
                         <p class="sub-title">Posted on November 22, 2016 by Accounts Access</p>
                         <div class="img"><img src="../access/img/blog-page-img5.webp" alt="" class="img5"></div>
                         <p class="text">
-                            While vegans aren’t nearly as fussy as some people make out, the idea of choosing gifts for your meat and dairy-avoiding friends and relatives can be daunting – especially if you’re a carnivore or just veggie yourself. Truth be told, though, there are plenty of options to consider – and many can be personalised to the recipient.
-Below are a few of our favourite vegan gift ideas for inspiration and, as you might have guessed, some of them involve chocolate!
+                            While vegans aren’t nearly as fussy as some people make out, the idea of choosing gifts for
+                            your meat and dairy-avoiding friends and relatives can be daunting – especially if you’re a
+                            carnivore or just veggie yourself. Truth be told, though, there are plenty of options to
+                            consider – and many can be personalised to the recipient.
+                            Below are a few of our favourite vegan gift ideas for inspiration and, as you might have
+                            guessed, some of them involve chocolate!
                         </p>
                         <p class="sub-title">Posted in raw chocolate, Vegan gifts</p>
                         <hr>
@@ -497,54 +525,54 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                 </div>
                 <div class="right-side">
                     <div class="icon">
-                            <i class="btn ti-rss-alt"></i>
-                            <p class="text">subcribe</p>
-                            <i class="btn ti-twitter-alt"></i>
-                            <p class="text">follow us</p>
+                        <i class="btn ti-rss-alt"></i>
+                        <p class="text">subcribe</p>
+                        <i class="btn ti-twitter-alt"></i>
+                        <p class="text">follow us</p>
                     </div>
-                <hr>
+                    <hr>
                     <div class="recent-articles">
                         <p class="title">recent articles</p>
                         <hr>
                         <div class="text-form">
                             <p class="text">
-                            Raw Chocolate Recipe
-                        </p>
-                        <p class="sub-text">
-                            November 16, 2020
-                        </p>
+                                Raw Chocolate Recipe
+                            </p>
+                            <p class="sub-text">
+                                November 16, 2020
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Cacao Ceremonies
-                        </p>
-                        <p class="sub-text">
-                            October 27, 2020
-                        </p>
+                                Cacao Ceremonies
+                            </p>
+                            <p class="sub-text">
+                                October 27, 2020
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Audio Interview with Richard Turner, founder of Ombar Chocolate
-                        </p>
-                        <p class="sub-text">
-                            June 15, 2018
-                        </p>
+                                Audio Interview with Richard Turner, founder of Ombar Chocolate
+                            </p>
+                            <p class="sub-text">
+                                June 15, 2018
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            How is Raw Chocolate Made?
-                        </p>
-                        <p class="sub-text">
-                            December 19, 2017
-                        </p>
+                                How is Raw Chocolate Made?
+                            </p>
+                            <p class="sub-text">
+                                December 19, 2017
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Continuing Veganuary – how to make it last all year!
-                        </p>
-                        <p class="sub-text">
-                            January 27, 2017
-                        </p>
+                                Continuing Veganuary – how to make it last all year!
+                            </p>
+                            <p class="sub-text">
+                                January 27, 2017
+                            </p>
                         </div>
                     </div>
                     <div class="categories">
@@ -552,55 +580,80 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <hr>
                         <div class="text-categories">
                             <div class="line-text">
-                                <p>cacao ceremony <p class="num">(1)</p></p>
+                                <p>cacao ceremony
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Chocolate facts <p class="num">(2)</p></p>
+                                <p>Chocolate facts
+                                <p class="num">(2)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>chocolate pairings <p class="num">(1)</p></p>
+                                <p>chocolate pairings
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>chocolate week <p class="num">(1)</p></p>
+                                <p>chocolate week
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>kate magic <p class="num">(1)</p></p>
+                                <p>kate magic
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>organic chocolate <p class="num">(3)</p></p>
+                                <p>organic chocolate
+                                <p class="num">(3)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>raw chocolate <p class="num">(6)</p></p>
+                                <p>raw chocolate
+                                <p class="num">(6)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>raw chocolate recipe <p class="num">(1)</p></p>
+                                <p>raw chocolate recipe
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>recipe <p class="num">(1)</p></p>
+                                <p>recipe
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Special promotion <p class="num">(1)</p></p>
+                                <p>Special promotion
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>supplier spotlight <p class="num">(1</p>)</p>
+                                <p>supplier spotlight
+                                <p class="num">(1</p>)</p>
                             </div>
                             <div class="line-text">
-                                <p>vegan <p class="num">(1)</p></p>
+                                <p>vegan
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Vegan gifts <p class="num">(1)</p></p>
+                                <p>Vegan gifts
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="change-page">
-                        <!-- <input type="button" id="next-page" value="Next" onclick="nextPage()"><span class="ti-angle-double-right"></span> -->
-                        <p id="page" value="1" onclick="redirectPage('blog_page1.html')">1</p>
-                        <p id="page" value="2" onclick="redirectPage('blog_page2.html')">2</p>
-                        <p id="page" value="3" onclick="redirectPage('blog_page3.html')">3</p>
+                    <!-- <input type="button" id="next-page" value="Next" onclick="nextPage()"><span class="ti-angle-double-right"></span> -->
+                    <p id="page" value="1" onclick="redirectPage('blog_page1.html')">1</p>
+                    <p id="page" value="2" onclick="redirectPage('blog_page2.html')">2</p>
+                    <p id="page" value="3" onclick="redirectPage('blog_page3.html')">3</p>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
 
     <!-- page 2 -->
@@ -612,9 +665,10 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                     <hr>
                 </div>
                 <div class="link">
-                    <div><a href="index.html">Home</a><span class="ti-angle-right"></span> 
-                    <a href="#">Blog</a> <span class="ti-angle-right"></span>
-                    Page 2 of 3</div>
+                    <div><a href="index.html">Home</a><span class="ti-angle-right"></span>
+                        <a href="#">Blog</a> <span class="ti-angle-right"></span>
+                        Page 2 of 3
+                    </div>
                 </div>
                 <div class="left-side">
                     <div class="content-chocolate">
@@ -623,7 +677,10 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <p class="sub-title">Posted on November 09, 2016 by Richard Turner</p>
                         <div class="img"><img src="../access/img/blog-page-img6.webp" class="img6" alt=""></div>
                         <p class="text">
-                            With the nights drawing in and the cold, damp mornings it's truly got to be the perfect time to reach for a rich, warm cup of hot chocolate. Celebrate this wonderful chocolate season we have a mega 20% discount on the whole Elements for Life vegan hot chocolate range for the month of November! 
+                            With the nights drawing in and the cold, damp mornings it's truly got to be the perfect time
+                            to reach for a rich, warm cup of hot chocolate. Celebrate this wonderful chocolate season we
+                            have a mega 20% discount on the whole Elements for Life vegan hot chocolate range for the
+                            month of November!
                         </p>
                         <p class="sub-title">Posted in organic chocolate, raw chocolate, Special promotion</p>
                         <hr>
@@ -634,7 +691,10 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <p class="sub-title">Posted on November 09, 2016 by Richard Turner</p>
                         <div class="img"><img src="../access/img/blog-page-img7.webp" alt="" class="img7"></div>
                         <p class="text">
-                            We've been working with Elements for Life for a while now and are big fans of their Yummy Scrummy Brownie in particular that is definitely true to it's name!  We caught up with founders Dan and Paula to find out what drives them and their favourite soundtrack to make chocolate to!
+                            We've been working with Elements for Life for a while now and are big fans of their Yummy
+                            Scrummy Brownie in particular that is definitely true to it's name! We caught up with
+                            founders Dan and Paula to find out what drives them and their favourite soundtrack to make
+                            chocolate to!
                         </p>
                         <p class="sub-title">Posted in organic chocolate, raw chocolate, supplier spotlight</p>
                         <hr>
@@ -646,9 +706,12 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         </p>
                         <div class="img"><img src="../access/img/blog-page-img8.webp" alt="" class="img8"></div>
                         <p class="text">
-                            We love chocolate - it's great on it's own, but we also love it with other flavours. In this article we look at all the things you can do with cacao - a surprising collection of confection!
+                            We love chocolate - it's great on it's own, but we also love it with other flavours. In this
+                            article we look at all the things you can do with cacao - a surprising collection of
+                            confection!
                         </p>
-                        <p class="sub-title">Posted in chocolate pairings, chocolate week, organic chocolate, raw chocolate</p>
+                        <p class="sub-title">Posted in chocolate pairings, chocolate week, organic chocolate, raw
+                            chocolate</p>
                         <hr>
                     </div>
                     <div class="content-chocolate">
@@ -657,7 +720,8 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <p class="sub-title">Posted on September 27, 2016 by Chloe Menage</p>
                         <div class="img"><img src="../access/img/blog-page-img9.webp" alt="" class="img9"></div>
                         <p class="text">
-                            We’ve rounded up the very best smoothies from around the web, and all them have one thing in common: raw chocolate!
+                            We’ve rounded up the very best smoothies from around the web, and all them have one thing in
+                            common: raw chocolate!
                         </p>
                         <p class="sub-title">Posted in</p>
                         <hr>
@@ -668,7 +732,10 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <p class="sub-title">Posted on August 19, 2016 by Accounts Access</p>
                         <div class="img"><img src="../access/img/blog-page-img10.jpg" alt="" class="img10"></div>
                         <p class="text">
-                            In the brief warmth which constitutes the British summer time, your appetite might start to wander towards the fridge or the freezer for a chilled treat – after all, chocolate melts in the sun, right? It also melts deliciously over ice cream, makes scrumptious cold desserts and flavours luxurious liquid refreshment.
+                            In the brief warmth which constitutes the British summer time, your appetite might start to
+                            wander towards the fridge or the freezer for a chilled treat – after all, chocolate melts in
+                            the sun, right? It also melts deliciously over ice cream, makes scrumptious cold desserts
+                            and flavours luxurious liquid refreshment.
                         </p>
                         <p class="sub-title">Posted in</p>
                         <hr>
@@ -680,7 +747,10 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <p class="sub-title">Posted on July 20, 2016 by Accounts Access</p>
                         <div class="img"><img src="../access/img/blog-page-img11.webp" alt="" class="img11"></div>
                         <p class="text">
-                            They say breakfast is the most important meal of the day. If you’re looking to make it the best, though, we recommend including some chocolate. We’re not talking about your standard out-of-the box cereal or regular chocolate spread on toast – we mean high quality, ethically sourced and carefully made raw chocolate: by far the best kind.
+                            They say breakfast is the most important meal of the day. If you’re looking to make it the
+                            best, though, we recommend including some chocolate. We’re not talking about your standard
+                            out-of-the box cereal or regular chocolate spread on toast – we mean high quality, ethically
+                            sourced and carefully made raw chocolate: by far the best kind.
                         </p>
                         <p class="sub-title">Posted in</p>
                         <hr>
@@ -691,7 +761,11 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <p class="sub-title">Posted on April 21, 2016 by Accounts Access</p>
                         <div class="img"><img src="../access/img/blog-page-img13.webp" alt="" class="img12"></div>
                         <p class="text">
-                            Forever Cacao’s Pablo hand makes his chocolate in the hills of Wales with Peruvian Cacao which is grown, harvested and dried by Ashaninka families. He aims to bring raw chocolate up to the standard of its roasted counterpart and create something that’s nutritious and completely delicious at the same time. Below we discover Pablo’s favourite product to make, his personal motto in life and much more!  
+                            Forever Cacao’s Pablo hand makes his chocolate in the hills of Wales with Peruvian Cacao
+                            which is grown, harvested and dried by Ashaninka families. He aims to bring raw chocolate up
+                            to the standard of its roasted counterpart and create something that’s nutritious and
+                            completely delicious at the same time. Below we discover Pablo’s favourite product to make,
+                            his personal motto in life and much more!
                         </p>
                         <p class="sub-title">Posted in</p>
                         <hr>
@@ -699,54 +773,54 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                 </div>
                 <div class="right-side">
                     <div class="icon">
-                            <i class="btn ti-rss-alt"></i>
-                            <p class="text">subcribe</p>
-                            <i class="btn ti-twitter-alt"></i>
-                            <p class="text">follow us</p>
+                        <i class="btn ti-rss-alt"></i>
+                        <p class="text">subcribe</p>
+                        <i class="btn ti-twitter-alt"></i>
+                        <p class="text">follow us</p>
                     </div>
-                <hr>
+                    <hr>
                     <div class="recent-articles">
                         <p class="title">recent articles</p>
                         <hr>
                         <div class="text-form">
                             <p class="text">
-                            Raw Chocolate Recipe
-                        </p>
-                        <p class="sub-text">
-                            November 16, 2020
-                        </p>
+                                Raw Chocolate Recipe
+                            </p>
+                            <p class="sub-text">
+                                November 16, 2020
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Cacao Ceremonies
-                        </p>
-                        <p class="sub-text">
-                            October 27, 2020
-                        </p>
+                                Cacao Ceremonies
+                            </p>
+                            <p class="sub-text">
+                                October 27, 2020
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Audio Interview with Richard Turner, founder of Ombar Chocolate
-                        </p>
-                        <p class="sub-text">
-                            June 15, 2018
-                        </p>
+                                Audio Interview with Richard Turner, founder of Ombar Chocolate
+                            </p>
+                            <p class="sub-text">
+                                June 15, 2018
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            How is Raw Chocolate Made?
-                        </p>
-                        <p class="sub-text">
-                            December 19, 2017
-                        </p>
+                                How is Raw Chocolate Made?
+                            </p>
+                            <p class="sub-text">
+                                December 19, 2017
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Continuing Veganuary – how to make it last all year!
-                        </p>
-                        <p class="sub-text">
-                            January 27, 2017
-                        </p>
+                                Continuing Veganuary – how to make it last all year!
+                            </p>
+                            <p class="sub-text">
+                                January 27, 2017
+                            </p>
                         </div>
                     </div>
                     <div class="categories">
@@ -754,52 +828,77 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <hr>
                         <div class="text-categories">
                             <div class="line-text">
-                                <p>cacao ceremony <p class="num">(1)</p></p>
+                                <p>cacao ceremony
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Chocolate facts <p class="num">(2)</p></p>
+                                <p>Chocolate facts
+                                <p class="num">(2)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>chocolate pairings <p class="num">(1)</p></p>
+                                <p>chocolate pairings
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>chocolate week <p class="num">(1)</p></p>
+                                <p>chocolate week
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>kate magic <p class="num">(1)</p></p>
+                                <p>kate magic
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>organic chocolate <p class="num">(3)</p></p>
+                                <p>organic chocolate
+                                <p class="num">(3)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>raw chocolate <p class="num">(6)</p></p>
+                                <p>raw chocolate
+                                <p class="num">(6)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>raw chocolate recipe <p class="num">(1)</p></p>
+                                <p>raw chocolate recipe
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>recipe <p class="num">(1)</p></p>
+                                <p>recipe
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Special promotion <p class="num">(1)</p></p>
+                                <p>Special promotion
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>supplier spotlight <p class="num">(1</p>)</p>
+                                <p>supplier spotlight
+                                <p class="num">(1</p>)</p>
                             </div>
                             <div class="line-text">
-                                <p>vegan <p class="num">(1)</p></p>
+                                <p>vegan
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Vegan gifts <p class="num">(1)</p></p>
+                                <p>Vegan gifts
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="change-page">
-                        <!-- <input type="button" id="next-page" value="Next" onclick="nextPage()"><span class="ti-angle-double-right"></span> -->
-                        <p id="page" value="1" onclick="redirectPage('blog_page1.html')">1</p>
-                        <p id="page" value="2" onclick="redirectPage('blog_page2.html')">2</p>
-                        <p id="page" value="3" onclick="redirectPage('blog_page3.html')">3</p>
+                    <!-- <input type="button" id="next-page" value="Next" onclick="nextPage()"><span class="ti-angle-double-right"></span> -->
+                    <p id="page" value="1" onclick="redirectPage('blog_page1.html')">1</p>
+                    <p id="page" value="2" onclick="redirectPage('blog_page2.html')">2</p>
+                    <p id="page" value="3" onclick="redirectPage('blog_page3.html')">3</p>
                 </div>
             </div>
         </div>
@@ -814,9 +913,10 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                     <hr>
                 </div>
                 <div class="link">
-                    <div><a href="index.html">Home</a><span class="ti-angle-right"></span> 
-                    <a href="#">Blog</a> <span class="ti-angle-right"></span>
-                    Page 3 of 3</div>
+                    <div><a href="index.html">Home</a><span class="ti-angle-right"></span>
+                        <a href="#">Blog</a> <span class="ti-angle-right"></span>
+                        Page 3 of 3
+                    </div>
                 </div>
                 <div class="left-side">
                     <div class="content-chocolate">
@@ -825,7 +925,11 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <p class="sub-title">Posted on February 25, 2016 by Accounts Access</p>
                         <div class="img"><img src="../access/img/blog-page-img14.webp" alt="" class="img13"></div>
                         <p class="text">
-                            We’re super excited to finally get our hands on this chocolate from down under, which has taken Australia by storm. The sumptuous raw chocolate made with cacao from Bolivia has a mouth-wateringly smooth and velvety texture that’s not to be missed. Each bar is made with organic ingredients that will love you from the inside out; such as raw cacao powder, virgin coconut oil and coconut nectar.
+                            We’re super excited to finally get our hands on this chocolate from down under, which has
+                            taken Australia by storm. The sumptuous raw chocolate made with cacao from Bolivia has a
+                            mouth-wateringly smooth and velvety texture that’s not to be missed. Each bar is made with
+                            organic ingredients that will love you from the inside out; such as raw cacao powder, virgin
+                            coconut oil and coconut nectar.
                         </p>
                         <p class="sub-title">Posted in</p>
                         <hr>
@@ -836,63 +940,66 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <p class="sub-title">Posted on December 11, 2015 by Saffron Eck</p>
                         <div class="img"><img src="../access/img/blog-page-img15.webp" alt="" class="img14"></div>
                         <p class="text">
-                            As soon as we tried these delicious balls of goodness from Love Chock, we just knew they had to be featured on the shop!  Lovechock Rocks encase fruits and nuts in their signature raw chocolate as well as tasty superfoods. So as usual with all the goodies in our shop, they are good for you and absolutely delicious.
+                            As soon as we tried these delicious balls of goodness from Love Chock, we just knew they had
+                            to be featured on the shop! Lovechock Rocks encase fruits and nuts in their signature raw
+                            chocolate as well as tasty superfoods. So as usual with all the goodies in our shop, they
+                            are good for you and absolutely delicious.
                         </p>
                         <p class="sub-title">Posted in</p>
                         <hr>
                     </div>
-    
+
                 </div>
                 <div class="right-side">
                     <div class="icon">
-                            <i class="btn ti-rss-alt"></i>
-                            <p class="text">subcribe</p>
-                            <i class="btn ti-twitter-alt"></i>
-                            <p class="text">follow us</p>
+                        <i class="btn ti-rss-alt"></i>
+                        <p class="text">subcribe</p>
+                        <i class="btn ti-twitter-alt"></i>
+                        <p class="text">follow us</p>
                     </div>
-                <hr>
+                    <hr>
                     <div class="recent-articles">
                         <p class="title">recent articles</p>
                         <hr>
                         <div class="text-form">
                             <p class="text">
-                            Raw Chocolate Recipe
-                        </p>
-                        <p class="sub-text">
-                            November 16, 2020
-                        </p>
+                                Raw Chocolate Recipe
+                            </p>
+                            <p class="sub-text">
+                                November 16, 2020
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Cacao Ceremonies
-                        </p>
-                        <p class="sub-text">
-                            October 27, 2020
-                        </p>
+                                Cacao Ceremonies
+                            </p>
+                            <p class="sub-text">
+                                October 27, 2020
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Audio Interview with Richard Turner, founder of Ombar Chocolate
-                        </p>
-                        <p class="sub-text">
-                            June 15, 2018
-                        </p>
+                                Audio Interview with Richard Turner, founder of Ombar Chocolate
+                            </p>
+                            <p class="sub-text">
+                                June 15, 2018
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            How is Raw Chocolate Made?
-                        </p>
-                        <p class="sub-text">
-                            December 19, 2017
-                        </p>
+                                How is Raw Chocolate Made?
+                            </p>
+                            <p class="sub-text">
+                                December 19, 2017
+                            </p>
                         </div>
                         <div class="text-form">
                             <p class="text">
-                            Continuing Veganuary – how to make it last all year!
-                        </p>
-                        <p class="sub-text">
-                            January 27, 2017
-                        </p>
+                                Continuing Veganuary – how to make it last all year!
+                            </p>
+                            <p class="sub-text">
+                                January 27, 2017
+                            </p>
                         </div>
                     </div>
                     <div class="categories">
@@ -900,52 +1007,77 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                         <hr>
                         <div class="text-categories">
                             <div class="line-text">
-                                <p>cacao ceremony <p class="num">(1)</p></p>
+                                <p>cacao ceremony
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Chocolate facts <p class="num">(2)</p></p>
+                                <p>Chocolate facts
+                                <p class="num">(2)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>chocolate pairings <p class="num">(1)</p></p>
+                                <p>chocolate pairings
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>chocolate week <p class="num">(1)</p></p>
+                                <p>chocolate week
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>kate magic <p class="num">(1)</p></p>
+                                <p>kate magic
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>organic chocolate <p class="num">(3)</p></p>
+                                <p>organic chocolate
+                                <p class="num">(3)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>raw chocolate <p class="num">(6)</p></p>
+                                <p>raw chocolate
+                                <p class="num">(6)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>raw chocolate recipe <p class="num">(1)</p></p>
+                                <p>raw chocolate recipe
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>recipe <p class="num">(1)</p></p>
+                                <p>recipe
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Special promotion <p class="num">(1)</p></p>
+                                <p>Special promotion
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>supplier spotlight <p class="num">(1</p>)</p>
+                                <p>supplier spotlight
+                                <p class="num">(1</p>)</p>
                             </div>
                             <div class="line-text">
-                                <p>vegan <p class="num">(1)</p></p>
+                                <p>vegan
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                             <div class="line-text">
-                                <p>Vegan gifts <p class="num">(1)</p></p>
+                                <p>Vegan gifts
+                                <p class="num">(1)</p>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="change-page">
-                        <!-- <input type="button" id="next-page" value="Next" onclick="nextPage()"><span class="ti-angle-double-right"></span> -->
-                        <p id="page" value="1" onclick="redirectPage('blog_page1.html')">1</p>
-                        <p id="page" value="2" onclick="redirectPage('blog_page2.html')">2</p>
-                        <p id="page" value="3" onclick="redirectPage('blog_page3.html')">3</p>
+                    <!-- <input type="button" id="next-page" value="Next" onclick="nextPage()"><span class="ti-angle-double-right"></span> -->
+                    <p id="page" value="1" onclick="redirectPage('blog_page1.html')">1</p>
+                    <p id="page" value="2" onclick="redirectPage('blog_page2.html')">2</p>
+                    <p id="page" value="3" onclick="redirectPage('blog_page3.html')">3</p>
                 </div>
             </div>
         </div>
@@ -1014,8 +1146,7 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                             <i class="ti-user"></i>
                             Username
                         </label>
-                        <input id="modal-username-signup" type="text" class="modal-input"
-                            placeholder="Enter username">
+                        <input id="modal-username-signup" type="text" class="modal-input" placeholder="Enter username">
                     </div>
 
                     <div id="nameNofication"></div>
@@ -1148,12 +1279,11 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
                             <div><input class="submit-button" type="submit" placeholder="Submit"></div>
                         </form>
                     </div>
-                    <a class="footer-icon ti-twitter-alt" href="https://twitter.com"></a>
-                    <a class="footer-icon ti-instagram" href="https://instagram.com/"></a>
-                    <a class="footer-icon ti-email" href="https://gmail.com/"></a>
-                </div>
-                <div class="footer-right">
-
+                    <div class="footer-icon-list">
+                        <a class="footer-icon ti-twitter-alt" href="https://twitter.com"></a>
+                        <a class="footer-icon ti-instagram" href="https://instagram.com/"></a>
+                        <a class="footer-icon ti-email" href="https://gmail.com/"></a>
+                    </div>
                 </div>
                 <div class="footer-menu">
                     <hr>
@@ -1181,6 +1311,8 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
     <script src="../js//trade.js"></script>
     <script src="../js/search.js"></script>
     <script src="../scripts/settings.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </div>
 </body>
 
