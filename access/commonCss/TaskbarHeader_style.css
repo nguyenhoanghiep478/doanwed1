@@ -89,10 +89,10 @@
 .ti-angle-down {
   font-size: 16px;
 }
+
 #menu-list .sub-menu {
   display: none;
-  width: 240px;
-  padding: 0 20px;
+  width: 200px;
   position: absolute;
   top: 100%;
   left: 10%;
@@ -101,11 +101,22 @@
   list-style-type: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
 #menu-list li:hover .sub-menu {
   display: block;
   color: rgb(62, 7, 7);
   background-color: white;
 }
+
+#menu-list li:hover .sub-menu li {
+  padding: 0 20px;
+}
+
+#menu-list li:hover .sub-menu li:hover {
+  color: #fff;
+  background-color: rgb(113, 70, 56);
+}
+
 #header #requiredContainer{
   position: absolute;
   width: 90%;

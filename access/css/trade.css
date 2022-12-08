@@ -1,0 +1,23 @@
+#trade {
+    width: 1200px;
+    margin: 32px auto;
+}
+
+.trade-container .title {
+    font-size: 32px;
+    margin: 10px 0;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.text-detail-trade {
+    margin-top: 24px;
+    text-align: center;
+    font-style: italic;
+    font-size: 18px;
+}
+
+.margin-top-trade {
+    margin-top: 36px;
+}

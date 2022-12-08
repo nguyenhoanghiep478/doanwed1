@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="../access/css/cart.css">
+    <link rel="stylesheet" href="../access/css/trade.css">
     <link rel="stylesheet" href="../access/css/thechocolate_style.css">
     <link rel="stylesheet" href="../access//css//aboutus_style.css">
     <link rel="stylesheet" href="../access/css/blog_style.css">
@@ -50,7 +51,7 @@
                         class=" ti-shopping-cart"></span>CART
                         <span id="countOrderCart" class="countOrder"></span>
                     </li>
-                <li>TRADE</li>
+                <li class="trade" onclick="redirectPage('trade.html')">TRADE</li>
             </ul>
         </div>
         <div id="logo">
@@ -63,10 +64,13 @@
                     THE CHOCOLATE
                     <i class="ti-angle-down"></i>
                     <ul class="sub-menu">
-                        <li onclick="redirectPage('thechocolate.html')"><a
-                                href="#">Conscious Chocolate</a></li>
-                        <li onclick="redirectPage('thechocolate.html')"><a href="#">Elements for Life</a></li>
-                        <li onclick="redirectPage('thechocolate.html')"><a href="#">Enjoy!</a></li>
+                        <li onclick="renderProduct('BRANDS',this)">BRANDS</li>
+                        <li onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
+                        <li onclick="renderProduct('Coracao Confections',this)">Coracao Confections</li>
+                        <li onclick="renderProduct('Element for life',this)">Element for life</li>
+                        <li onclick="renderProduct('Enjoy',this)">Enjoy</li>
+                        <li onclick="renderProduct('Forever Caca',this)">Forever Caca</li>
+                        <li onclick="renderProduct('Ombar',this)">Ombar</li>
                     </ul>
                 </li>
                 <li class="voucher">VOUCHERS</li>
@@ -376,6 +380,22 @@
                     </div>
                     <div class="checkout"><input onclick="checkOutCart()" type="button" value="CHECKOUT"></div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRADE -->
+    <div id="trade.html" class="hiddenPage">
+        <div id="trade">
+            <div class="trade-container">
+                <p class="title">TRADE</p>
+                <hr>
+                <div class="text-detail-trade">
+                    <span class="view-detail-trade">There are no items in your order.</span>
+                </div>
+                <table id="table-trade" class="margin-top-trade" style="text-align: center">
+                
+                </table>
             </div>
         </div>
     </div>
@@ -1158,6 +1178,7 @@ Below are a few of our favourite vegan gift ideas for inspiration and, as you mi
     <script src="../js/login.js"></script>
     <script src="../js/searchFunction.js"></script>
     <script src="../js/cart.js"></script>
+    <script src="../js//trade.js"></script>
     <script src="../js/search.js"></script>
     <script src="../scripts/settings.js"></script>
     </div>
