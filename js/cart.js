@@ -19,7 +19,7 @@ function addToCart(product) {
   let productId = product.getAttribute('id');
   let productIndex = listProduct.findIndex(element => element.id == productId);
   if ((duplicateIndex = findByProductId(productId, listCart[currentUserId])) != -1) {
-    listCart[currentUserId][duplicateIndex].soluong =parseInt(listCart[currentUserId][duplicateIndex].soluong)+1;
+    listCart[currentUserId][duplicateIndex].soluong = parseInt(listCart[currentUserId][duplicateIndex].soluong) + 1;
   } else {
     if (currentUser != null) {
       listProduct[productIndex].userName = currentUser.name;
@@ -32,8 +32,8 @@ function addToCart(product) {
   alert("Đã thêm vào giỏ hàng");
   let orderNumberObject = document.getElementById('countOrderCart');
   let currentOrderNumber = parseInt(orderNumberObject.innerText);
-  if(currentOrderNumber == NaN){
-    currentOrderNumber=0;
+  if (currentOrderNumber == NaN) {
+    currentOrderNumber = 0;
   }
   orderNumberObject.innerText = currentOrderNumber + 1;
   localStorage.setItem('carts', JSON.stringify(listCart));
@@ -107,16 +107,27 @@ function renderCart() {
   }
 
 }
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 function checkOutCart() {
   let currentUser = JSON.parse(localStorage.getItem('user'));
+  let currentCheckOutId;
   if (currentUser == null) {
     document.getElementsByClassName('js-login')[0].click();
   } else {
     let currentUserId = currentUser.id;
     let listCart = JSON.parse(localStorage.getItem('carts'));
+    let checkOutIds = JSON.parse(localStorage.getItem('checkOutIds'));
+    do {
+      currentCheckOutId = getRndInteger(0, 100);
+    } while (checkOutIds.findIndex(x => x == currentCheckOutId) >= 0);
+    checkOutIds.push(currentCheckOutId);
+    localStorage.setItem('checkOutIds',JSON.stringify(checkOutIds));
     listCart[currentUserId].map(x => {
       if (typeof x.status == "undefined") {
         x.status = 'Chờ xác nhận';
+        x.checkOutId = currentCheckOutId;
       }
     })
     localStorage.setItem('carts', JSON.stringify(listCart));
@@ -150,21 +161,27 @@ function changeCount(object) {
   }
   let listCart = (JSON.parse(localStorage.getItem('carts')));
   let productCartIndex = listCart[currentId].findIndex(x => x.id == object.getAttribute('id'));
-  let a = 1;
-  if (listCart[currentId][productCartIndex].soluong > object.value) {
-    a = -1;
+  if (object.value >= 0) {
+    let a = 1;
+    if (listCart[currentId][productCartIndex].soluong > object.value) {
+      a = -1;
+    }
+
+    let orderNumberObject = document.getElementById('countOrderCart');
+    let currentOrderNumber = parseInt(orderNumberObject.innerText);
+    orderNumberObject.innerText = currentOrderNumber + a;
+    listCart[currentId][productCartIndex].soluong = object.value;
+    let numberPrice = listCart[currentId][productCartIndex].price.split('£')[1];
+    localStorage.setItem('carts', JSON.stringify(listCart));
+    let changeCost = (numberPrice * object.value);
+    object.parentElement.nextElementSibling.innerHTML = '£' + changeCost.toFixed(2) + `<i class="ti-close hover_icon"></i>`;
+    let subTotalObject = document.getElementsByClassName("subtotal-price")[0];
+    let totalCost = (subTotalObject.firstElementChild.innerText).split('£')[1];
+    subTotalObject.firstElementChild.innerText = '£' + (parseFloat(totalCost) + a * numberPrice).toFixed(2);
+  } else {
+    object.value = parseInt(listCart[currentId][productCartIndex].soluong);
   }
-  let orderNumberObject = document.getElementById('countOrderCart');
-  let currentOrderNumber = parseInt(orderNumberObject.innerText);
-  orderNumberObject.innerText = currentOrderNumber + a;
-  listCart[currentId][productCartIndex].soluong = object.value;
-  let numberPrice = listCart[currentId][productCartIndex].price.split('£')[1];
-  localStorage.setItem('carts', JSON.stringify(listCart));
-  let changeCost = (numberPrice * object.value);
-  object.parentElement.nextElementSibling.innerHTML = '£' + changeCost.toFixed(2) + `<i class="ti-close hover_icon"></i>`;
-  let subTotalObject = document.getElementsByClassName("subtotal-price")[0];
-  let totalCost = (subTotalObject.firstElementChild.innerText).split('£')[1];
-  subTotalObject.firstElementChild.innerText = '£' + (parseFloat(totalCost) + a * numberPrice).toFixed(2);
+
 }
 function deleteProductFromCart(object) {
   let currentUser = JSON.parse(localStorage.getItem('user'));
@@ -177,6 +194,9 @@ function deleteProductFromCart(object) {
   }
   let listCart = (JSON.parse(localStorage.getItem('carts')));
   let productCartIndex = listCart[currentId].findIndex(x => x.id == deleteId);
+  let orderNumberObject = document.getElementById('countOrderCart');
+  let currentOrderNumber = parseInt(orderNumberObject.innerText);
+  orderNumberObject.innerText = currentOrderNumber - parseInt(listCart[currentId][productCartIndex].soluong);
   listCart[currentId].splice(productCartIndex, 1);
   localStorage.setItem('carts', JSON.stringify(listCart));
   redirectPage('cart.html')

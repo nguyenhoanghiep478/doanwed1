@@ -138,7 +138,10 @@ header h2 {
     border: 1px solid #23282c;
 }
 
-
+.rowspanTable{
+    border: 1px solid !important;
+    vertical-align: middle !important;
+}
 /* phần chứa header (th) */
 .table-header {
     width: 100%;

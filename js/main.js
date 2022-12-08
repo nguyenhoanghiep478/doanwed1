@@ -6,6 +6,7 @@ var i = 1;
 //         login_href.innerText=sessionStorage.getItem("username");
 //     }
 // })
+window.onload=loadCheckOutId();
 window.onload = loadNumberProductInCart();
 function loadNumberProductInCart(){
     let currentUser=JSON.parse(localStorage.getItem('user'));
@@ -18,9 +19,17 @@ function loadNumberProductInCart(){
     let listCart=JSON.parse(localStorage.getItem('carts'))[currentUserId];
     let totalProductInCart=0;
     listCart.map(x=>{
-        totalProductInCart+=parseInt(x.soluong);
+        if(x.status!='Đã nhận hàng'){
+            totalProductInCart+=parseInt(x.soluong);
+        }
     })
     document.getElementById('countOrderCart').innerText=totalProductInCart;
+}
+function loadCheckOutId(){
+    let checkOutCartIds=new Array();
+    if(localStorage.getItem('checkOutIds')==null){
+        localStorage.setItem('checkOutIds',JSON.stringify(checkOutCartIds));
+    }
 }
 function changeimg() {
     var imgs = ["../slideshow_1.webp", "../slideshow_2.webp", "../slideshow_3.webp"];

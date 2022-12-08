@@ -148,7 +148,7 @@ function showProduct() {
     }
     htmls += '</table>';
     document.getElementById('table-product').innerHTML = htmls;
-    localStorage.setItem("products", JSON.stringify(arr));
+    setLocalStorage('products', arr);
 }
 
 
@@ -178,19 +178,19 @@ function addProduct() {
         const imgDir = "../access/img/" + imgArr[imgArr.length - 1]
         const type = typeProduct.selectedOptions[0].text;
         const name = nameProduct.value;
-        const price = '£'+priceProduct.value
-        const id=arr[arr.length].id+1;
-        const category=type;
+        const price = '£' + priceProduct.value
+        const id = arr[arr.length].id + 1;
+        const category = type;
         if (img != "" && name != "" && price != "") {
             arr.push({
                 category: category,
                 image: imgDir,
                 name: name,
                 price: price,
-                id:id,
+                id: id,
             })
 
-            localStorage.setItem("products", JSON.stringify(arr));
+            setLocalStorage('products', arr);
 
             setTimeout(function () {
                 notify.classList.add('success');
@@ -237,7 +237,7 @@ addProduct();
 const notifyDelete = document.querySelector('.notify__delete');
 
 function deleteProduct(id) {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     notifyDelete.innerHTML = `<div class="notify__delete-text">
                 Bạn có chắc sẽ xóa sản phẩm này không?
             </div>
@@ -254,7 +254,7 @@ function deleteProduct(id) {
         notifyDelete.style.transform = 'translate(-50%, 0)';
         notifyDelete.style.opacity = '1';
         document.querySelector('.notify__delete-ok').onclick = function () {
-            
+
             const arr = JSON.parse(localStorage.getItem('products'));
             notifyDelete.style.transform = 'translate(-50%, -270%)';
             notifyDelete.style.opacity = '0';
@@ -277,8 +277,7 @@ function editProduct(i, j) {
 
 }
 function getSubTotal() {
-    let listCart = JSON.parse(localStorage.getItem('carts'));
-    let listProductByCategory = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"];
+    let listCart = getLocalStorage('carts');
     let listSoldOut = Array(7).fill(0);
     for (let j = 1; j < listCart.length; j++) {
         for (let i = 0; i < listCart[j].length; i++) {
@@ -321,82 +320,141 @@ function getSubTotal() {
     }
     return listSoldOut;
 }
-function renderAdminCart() {
-    let temp = 1;
-    let listCart = JSON.parse(localStorage.getItem('carts'));
-    let HTML = `<table> <tbody>`;
-    let actionHTML = '';
-
-    for (let i = 1; i < listCart.length; i++) {
+function getCheckOutArray() {
+    let checkOutIds = getLocalStorage('checkOutIds');
+    let listCart = getLocalStorage('carts');
+    let checkOuts = Array(checkOutIds.length);
+    for (let i = 0; i < checkOutIds.length; i++) {
+        checkOuts[i] = [];
+    }
+    for (let i = 0; i < listCart.length; i++) {
         for (let j = 0; j < listCart[i].length; j++) {
-            actionHTML = '';
-            if (listCart[i][j].status != "Đã nhận hàng") {
-                actionHTML += ` <div  id=${listCart[i][j].id} class="tooltip update" onclick="changeStatus(this,${i})">
-                    <i class="ti-check"></i>
-                    <span class="tooltiptext">Xác nhận</span>
-                </div>
-                <div class="tooltip delete" onclick="deleteAdminCart(${listCart[i][j].id},this)">
-                    <i class="fa fa-trash"></i>  
-                    <span class="tooltiptext">Xóa</span>
-                </div>`
+            for (let k = 0; k < checkOutIds.length; k++) {
+                if (checkOutIds[k] == listCart[i][j].checkOutId) {
+                    checkOuts[k].push(listCart[i][j]);
+                    break;
+                }
             }
-            if (listCart[i][j].status === "Chờ xác nhận") {
-                imageName = 'redpoint.png';
-            } else {
-                imageName = 'greenpoint.png';
-            }
-            if (typeof listCart[i][j].status != "undefined") {
-                HTML += `
-                <tr>
-                <td style="width: 5%;border:1px solid">${temp++}</td>
-                <td style="width: 13%;border:1px solid">${listCart[i][j].cartId}</td>
-                <td style="width: 7%;border:1px solid" class="fa__left">${listCart[i][j].userName}</td>
-                <td style="width: 20%;border:1px solid"><img src="../image/`+ listCart[i][j].image + `" style="max-width:90px"></td>
-                <td style="width: 15%;border:1px solid">£${(parseFloat((listCart[i][j].price).split('£')[1]) * parseInt(listCart[i][j].soluong)).toFixed(2)}</td>
-                <td style="width: 10%;border:1px solid">${listCart[i][j].time}</td>
-                <td style="width: 10%;border:1px solid">
-                <img src="../image/`+ imageName + `" style="max-width:10px"> ${listCart[i][j].status}
-               </td>
-                <td style="width: 10%;border:1px solid">
-                        ${actionHTML}
-                </td>
-                </tr>                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-                `
-            }
-
         }
     }
+    return checkOuts;
+}
+function getLocalStorage(localName) {
+    return JSON.parse(localStorage.getItem(localName));
+}
+function setLocalStorage(localName, localValue) {
+    localStorage.setItem(localName, JSON.stringify(localValue));
+}
+function renderAdminCart() {
+    let temp = 1;
+    let checkOuts = getCheckOutArray();
+    let HTML = `<table> <tbody>`;
+    let actionHTML = '';
+    let rowSpanHTML = '';
+    let currentCheckOutIndex = 0;
+    let imageName = '';
+    for (let i = 0; i < checkOuts.length; i++) {
+        HTML += `
+        <tr>
+        <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
+        <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 13%;border:1px solid">${checkOuts[i][0].checkOutId}</td>
+        <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 7%;border:1px solid" class="fa__left">${checkOuts[i][0].userName}</td>
+        `
+        
+        for (let j = 0; j < checkOuts[i].length; j++) {
+            if (checkOuts[i][j].status != "Đã nhận hàng") {
+                if (checkOuts[i][j].status === "Chờ xác nhận") {
+                    imageName = 'redpoint.png';
+                } else {
+                    imageName = 'greenpoint.png';
+                }
+                if (currentCheckOutIndex == i) {
+                    actionHTML += ` .
+                                <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                                    <div  id=${checkOuts[i][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i][j].checkOutId})">
+                                        <i class="ti-check"></i>
+                                        <span class="tooltiptext">Xác nhận</span>
+                                    </div>
+                                    <div class="tooltip delete" onclick="deleteAdminCart(${checkOuts[i][j].checkOutId},this)">
+                                        <i class="fa fa-trash"></i>  
+                                        <span class="tooltiptext">Xóa</span>
+                                    </div>
+                                </td>
+                            </tr> 
+                        `
+                }
 
-
+            }
+            if (currentCheckOutIndex == i) {
+                currentCheckOutIndex++;
+                if (checkOuts[i][j].status === "Chờ xác nhận") {
+                    imageName = 'redpoint.png';
+                } else {
+                    imageName = 'greenpoint.png';
+                }
+                rowSpanHTML +=
+                  
+            }
+            if (typeof checkOuts[i][j].status != "undefined") {
+                HTML += `
+                    <td style="width: 20%;border:1px solid"><img src="../image/`+ checkOuts[i][j].image + `" style="max-width:90px"></td>
+                    <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[i][j].price).split('£')[1]) * parseInt(checkOuts[i][j].soluong)).toFixed(2)}</td>  
+                        ${rowSpanHTML}
+                        ${actionHTML}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                `     
+            }
+            actionHTML='';
+        }
+        HTML+=  ` 
+         <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i][j].time}</td>
+        <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+        <img src="../image/`+ imageName + `" style="max-width:10px"> ${checkOuts[i][j].status}
+        </td>
+        `
+        HTML+=actionHTML;
+    }
     HTML += `</tbody> <table>`;
     document.getElementById('table-order').innerHTML = HTML;
-
-
 }
-function changeStatus(object, userId) {
+function changeStatus(object, checkOutId) {
     let parentNode = object.parentElement;
-    let listCart = JSON.parse(localStorage.getItem('carts'));
-    let productId = object.getAttribute('id');
-    console.log(listCart[1][1]);
-    let productIndex = listCart[userId].findIndex(x => x.id == productId);
-    if (listCart[userId][productIndex].status == "Chờ xác nhận") {
-        listCart[userId][productIndex].status = "Đang giao hàng";
-    } else if (listCart[userId][productIndex].status == "Đang giao hàng") {
-        listCart[userId][productIndex].status = "Chờ lấy hàng";
-    } else {
-        listCart[userId][productIndex].status = "Đã nhận hàng";
-        parentNode.innerHTML = '';
-        thongKe();
+    let checkOutIds = getLocalStorage('checkOutIds');
+    let checkOuts = getCheckOutArray();
+    let checkOutIndex = checkOutIds.findIndex(x => x == checkOutId);
+    for (let i = 0; i < checkOuts[checkOutIndex].length; i++) {
+        if (checkOuts[checkOutIndex][i].status == "Chờ xác nhận") {
+            checkOuts[checkOutIndex][i].status = "Đang giao hàng";
+        } else if (checkOuts[checkOutIndex][i].status == "Đang giao hàng") {
+            checkOuts[checkOutIndex][i].status = "Chờ lấy hàng";
+        } else {
+            checkOuts[checkOutIndex][i].status = "Đã nhận hàng";
+            parentNode.innerHTML = '';
+            thongKe();
+        }
     }
-    localStorage.setItem('carts', JSON.stringify(listCart));
-    let HTML = `<img src="../image/greenpoint.png" style="max-width:10px">  ${listCart[userId][productIndex].status}`
+    referenceCheckOutToCarts(checkOuts, checkOutIndex);
+    let HTML = `<img src="../image/greenpoint.png" style="max-width:10px">  ${checkOuts[checkOutIndex][0].status}`
     parentNode.previousElementSibling.innerHTML = HTML;
+}
+function referenceCheckOutToCarts(checkOutArray, checkOutIndex) {
+    checkOutArray || [];
+    let listCart = getLocalStorage('carts');
+    let listUser = getLocalStorage('userData');
+    let currentUserId = 0;
+    let currentCartIndex = 0;
+    checkOutArray[checkOutIndex].forEach(e => {
+        currentUserId = listUser[listUser.findIndex(x => x.name == e.userName)].id;
+        currentCartIndex = listCart[currentUserId].findIndex(x => x.id = e.id);
+        listCart[currentUserId][currentCartIndex].status = e.status;
+    })
+    setLocalStorage('carts', listCart);
 }
 function redirectAdminPage(page) {
     window.location = page;
 }
 function renderUserData() {
-    let userData = JSON.parse(localStorage.getItem('userData'));
+    let userData = getLocalStorage('userData');
     let temp = 1;
     let imageName = '';
     let HTML = `<table> <tbody>`;
@@ -433,7 +491,7 @@ function renderUserData() {
 
 }
 function changeStatusUser(user) {
-    let userData = JSON.parse(localStorage.getItem('userData'));
+    let userData = getLocalStorage('userData');
     for (let i = 0; i < userData.length; i++) {
         if (userData[i].user === user) {
             if (userData[i].status == "blocked")
