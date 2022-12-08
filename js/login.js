@@ -227,6 +227,9 @@ function Register(){
         window.location="index.html";
     };
 }
+function redirectAdminPage(page) {
+    window.location = page;
+}
 function redirectPage(page){
     document.getElementById(localStorage.getItem('currentPage')).classList.add('hiddenPage');
     document.getElementById(page).classList.remove('hiddenPage');

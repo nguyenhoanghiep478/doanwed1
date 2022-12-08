@@ -350,8 +350,7 @@ function renderAdminCart() {
     let checkOuts = getCheckOutArray();
     let HTML = `<table> <tbody>`;
     let actionHTML = '';
-    let rowSpanHTML = '';
-    let currentCheckOutIndex = 0;
+    let rowSpanHTML = ``;
     let imageName = '';
     for (let i = 0; i < checkOuts.length; i++) {
         HTML += `
@@ -360,59 +359,56 @@ function renderAdminCart() {
         <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 13%;border:1px solid">${checkOuts[i][0].checkOutId}</td>
         <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 7%;border:1px solid" class="fa__left">${checkOuts[i][0].userName}</td>
         `
-        
+
         for (let j = 0; j < checkOuts[i].length; j++) {
-            if (checkOuts[i][j].status != "Đã nhận hàng") {
-                if (checkOuts[i][j].status === "Chờ xác nhận") {
-                    imageName = 'redpoint.png';
+            if (checkOuts[i][j].status === "Chờ xác nhận") {
+                imageName = 'redpoint.png';
+            } else {
+                imageName = 'greenpoint.png';
+            }
+            if (j == 0) {
+                rowSpanHTML+=`
+                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i][0].time}</td>
+                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                        <img src="../image/`+ imageName + `" style="max-width:10px"> ${checkOuts[i][0].status}
+                    </td>
+                `
+                if (checkOuts[i][j].status != "Đã nhận hàng") {
+                    actionHTML += `
+                                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                                        <div  id=${checkOuts[i][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i][j].checkOutId})">
+                                            <i class="ti-check"></i>
+                                            <span class="tooltiptext">Xác nhận</span>
+                                        </div>
+                                        <div class="tooltip delete" onclick="deleteAdminCart(${checkOuts[i][j].checkOutId},this)">
+                                            <i class="fa fa-trash"></i>  
+                                            <span class="tooltiptext">Xóa</span>
+                                        </div>
+                                    </td>
+                                </tr> 
+                            `
                 } else {
-                    imageName = 'greenpoint.png';
-                }
-                if (currentCheckOutIndex == i) {
-                    actionHTML += ` .
-                                <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
-                                    <div  id=${checkOuts[i][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i][j].checkOutId})">
-                                        <i class="ti-check"></i>
-                                        <span class="tooltiptext">Xác nhận</span>
-                                    </div>
-                                    <div class="tooltip delete" onclick="deleteAdminCart(${checkOuts[i][j].checkOutId},this)">
-                                        <i class="fa fa-trash"></i>  
-                                        <span class="tooltiptext">Xóa</span>
-                                    </div>
-                                </td>
-                            </tr> 
+                    actionHTML += `<td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                        </td>
+                        </tr> 
                         `
                 }
-
-            }
-            if (currentCheckOutIndex == i) {
-                currentCheckOutIndex++;
-                if (checkOuts[i][j].status === "Chờ xác nhận") {
-                    imageName = 'redpoint.png';
-                } else {
-                    imageName = 'greenpoint.png';
-                }
-                rowSpanHTML +=
-                  
+            }else{
+                HTML+=`<tr>`
             }
             if (typeof checkOuts[i][j].status != "undefined") {
-                HTML += `
-                    <td style="width: 20%;border:1px solid"><img src="../image/`+ checkOuts[i][j].image + `" style="max-width:90px"></td>
+                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/`+ checkOuts[i][j].image + `" style="max-width:90px"></td>
                     <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[i][j].price).split('£')[1]) * parseInt(checkOuts[i][j].soluong)).toFixed(2)}</td>  
                         ${rowSpanHTML}
                         ${actionHTML}
                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-                `     
+                `
             }
-            actionHTML='';
+
+            HTML+=`</tr>`;
+            actionHTML = '';
+            rowSpanHTML=``;
         }
-        HTML+=  ` 
-         <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i][j].time}</td>
-        <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
-        <img src="../image/`+ imageName + `" style="max-width:10px"> ${checkOuts[i][j].status}
-        </td>
-        `
-        HTML+=actionHTML;
     }
     HTML += `</tbody> <table>`;
     document.getElementById('table-order').innerHTML = HTML;
@@ -450,9 +446,7 @@ function referenceCheckOutToCarts(checkOutArray, checkOutIndex) {
     })
     setLocalStorage('carts', listCart);
 }
-function redirectAdminPage(page) {
-    window.location = page;
-}
+
 function renderUserData() {
     let userData = getLocalStorage('userData');
     let temp = 1;
