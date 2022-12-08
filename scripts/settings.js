@@ -539,17 +539,27 @@ function openThemNguoiDung() {
 }
 function deleteAdminCart(id, object) {
     let allCart = JSON.parse(localStorage.getItem('carts'));
+    let checkOutIds = JSON.parse(localStorage.getItem('checkOutIds'));
+    let count = 0;
     for (let i = 1; i < allCart.length; i++) {
         for (let j = 0; j < allCart[i].length; j++) {
-            if (allCart[i][j].id == id) {
-                allCart[i].splice(j, 1);
-                break;
+            if (allCart[i][j].checkOutId == id) {
+                count++;
             }
         }
     }
+    for (let i = 1; i < allCart.length; i++) {
+        for (let j = 0; j < allCart[i].length; j++) {
+            if (allCart[i][j].checkOutId == id) {
+                allCart[i].splice(j, count);
+            }
+        }
+    }
+    let checkOutIndex = checkOutIds.findIndex(x => x == id);
+    checkOutIds.splice(checkOutIndex, 1);
     localStorage.setItem('carts', JSON.stringify(allCart));
-    let tableOrder = document.getElementById('table-order');
-    tableOrder.removeChild(object.parentElement.parentElement);
+    localStorage.setItem('checkOutIds', JSON.stringify(checkOutIds));
+    renderAdminCart();
 }
 /*function timSanPham() {
     const arr = JSON.parse(localStorage.getItem('product'))
