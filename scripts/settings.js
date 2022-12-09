@@ -348,6 +348,7 @@ function getLocalStorage(localName) {
 function setLocalStorage(localName, localValue) {
     localStorage.setItem(localName, JSON.stringify(localValue));
 }
+
 function renderAdminCart(array) {
     let temp = 1;
     let checkOuts;
@@ -363,6 +364,11 @@ function renderAdminCart(array) {
     let adminStatus = '';
     for (let i = 0; i < checkOuts.length; i++) {
 
+
+    let listCart = JSON.parse(localStorage.getItem('carts'));
+    for (let i = 0; i < listCart.length; i++) {
+        if(typeof checkOuts[i] == undefined) 
+            continue;
         HTML += `
         <tr>
         <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
