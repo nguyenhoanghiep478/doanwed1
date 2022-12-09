@@ -1,11 +1,11 @@
 function renderTrade() {
     let temp = 1;
-    let user = JSON.parse(localStorage.getItem('user'));
+    let user = getLocalStorage('user');
     if(user == undefined) {
         document.getElementById('table-trade').removeAttribute("class");
         return;
     }
-    let checkOuts = JSON.parse(localStorage.getItem('carts'))[parseInt(user.id)];
+    let checkOuts = getLocalStorage('carts')[parseInt(user.id)];
 
     if(checkOuts.length == 0) {
         document.getElementById('table-trade').removeAttribute("class");
