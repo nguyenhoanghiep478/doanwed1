@@ -14,8 +14,7 @@ hr {
   border-top: 1px solid rgb(139, 98, 81);
 }
 #blog {
-  width: 1000px;
-  margin: 30px auto;
+  max-width: 100%;
 }
 
 .title-blog .title {
@@ -32,8 +31,10 @@ hr {
 }
 
 .container-blog {
+  max-width: 1000px;
+  margin: 100px auto;
   display: grid;
-  grid-template-columns: 700px 300px;
+  grid-template-columns: 70% 30%;
   gap: 24px;
 }
 .title-blog {
@@ -43,9 +44,24 @@ hr {
   grid-column: 1/-2;
 }
 
+.content-blog .page-list a {
+  text-decoration: none;
+  color: rgb(62, 7, 7);
+}
+
+.content-blog .page-list #page {
+  display: flex;
+  float: right;
+  cursor: pointer;
+  padding: 6px;
+}
+
 .ti-angle-double-right {
   font-size: 8px;
   margin-left: 3px;
+}
+
+#content .content-menu {
 }
 
 .content-menu .follow-subcribe {
@@ -72,10 +88,14 @@ hr {
 .link {
   font-size: 14px;
   font-style: italic;
+  grid-column: 1/-2;
 }
 .link a {
   text-decoration: none;
   color: #3e0707;
+}
+.content-chocolate {
+  grid-column: 1/-2;
 }
 .content-chocolate .title {
   font-size: 22px;
@@ -159,16 +179,10 @@ hr {
   text-align: center;
   gap: 24px;
 }
-
-.change-page p {
-  padding: 6px;
+.change-page a {
+  text-decoration: none;
+  margin: 0 12px;
 }
-
-.change-page p:hover {
-  color: pink;
-  cursor: pointer;
-}
-
 .img .img3,
 .img .img4,
 .img .img5,
