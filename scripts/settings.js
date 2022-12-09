@@ -441,12 +441,26 @@ function referenceCheckOutToCarts(checkOutArray, checkOutIndex) {
     let currentCartIndex = 0;
     checkOutArray[checkOutIndex].forEach(e => {
         currentUserId = listUser[listUser.findIndex(x => x.name == e.userName)].id;
-        currentCartIndex = listCart[currentUserId].findIndex(x => x.id = e.id);
+        currentCartIndex = listCart[currentUserId].findIndex(x => x.id == e.id && x.checkOutId==e.checkOutId);
         listCart[currentUserId][currentCartIndex].status = e.status;
     })
     setLocalStorage('carts', listCart);
 }
-
+function deleteAdminCart(checkOutId, object) {
+    let checkOuts=getCheckOutArray();
+    let checkOutIds=getLocalStorage('checkOutIds');
+    let currentCheckOutIndex=checkOutIds.findIndex(x=>x==checkOutId);
+    let listCart = getLocalStorage('carts');
+    let listUser=getLocalStorage('userData');
+    let currentUserId=listUser.findIndex(x=>x.name==checkOuts[currentCheckOutIndex][0].userName);
+    checkOuts[currentCheckOutIndex].forEach(e=>{
+        let deleteIndex=listCart[currentUserId].findIndex(x=>x.id==e.id && x.checkOutId==e.checkOutId);
+        listCart[currentUserId].splice(deleteIndex,1);
+    })
+    setLocalStorage('carts',listCart);
+    let tableOrder = document.getElementById('table-order');
+    tableOrder.removeChild(object.parentElement.parentElement);
+}
 function renderUserData() {
     let userData = getLocalStorage('userData');
     let temp = 1;
@@ -537,20 +551,7 @@ function openThemNguoiDung() {
     sessionStorage.setItem('isRegister', "true");
     window.location = "adminRegister.html"
 }
-function deleteAdminCart(id, object) {
-    let allCart = JSON.parse(localStorage.getItem('carts'));
-    for (let i = 1; i < allCart.length; i++) {
-        for (let j = 0; j < allCart[i].length; j++) {
-            if (allCart[i][j].id == id) {
-                allCart[i].splice(j, 1);
-                break;
-            }
-        }
-    }
-    localStorage.setItem('carts', JSON.stringify(allCart));
-    let tableOrder = document.getElementById('table-order');
-    tableOrder.removeChild(object.parentElement.parentElement);
-}
+
 /*function timSanPham() {
     const arr = JSON.parse(localStorage.getItem('product'))
     var list = [];

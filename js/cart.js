@@ -18,7 +18,7 @@ function addToCart(product) {
   let listProduct = JSON.parse(localStorage.getItem('products'));
   let productId = product.getAttribute('id');
   let productIndex = listProduct.findIndex(element => element.id == productId);
-  if ((duplicateIndex = findByProductId(productId, listCart[currentUserId])) != -1) {
+  if ((duplicateIndex = findByProductId(productId, listCart[currentUserId])) != -1 && typeof listCart[currentUserId][duplicateIndex].checkOutId != "undefined") {
     listCart[currentUserId][duplicateIndex].soluong = parseInt(listCart[currentUserId][duplicateIndex].soluong) + 1;
   } else {
     if (currentUser != null) {
