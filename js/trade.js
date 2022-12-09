@@ -140,8 +140,32 @@ function getCheckOutArayByUserCart(userCart) {
     })
     return checkOuts;
 }
-function deleteUserCart() {
-
+function deleteUserCart(checkOutId,object) {
+    let checkOuts = getCheckOutArray();
+    let checkOutIds = getLocalStorage('checkOutIds');
+    let currentCheckOutIndex = checkOutIds.findIndex(x => x == checkOutId);
+    let cancelCheckOut=[];
+    let listCart = getLocalStorage('carts');
+    let listUser = getLocalStorage('userData');
+    let currentUserId = listUser[listUser.findIndex(x => x.name == checkOuts[currentCheckOutIndex][0].userName)].id;
+    let listObject=Array(checkOuts[currentCheckOutIndex].length).fill([]);
+    listObject[0]=object.parentElement.parentElement;
+    for(let i=1;i<checkOuts[currentCheckOutIndex].length;i++){
+        listObject[i]=listObject[i-1].nextElementSibling;
+    }
+    cancelCheckOut.push(checkOuts[currentCheckOutIndex]);
+    checkOuts[currentCheckOutIndex].forEach(e => {
+        let deleteIndex = listCart[currentUserId].findIndex(x => x.id == e.id && x.checkOutId == e.checkOutId);
+        listCart[currentUserId].splice(deleteIndex, 1);
+    })
+    checkOutIds.splice(currentCheckOutIndex,1);
+    setLocalStorage('cancelCheckOut',cancelCheckOut);
+    setLocalStorage('checkOutIds',checkOutIds);
+    setLocalStorage('carts', listCart);
+    let tableOrder = document.getElementById('table-order');
+    listObject.forEach(o=>{
+        tableOrder.removeChild(o);
+    })
 }
 
 function changeStatus() {

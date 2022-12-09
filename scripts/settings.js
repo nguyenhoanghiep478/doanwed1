@@ -348,7 +348,6 @@ function getLocalStorage(localName) {
 function setLocalStorage(localName, localValue) {
     localStorage.setItem(localName, JSON.stringify(localValue));
 }
-
 function renderAdminCart(array) {
     let temp = 1;
     let checkOuts;
@@ -364,11 +363,6 @@ function renderAdminCart(array) {
     let adminStatus = '';
     for (let i = 0; i < checkOuts.length; i++) {
 
-
-    let listCart = JSON.parse(localStorage.getItem('carts'));
-    for (let i = 0; i < listCart.length; i++) {
-        if(typeof checkOuts[i] == undefined) 
-            continue;
         HTML += `
         <tr>
         <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
@@ -431,8 +425,56 @@ function renderAdminCart(array) {
             rowSpanHTML = ``;
         }
     }
+    HTML+=addCancelCheckOut(temp);
     HTML += `</tbody> <table>`;
     document.getElementById('table-order').innerHTML = HTML;
+}
+function addCancelCheckOut(currentCount){
+    let temp = currentCount+1;
+    let cancelCheckOut=getLocalStorage('cancelCheckOut');
+    let actionHTML = '';
+    let rowSpanHTML = ``;
+    let HTML='';
+    let imageName = 'redpoint.png';
+    let adminStatus = 'Khách hàng đã hủy đơn';
+    for (let i = 0; i < cancelCheckOut.length; i++) {
+        HTML += `
+        <tr>
+        <td rowspan="${cancelCheckOut[i].length}" class="rowspanTable">${temp++}</td>
+        <td rowspan="${cancelCheckOut[i].length}" class="rowspanTable" style="width: 13%;border:1px solid">${cancelCheckOut[i][0].checkOutId}</td>
+        <td rowspan="${cancelCheckOut[i].length}" class="rowspanTable" style="width: 7%;border:1px solid" class="fa__left">${cancelCheckOut[i][0].userName}</td>
+        `
+        for (let j = 0; j < cancelCheckOut[i].length; j++) {
+            if (j == 0) {
+                rowSpanHTML += `
+                    <td rowspan=${cancelCheckOut[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${cancelCheckOut[i][0].time}</td>
+                    <td rowspan=${cancelCheckOut[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                        <img src="../image/`+ imageName + `" style="max-width:10px"> ${adminStatus}
+                    </td>
+                `
+                    actionHTML += `<td rowspan=${cancelCheckOut[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                        </td>
+                        </tr> 
+                        `
+                
+            } else {
+                HTML += `<tr>`
+            }
+            if (typeof cancelCheckOut[i][j].status != "undefined") {
+                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/` + cancelCheckOut[i][j].image + `" style="max-width:90px"></td>
+                    <td style="width: 15%;border:1px solid">£${(parseFloat((cancelCheckOut[i][j].price).split('£')[1]) * parseInt(cancelCheckOut[i][j].soluong)).toFixed(2)}</td>  
+                        ${rowSpanHTML}
+                        ${actionHTML}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                `
+            }
+
+            HTML += `</tr>`;
+            actionHTML = '';
+            rowSpanHTML = ``;
+        }
+    }
+    return HTML;
 }
 function changeStatus(object, checkOutId) {
     let currentLogin = getLocalStorage('user');
@@ -483,14 +525,23 @@ function deleteAdminCart(checkOutId, object) {
     let currentCheckOutIndex = checkOutIds.findIndex(x => x == checkOutId);
     let listCart = getLocalStorage('carts');
     let listUser = getLocalStorage('userData');
-    let currentUserId = listUser.findIndex(x => x.name == checkOuts[currentCheckOutIndex][0].userName);
+    let currentUserId = listUser[listUser.findIndex(x => x.name == checkOuts[currentCheckOutIndex][0].userName)].id;
+    let listObject=Array(checkOuts[currentCheckOutIndex].length).fill([]);
+    listObject[0]=object.parentElement.parentElement;
+    for(let i=1;i<checkOuts[currentCheckOutIndex].length;i++){
+        listObject[i]=listObject[i-1].nextElementSibling;
+    }
     checkOuts[currentCheckOutIndex].forEach(e => {
         let deleteIndex = listCart[currentUserId].findIndex(x => x.id == e.id && x.checkOutId == e.checkOutId);
         listCart[currentUserId].splice(deleteIndex, 1);
     })
+    checkOutIds.splice(currentCheckOutIndex,1);
+    setLocalStorage('checkOutIds',checkOutIds);
     setLocalStorage('carts', listCart);
     let tableOrder = document.getElementById('table-order');
-    tableOrder.removeChild(object.parentElement.parentElement);
+    listObject.forEach(o=>{
+        tableOrder.removeChild(o);
+    })
 }
 function renderUserData() {
     let userData = getLocalStorage('userData');
@@ -587,7 +638,7 @@ function findCheckOut(){
     findCheckOutByDate();
 }
 function findCheckOutById(){
-
+    
 }
 function findCheckOutByDate(){
     let fromDate=document.getElementById('fromDate').value.split('-');
