@@ -349,14 +349,6 @@ function setLocalStorage(localName, localValue) {
     localStorage.setItem(localName, JSON.stringify(localValue));
 }
 function renderAdminCart(paginationIndex) {
-    if (typeof paginationIndex != "undefined") {
-        startIndex = 8 * Number(paginationIndex - 1);
-        finalIndex = startIndex + 4;
-    } else {
-        paginationIndex = 1;
-        startIndex = 0;
-        finalIndex = startIndex + 4;
-    }
     let temp = 1;
     let checkOuts = getCheckOutArray();
     let HTML = `<table> <tbody>`;
@@ -364,8 +356,10 @@ function renderAdminCart(paginationIndex) {
     let rowSpanHTML = ``;
     let imageName = '';
     let adminStatus = '';
-    for (let i = startIndex; i < finalIndex; i++) {
-
+    let listCart = JSON.parse(localStorage.getItem('carts'));
+    for (let i = 0; i < listCart.length; i++) {
+        if(typeof checkOuts[i] == undefined) 
+            continue;
         HTML += `
         <tr>
         <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
@@ -429,29 +423,6 @@ function renderAdminCart(paginationIndex) {
         }
     }
     HTML += `</tbody> <table>`;
-    let numberPagination = 0;
-    if (checkOuts.length % 8 == 0) {
-        numberPagination = parseInt(checkOuts.length / 8);
-    } else {
-        numberPagination = parseInt(checkOuts.length / 8) + 1;
-    }
-    HTML += `<div class="pagination-container">`
-    HTML += `<ul class="pagination-list">`
-    if (parseInt(paginationIndex) > 1) {
-        HTML += ` <li onclick=loadSearchProduct(${paginationIndex - 1}) class="pagination"><a  href="#"><<</a></li>`;
-    }
-    for (let i = 1; i <= numberPagination; i++) {
-        if (i == parseInt(paginationIndex)) {
-            HTML += `<li  class="pagination"><a class="pagination-active" onclick="loadSearchProduct(this.innerText)" href="#">${i}</a></li>`
-        } else {
-            HTML += `<li  class="pagination"><a onclick="loadSearchProduct(this.innerText)" href="#">${i}</a></li>`
-        }
-    }
-    if (parseInt(paginationIndex) < numberPagination) {
-        HTML += ` <li onclick=loadSearchProduct(${parseInt(paginationIndex) + 1}) class="pagination"><a  href="#">>></a></li>`;
-    }
-    HTML += `</ul>`
-    HTML += `</div>`
     document.getElementById('table-order').innerHTML = HTML;
 }
 function changeStatus(object, checkOutId) {

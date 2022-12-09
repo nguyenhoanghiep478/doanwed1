@@ -60,9 +60,13 @@ const modalformsingup = document.querySelector(".js-modal-singup")
 const modalclose = document.querySelectorAll(".js-modal-close");
 const nextLink = document.querySelector(".nextLine");
 const turnBack = document.querySelector(".modal-turn-back");
+const messageLogin = document.getElementById("messageLogin");
+const modalBody = document.getElementsByClassName("modal-body")[0];
+
 loginbtn.onclick = () => {
     modalformlogin.style.display="block";
     modalformsingup.style.display="none";
+    messageLogin.removeChild(messageLogin.firstElementChild);
 }
 nextLink.addEventListener("click",() => {
     modalformlogin.style.display = "none";
@@ -72,6 +76,7 @@ nextLink.addEventListener("click",() => {
 turnBack.addEventListener("click",()=>{
     modalformlogin.style.display="block";
     modalformsingup.style.display="none";
+    messageLogin.removeChild(messageLogin.firstElementChild);
 })
 
 loginbtn.addEventListener("click",()=>{
@@ -158,7 +163,6 @@ function checkLogin(){
         }
         if(localStorage.getItem("user")===null){
             passwordInput.value='';
-            let messageLogin=document.getElementById("messageLogin");
             let message="<span class='warning-alert' style='margin-left:40%;margin-bottom:20px' > <strong>Your user or password incorrect</strong> </span>";
             messageLogin.innerHTML=message;
         }
