@@ -237,7 +237,10 @@ function redirectPage(page){
     if(page=="cart.html"){
         renderCart();
     }else if(page=="search.html"){
-        loadSearchProduct()
+        loadSearchProduct();
+    }
+    else if(page=="trade.html"){
+        renderTrade();
     }
     window.scrollTo(0,0); 
 }

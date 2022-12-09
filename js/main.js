@@ -1,3 +1,9 @@
+const btnNavEl = document.querySelector(".btn-mobile-nav");
+const headerEl = document.querySelector("#header");
+btnNavEl.addEventListener("click", function () {
+  headerEl.classList.toggle("nav-open");
+});
+
 var index = 1;
 var i = 1;
 // window.onload(function(){
@@ -63,5 +69,3 @@ function plusDivs(k) {
 
 function showListSearch() {
 }
-
-

@@ -318,7 +318,7 @@ function addHideListSearch() {
     // });
 }
 
-function renderProduct(category, object,paginationIndex) {
+function renderProduct(category, object, paginationIndex) {
     if(typeof paginationIndex =="undefined"){
         paginationIndex=1;
     }

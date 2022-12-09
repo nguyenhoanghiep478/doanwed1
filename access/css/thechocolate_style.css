@@ -13,7 +13,7 @@ html {
 }
 
 .form {
-  width: 900px;
+  max-width: 900px;
   margin: 0 auto;
   display: block;
 }
@@ -30,7 +30,7 @@ html {
 } */
 
 .form .container {
-  width: 1200px;
+  max-width: 1200px;
   display: grid;
   grid-template-columns: 200px auto;
   margin: 32px 0;
@@ -74,8 +74,6 @@ html {
   width: 90%;
   margin-right: 12px;
 }
-
-/* button add to cart */
 .btn-addto-cart:hover {
   color: #b32366;
   cursor: pointer;
@@ -121,11 +119,11 @@ html {
   transition-property: max-height;
   transition-duration: 1s;
 }
-.pagination-container{
+.pagination-container {
   grid-column: 1/-1;
   width: 100%;
 }
-.pagination-list{
+.pagination-list {
   align-items: center;
   justify-content: center;
   display: flex;
@@ -141,11 +139,13 @@ html {
   text-decoration: none;
 }
 .pagination a.pagination-active {
-  background-color: #4CAF50;
+  background-color: rgb(82, 22, 12);
   color: white;
 }
 
-.pagination a:hover:not(.pagination-active) {background-color: #ddd;}
+.pagination a:hover:not(.pagination-active) {
+  background-color: #ddd;
+}
 .right .card .card-reviews i {
   color: #f5a570;
 }
@@ -165,7 +165,7 @@ html {
   text-align: center;
 }
 
-.right .infor-name {
+.card-info .infor-name {
   font-size: 18px;
   line-height: 30px;
 }
@@ -181,6 +181,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 16px;
 }
 
 .footer {
@@ -199,7 +200,6 @@ footer {
 .right .card:hover .img-card {
   max-width: 150%;
   max-height: 150px;
-
 }
 
 .product_hover {
@@ -247,14 +247,14 @@ footer {
 }
 
 .product_hover li:hover a span {
-  color: #ffffff;
+  color: #fff;
   -webkit-transform: rotate(360deg);
   -ms-transform: rotate(360deg);
   transform: rotate(360deg);
 }
 
 .icon_hover {
-  color: white;
+  color: #fff;
   position: absolute;
   top: 11%;
   left: 11%;
