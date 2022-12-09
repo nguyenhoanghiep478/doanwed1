@@ -144,7 +144,12 @@ function deleteUserCart(checkOutId,object) {
     let checkOuts = getCheckOutArray();
     let checkOutIds = getLocalStorage('checkOutIds');
     let currentCheckOutIndex = checkOutIds.findIndex(x => x == checkOutId);
-    let cancelCheckOut=[];
+    let cancelCheckOut;
+    if(typeof getLocalStorage('cancelCheckOut') != undefined){
+        cancelCheckOut=getLocalStorage('cancelCheckOut')
+    }else{
+        cancelCheckOut=[];
+    }
     let listCart = getLocalStorage('carts');
     let listUser = getLocalStorage('userData');
     let currentUserId = listUser[listUser.findIndex(x => x.name == checkOuts[currentCheckOutIndex][0].userName)].id;

@@ -29,7 +29,7 @@ navItems.forEach(function (navItem, index) {
         switch (index) {
             case 0:
                 document.querySelector('.section__stats').style.display = "flex";
-                document.querySelector('.section__stats-1').style.display = "flex";
+                document.querySelector('.section__stats').style.display = "flex";
                 document.querySelector('.section__stats-2').style.display = "flex";
                 window.onload = thongKe1();
                 let date = new Date();
@@ -417,8 +417,10 @@ function setLocalStorage(localName, localValue) {
 function renderAdminCart(array) {
     let temp = 1;
     let checkOuts;
+    let isFinding=false;
     if(typeof array!="undefined"){
         checkOuts=array;
+        isFinding=true;
     }else{
         checkOuts= getCheckOutArray();
     }
@@ -427,43 +429,42 @@ function renderAdminCart(array) {
     let rowSpanHTML = ``;
     let imageName = '';
     let adminStatus = '';
-    let listCart = JSON.parse(localStorage.getItem('carts'));
-    for (let i = 0; i < listCart.length; i++) {
+    for (let i = 0; i < checkOuts.length; i++) {
         if(typeof checkOuts[i] == undefined) 
             continue;
         HTML += `
         <tr>
-        <td rowspan="${checkOuts[i-1].length}" class="rowspanTable">${temp++}</td>
-        <td rowspan="${checkOuts[i-1].length}" class="rowspanTable" style="width: 13%;border:1px solid">${checkOuts[i-1][0].checkOutId}</td>
-        <td rowspan="${checkOuts[i-1].length}" class="rowspanTable" style="width: 7%;border:1px solid" class="fa__left">${checkOuts[i-1][0].userName}</td>
+        <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
+        <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 13%;border:1px solid">${checkOuts[i][0].checkOutId}</td>
+        <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 7%;border:1px solid" class="fa__left">${checkOuts[i][0].userName}</td>
         `
 
-        for (let j = 0; j < checkOuts[i-1].length; j++) {
-            if (checkOuts[i-1][0].status == "Chờ lấy hàng") {
+        for (let j = 0; j < checkOuts[i].length; j++) {
+            if (checkOuts[i][0].status == "Chờ lấy hàng") {
                 adminStatus = "Chờ khách hàng xác nhận";
             } else {
-                adminStatus = checkOuts[i-1][0].status;
+                adminStatus = checkOuts[i][0].status;
             }
-            if (checkOuts[i-1][j].status === "Chờ xác nhận") {
+            if (checkOuts[i][j].status === "Chờ xác nhận") {
                 imageName = 'redpoint.png';
             } else {
                 imageName = 'greenpoint.png';
             }
             if (j == 0) {
                 rowSpanHTML += `
-                    <td rowspan=${checkOuts[i-1].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i-1][0].time}</td>
-                    <td rowspan=${checkOuts[i-1].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i][0].time}</td>
+                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
                         <img src="../image/`+ imageName + `" style="max-width:10px"> ${adminStatus}
                     </td>
                 `
-                if (checkOuts[i-1][j].status != "Đã nhận hàng" && checkOuts[i-1][j].status != "Chờ lấy hàng") {
+                if (checkOuts[i][j].status != "Đã nhận hàng" && checkOuts[i][j].status != "Chờ lấy hàng") {
                     actionHTML += `
-                                    <td rowspan=${checkOuts[i-1].length} class="rowspanTable" style="width: 10%;border:1px solid">
-                                        <div  id=${checkOuts[i-1][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i-1][j].checkOutId})">
+                                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                                        <div  id=${checkOuts[i][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i][j].checkOutId})">
                                             <i class="ti-check"></i>
                                             <span class="tooltiptext">Xác nhận</span>
                                         </div>
-                                        <div class="tooltip delete" onclick="deleteAdminCart(${checkOuts[i-1][j].checkOutId},this)">
+                                        <div class="tooltip delete" onclick="deleteAdminCart(${checkOuts[i][j].checkOutId},this)">
                                             <i class="fa fa-trash"></i>  
                                             <span class="tooltiptext">Xóa</span>
                                         </div>
@@ -471,7 +472,7 @@ function renderAdminCart(array) {
                                 </tr> 
                             `
                 } else {
-                    actionHTML += `<td rowspan=${checkOuts[i-1].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                    actionHTML += `<td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
                         </td>
                         </tr> 
                         `
@@ -479,9 +480,9 @@ function renderAdminCart(array) {
             } else {
                 HTML += `<tr>`
             }
-            if (typeof checkOuts[i-1][j].status != "undefined") {
-                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/` + checkOuts[i-1][j].image + `" style="max-width:90px"></td>
-                    <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[i-1][j].price).split('£')[1]) * parseInt(checkOuts[i-1][j].soluong)).toFixed(2)}</td>  
+            if (typeof checkOuts[i][j].status != "undefined") {
+                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/` + checkOuts[i][j].image + `" style="max-width:90px"></td>
+                    <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[i][j].price).split('£')[1]) * parseInt(checkOuts[i][j].soluong)).toFixed(2)}</td>  
                         ${rowSpanHTML}
                         ${actionHTML}
                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -493,7 +494,9 @@ function renderAdminCart(array) {
             rowSpanHTML = ``;
         }
     }
-    HTML+=addCancelCheckOut(temp);
+    if(!isFinding){
+        HTML+=addCancelCheckOut(temp);
+    }
     HTML += `</tbody> <table>`;
     document.getElementById('table-order').innerHTML = HTML;
 }
@@ -597,7 +600,7 @@ function deleteAdminCart(checkOutId, object) {
     let listObject=Array(checkOuts[currentCheckOutIndex].length).fill([]);
     listObject[0]=object.parentElement.parentElement;
     for(let i=1;i<checkOuts[currentCheckOutIndex].length;i++){
-        listObject[i]=listObject[i-1].nextElementSibling;
+        listObject[i]=listObject[i].nextElementSibling;
     }
     checkOuts[currentCheckOutIndex].forEach(e => {
         let deleteIndex = listCart[currentUserId].findIndex(x => x.id == e.id && x.checkOutId == e.checkOutId);
@@ -794,7 +797,7 @@ function thongKe1() {
     var yValues = getSubTotal1();
     var barColors = ["red", "green", "blue", "orange", "brown", "purple", "yellow"];
 
-    new Chart("myChart-1", {
+    new Chart("myChart", {
         type: "pie",
         data: {
             labels: xValues,
