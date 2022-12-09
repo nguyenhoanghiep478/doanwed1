@@ -498,7 +498,7 @@ function findProductByName(productName, beforeList) {
 }
 function addCategory() {
     let category = [
-        "BRANDS", "Consious Chocolate", "Element for life", "Enjoy", "Forever Cacao", "Ombar"
+        "BRANDS", "Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar"
     ]
     localStorage.setItem("categories", JSON.stringify(category));
 }
