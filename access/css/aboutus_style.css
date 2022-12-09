@@ -26,12 +26,13 @@ hr {
 }
 
 #container-content {
-  width: 1000px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 100px auto;
 }
 
 #content .content-aboutus {
   font-size: 16px;
+  text-align: justify;
 }
 
 #content .content-aboutus p {
