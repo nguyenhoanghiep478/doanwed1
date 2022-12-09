@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", loadSearchProduct(1));
 function loadSearchProduct(paginationIndex,findArray) {
-  
   let prefixObjectName='';
   if(localStorage.getItem('currentPage')=="search.html"){
     prefixObjectName='search';
@@ -29,19 +28,19 @@ function loadSearchProduct(paginationIndex,findArray) {
   let HTML = `
       <div class="left left-${prefixObjectName}">
         <ul class="list-product">
-          <li  onclick="renderProduct('BRANDS',this)" class="title-left title-left-${prefixObjectName} active">BRANDS</li>
+          <li  onclick="renderProduct('BRANDS',1)" class="title-left title-left-${prefixObjectName} active">BRANDS</li>
           <hr class="left-space" />
-          <li class="title-left-${prefixObjectName}" onclick="renderProduct('Consious Chocolate',this)">Consious Chocolate</li>
+          <li class="title-left-${prefixObjectName}" onclick="renderProduct('Consious Chocolate',1)">Consious Chocolate</li>
           <hr class="left-space hidden" />
-          <li onclick="renderProduct('Coracao Confections',this)">Coracao Confections</li>
+          <li onclick="renderProduct('Coracao Confections',1)">Coracao Confections</li>
           <hr class="left-space hidden" />
-          <li onclick="renderProduct('Element for life',this)">Element for life</li>
+          <li onclick="renderProduct('Element for life',1)">Element for life</li>
           <hr class="left-space hidden" />
-          <li onclick="renderProduct('Enjoy',this)">Enjoy</li>
+          <li onclick="renderProduct('Enjoy',1)">Enjoy</li>
           <hr class="left-space hidden" />
-          <li onclick="renderProduct('Forever Cacao',this)">Forever Cacao</li>
+          <li onclick="renderProduct('Forever Cacao',1)">Forever Cacao</li>
           <hr class="left-space hidden" />
-          <li onclick="renderProduct('Ombar',this)">Ombar</li>
+          <li onclick="renderProduct('Ombar',1)">Ombar</li>
           <hr class="left-space hidden" />
         </ul>
       </div>
