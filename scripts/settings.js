@@ -348,23 +348,20 @@ function getLocalStorage(localName) {
 function setLocalStorage(localName, localValue) {
     localStorage.setItem(localName, JSON.stringify(localValue));
 }
-function renderAdminCart(paginationIndex) {
-    if (typeof paginationIndex != "undefined") {
-        startIndex = 8 * Number(paginationIndex - 1);
-        finalIndex = startIndex + 4;
-    } else {
-        paginationIndex = 1;
-        startIndex = 0;
-        finalIndex = startIndex + 4;
-    }
+function renderAdminCart(array) {
     let temp = 1;
-    let checkOuts = getCheckOutArray();
+    let checkOuts;
+    if(typeof array!="undefined"){
+        checkOuts=array;
+    }else{
+        checkOuts= getCheckOutArray();
+    }
     let HTML = `<table> <tbody>`;
     let actionHTML = '';
     let rowSpanHTML = ``;
     let imageName = '';
     let adminStatus = '';
-    for (let i = startIndex; i < finalIndex; i++) {
+    for (let i = 0; i < checkOuts.length; i++) {
 
         HTML += `
         <tr>
@@ -429,29 +426,6 @@ function renderAdminCart(paginationIndex) {
         }
     }
     HTML += `</tbody> <table>`;
-    let numberPagination = 0;
-    if (checkOuts.length % 8 == 0) {
-        numberPagination = parseInt(checkOuts.length / 8);
-    } else {
-        numberPagination = parseInt(checkOuts.length / 8) + 1;
-    }
-    HTML += `<div class="pagination-container">`
-    HTML += `<ul class="pagination-list">`
-    if (parseInt(paginationIndex) > 1) {
-        HTML += ` <li onclick=loadSearchProduct(${paginationIndex - 1}) class="pagination"><a  href="#"><<</a></li>`;
-    }
-    for (let i = 1; i <= numberPagination; i++) {
-        if (i == parseInt(paginationIndex)) {
-            HTML += `<li  class="pagination"><a class="pagination-active" onclick="loadSearchProduct(this.innerText)" href="#">${i}</a></li>`
-        } else {
-            HTML += `<li  class="pagination"><a onclick="loadSearchProduct(this.innerText)" href="#">${i}</a></li>`
-        }
-    }
-    if (parseInt(paginationIndex) < numberPagination) {
-        HTML += ` <li onclick=loadSearchProduct(${parseInt(paginationIndex) + 1}) class="pagination"><a  href="#">>></a></li>`;
-    }
-    HTML += `</ul>`
-    HTML += `</div>`
     document.getElementById('table-order').innerHTML = HTML;
 }
 function changeStatus(object, checkOutId) {
@@ -603,7 +577,55 @@ function openThemNguoiDung() {
     sessionStorage.setItem('isRegister', "true");
     window.location = "adminRegister.html"
 }
+function findCheckOut(){
+    findCheckOutByDate();
+}
+function findCheckOutById(){
 
+}
+function findCheckOutByDate(){
+    let fromDate=document.getElementById('fromDate').value.split('-');
+    let toDate=document.getElementById('toDate').value.split('-');
+    let checkOuts=getCheckOutArray();
+    let checkOutIds=getLocalStorage('checkOutIds');
+    let checkOutsByDateArray=[];
+    let currentCheckOutIds=[];
+    let currentCheckOutIndex;
+    let date;
+    if(compareDate(fromDate,toDate)<0){
+        checkOuts.forEach(checkOut=>{
+            checkOut.map(x=>{
+                let temp;
+                date=(x.time.split(' ')[1]).split('/');
+                temp=date[0];
+                date[0]=date[2];
+                date[2]=temp;
+                if(compareDate(date,fromDate)>=0 && compareDate(date,toDate)<=0){
+                    if((currentCheckOutIndex=currentCheckOutIds.findIndex(value=>value==x.checkOutId))>=0){
+                        checkOutsByDateArray[currentCheckOutIndex].push(x);
+                    }else{
+                        currentCheckOutIds.push(x.checkOutId);
+                        checkOutsByDateArray.push([]);
+                        checkOutsByDateArray[checkOutsByDateArray.length-1].push(x);
+                    }
+                }
+            })
+        })
+        return renderAdminCart(checkOutsByDateArray);
+    }else if(compareDate(toDate,fromDate)<0){
+        alert('chọn thời gian sai ');
+    }
+}
+function compareDate(date1,date2){
+    for(let i =0;i<3;i++){
+        if(parseInt(date1[i])<parseInt(date2[i])){
+            return -1;
+        }else if(parseInt(date1[i])>parseInt(date2[i])){
+            return 1;
+        }
+    }
+    return 0;
+}
 /*function timSanPham() {
     const arr = JSON.parse(localStorage.getItem('product'))
     var list = [];
