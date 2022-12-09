@@ -1,8 +1,109 @@
+* {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+}
 #footer {
-  border-top: 1px solid rgb(139, 98, 81);
+  max-width: 100%;
   background-color: #f5f2ef;
 }
 
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 200px auto;
+}
+.footer-left {
+  display: flex;
+  grid-column: 1/-2;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+h6 {
+  font-size: 22px;
+  font-weight: 300;
+}
+.footer-left li {
+  list-style-type: none;
+  line-height: 2;
+}
+.footer-left li a {
+  text-decoration: none;
+  color: rgb(139, 98, 81);
+}
+.footer-left-list {
+  font-size: 12px;
+}
+.footer-menu {
+  grid-column: 1/-1;
+  margin-top: 12px;
+  font-size: 12px;
+}
+.footer-menu-list ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  gap: 24px;
+}
+.copyright {
+  text-align: center;
+  line-height: 2;
+  margin-top: 12px;
+}
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  grid-column: 2/-1;
+  gap: 12px;
+  margin-bottom: 24px;
+  margin-right: 180px;
+  font-size: 12px;
+  margin-top: 12px;
+}
+.footer-slogan {
+  display: inline-block;
+  text-align: center;
+}
+#footer .input-email {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  width: 60%;
+}
+#footer .submit-button {
+  width: 12%;
+  padding: 6px 0;
+  font-size: 13px;
+  color: white;
+  background-color: rgb(82, 22, 12);
+  border-radius: 5%;
+}
+.footer-icon-list {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+#footer .footer-icon {
+  font-size: 25px;
+  text-decoration: none;
+  color: rgb(139, 98, 81);
+  border: 2px solid rgb(139, 98, 81);
+  border-radius: 50%;
+  padding: 10px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+.footer-form-header {
+  font-weight: 600;
+}
+/* 
 #container-footer {
   height: 500px;
   padding-top: 35px;
@@ -120,9 +221,9 @@
 
 #footer .footer-menu {
   /* display: none; */
-}
+/* } */
 
-#footer .footer-menu hr {
+/* #footer .footer-menu hr {
   border-top: 1px solid rgb(139, 98, 81);
 }
 
@@ -153,4 +254,4 @@
 #footer .copyright {
   font-size: 13px;
   text-align: center;
-}
+} */ ;
