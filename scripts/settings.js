@@ -13,6 +13,11 @@ window.onload = () => {
 const navItems = document.querySelectorAll('.nav-item');
 const sectionItems = document.querySelectorAll('.section > div');
 
+function dateStats() {
+    let dateStats = document.getElementById('dateStats').value.split('-');
+    window.onload = thongKe2(parseInt(dateStats[2]), parseInt(dateStats[1]), parseInt(dateStats[0]));
+}
+
 navItems.forEach(function (navItem, index) {
     navItem.onclick = function () {
         document.querySelector('.nav-item.active').classList.remove('active');
@@ -24,7 +29,11 @@ navItems.forEach(function (navItem, index) {
         switch (index) {
             case 0:
                 document.querySelector('.section__stats').style.display = "flex";
-                window.onload = thongKe();
+                document.querySelector('.section__stats-1').style.display = "flex";
+                document.querySelector('.section__stats-2').style.display = "flex";
+                window.onload = thongKe1();
+                let date = new Date();
+                window.onload = thongKe2(date.getDate(), date.getMonth() + 1, date.getFullYear());
                 break;
             case 1:
                 document.querySelector('.section__product').style.display = "block";
@@ -279,7 +288,7 @@ function deleteProduct(id) {
 function editProduct(i, j) {
 
 }
-function getSubTotal() {
+function getSubTotal1() {
     let listCart = getLocalStorage('carts');
     let listSoldOut = Array(7).fill(0);
     for (let j = 1; j < listCart.length; j++) {
@@ -323,6 +332,63 @@ function getSubTotal() {
     }
     return listSoldOut;
 }
+
+function getSubTotal2(date, month, year) {
+    let listCart = getLocalStorage('carts');
+    let listSoldOut = Array(7).fill(0);
+    for (let j = 1; j < listCart.length; j++) {
+        for (let i = 0; i < listCart[j].length; i++) {
+            let time = listCart[j][i].time.split('/');
+            if (listCart[j][i].status == "Đã nhận hàng" && parseInt(time[0].split(' ')[1]) == date && parseInt(time[1]) == month && parseInt(time[2]) == year) {
+                switch (listCart[j][i].category) {
+                    case "Consious Chocolate": {
+                        listSoldOut[0] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Coracao Confections": {
+                        listSoldOut[1] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Element for life": {
+                        listSoldOut[2] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "BRANDS": {
+                        listSoldOut[6] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Enjoy": {
+                        listSoldOut[3] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Forever Cacao": {
+                        listSoldOut[4] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Ombar": {
+                        listSoldOut[5] += parseFloat(listCart[j][i].price.split('£')[1]);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    for (let i = 0; i < 7; i++) {
+        listSoldOut[i] = listSoldOut[i].toFixed(2);
+    }
+    return listSoldOut;
+}
+
+// function setDateStats() {
+//     let dateStats = Array(3);
+//     dateStats[0] = parseInt(document.getElementById('dateStats').value.split('-')[0]);
+//     dateStats[1] = parseInt(document.getElementById('dateStats').value.split('-')[1]);
+//     dateStats[2] = parseInt(document.getElementById('dateStats').value.split('-')[2]);
+//     let date = new Date(`${dateStats[0]}-${dateStats[1]}-${dateStats[2]+1}`);
+//     document.getElementById('dateStats').value = date.toISOString().substring(0, 10);
+//     window.onload = thongKe2();
+// }
+
 function getCheckOutArray() {
     let checkOutIds = getLocalStorage('checkOutIds');
     let listCart = getLocalStorage('carts');
@@ -361,41 +427,43 @@ function renderAdminCart(array) {
     let rowSpanHTML = ``;
     let imageName = '';
     let adminStatus = '';
-    for (let i = 0; i < checkOuts.length; i++) {
-
+    let listCart = JSON.parse(localStorage.getItem('carts'));
+    for (let i = 0; i < listCart.length; i++) {
+        if(typeof checkOuts[i] == undefined) 
+            continue;
         HTML += `
         <tr>
-        <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
-        <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 13%;border:1px solid">${checkOuts[i][0].checkOutId}</td>
-        <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 7%;border:1px solid" class="fa__left">${checkOuts[i][0].userName}</td>
+        <td rowspan="${checkOuts[i-1].length}" class="rowspanTable">${temp++}</td>
+        <td rowspan="${checkOuts[i-1].length}" class="rowspanTable" style="width: 13%;border:1px solid">${checkOuts[i-1][0].checkOutId}</td>
+        <td rowspan="${checkOuts[i-1].length}" class="rowspanTable" style="width: 7%;border:1px solid" class="fa__left">${checkOuts[i-1][0].userName}</td>
         `
 
-        for (let j = 0; j < checkOuts[i].length; j++) {
-            if (checkOuts[i][0].status == "Chờ lấy hàng") {
+        for (let j = 0; j < checkOuts[i-1].length; j++) {
+            if (checkOuts[i-1][0].status == "Chờ lấy hàng") {
                 adminStatus = "Chờ khách hàng xác nhận";
             } else {
-                adminStatus = checkOuts[i][0].status;
+                adminStatus = checkOuts[i-1][0].status;
             }
-            if (checkOuts[i][j].status === "Chờ xác nhận") {
+            if (checkOuts[i-1][j].status === "Chờ xác nhận") {
                 imageName = 'redpoint.png';
             } else {
                 imageName = 'greenpoint.png';
             }
             if (j == 0) {
                 rowSpanHTML += `
-                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i][0].time}</td>
-                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                    <td rowspan=${checkOuts[i-1].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i-1][0].time}</td>
+                    <td rowspan=${checkOuts[i-1].length} class="rowspanTable" style="width: 10%;border:1px solid">
                         <img src="../image/`+ imageName + `" style="max-width:10px"> ${adminStatus}
                     </td>
                 `
-                if (checkOuts[i][j].status != "Đã nhận hàng" && checkOuts[i][j].status != "Chờ lấy hàng") {
+                if (checkOuts[i-1][j].status != "Đã nhận hàng" && checkOuts[i-1][j].status != "Chờ lấy hàng") {
                     actionHTML += `
-                                    <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
-                                        <div  id=${checkOuts[i][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i][j].checkOutId})">
+                                    <td rowspan=${checkOuts[i-1].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                                        <div  id=${checkOuts[i-1][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i-1][j].checkOutId})">
                                             <i class="ti-check"></i>
                                             <span class="tooltiptext">Xác nhận</span>
                                         </div>
-                                        <div class="tooltip delete" onclick="deleteAdminCart(${checkOuts[i][j].checkOutId},this)">
+                                        <div class="tooltip delete" onclick="deleteAdminCart(${checkOuts[i-1][j].checkOutId},this)">
                                             <i class="fa fa-trash"></i>  
                                             <span class="tooltiptext">Xóa</span>
                                         </div>
@@ -403,7 +471,7 @@ function renderAdminCart(array) {
                                 </tr> 
                             `
                 } else {
-                    actionHTML += `<td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                    actionHTML += `<td rowspan=${checkOuts[i-1].length} class="rowspanTable" style="width: 10%;border:1px solid">
                         </td>
                         </tr> 
                         `
@@ -411,9 +479,9 @@ function renderAdminCart(array) {
             } else {
                 HTML += `<tr>`
             }
-            if (typeof checkOuts[i][j].status != "undefined") {
-                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/` + checkOuts[i][j].image + `" style="max-width:90px"></td>
-                    <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[i][j].price).split('£')[1]) * parseInt(checkOuts[i][j].soluong)).toFixed(2)}</td>  
+            if (typeof checkOuts[i-1][j].status != "undefined") {
+                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/` + checkOuts[i-1][j].image + `" style="max-width:90px"></td>
+                    <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[i-1][j].price).split('£')[1]) * parseInt(checkOuts[i-1][j].soluong)).toFixed(2)}</td>  
                         ${rowSpanHTML}
                         ${actionHTML}
                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -721,12 +789,12 @@ function compareDate(date1,date2){
 }*/
 
 //thong ke
-function thongKe() {
+function thongKe1() {
     var xValues = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar", "BRANDS"];
-    var yValues = getSubTotal();
+    var yValues = getSubTotal1();
     var barColors = ["red", "green", "blue", "orange", "brown", "purple", "yellow"];
 
-    new Chart("myChart", {
+    new Chart("myChart-1", {
         type: "pie",
         data: {
             labels: xValues,
@@ -739,6 +807,31 @@ function thongKe() {
             title: {
                 display: true,
                 text: "Thống kê doanh thu theo loại sản phẩm"
+            }
+        }
+    });
+    //
+}
+
+function thongKe2(date, month, year) {
+    var xValues = ["Consious Chocolate", "Coracao Confections", "Element for life", "Enjoy", "Forever Cacao", "Ombar", "BRANDS"];
+    var yValues = getSubTotal2(date, month, year);
+    var barColors = ["red", "green", "blue", "orange", "brown", "purple", "yellow"];
+
+    new Chart("myChart-2", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+                display: true,
+                text: `Thống kê doanh thu theo ngày ${date}/${month}/${year}`
             }
         }
     });

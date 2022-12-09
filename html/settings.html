@@ -60,8 +60,18 @@
         <!-- Khung hiển thị chính -->
         <div class="section">
 
-            <div class="section__stats" style="justify-content: center">
-                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            <div class="section__stats" sytle="display: flex; align-items: center">
+                <div class="section__stats-1" style="width: 340px; margin-left: 48px; margin-top: 48px;">
+                    <canvas id="myChart-1" style="width:100%; max-width:340px"></canvas>
+                </div>
+                
+                <div class="section__stats-2" style="width: 600px; margin-top: 96px; align-self: center;">
+                    <canvas id="myChart-2" style="width: 100%; max-width:600px"></canvas>
+                    <span style="color: #ccc; margin-left: 16px;">
+                        Ngày thống kê<input type="date" id="dateStats" style="max-height: 20px;">
+                        <input type="button" value="Thống kê" onclick="dateStats()" style="margin-top: 8px;">
+                    </span>
+                </div>
             </div>
     
             <!-- Sản Phẩm -->

@@ -61,26 +61,47 @@ const modalclose = document.querySelectorAll(".js-modal-close");
 const nextLink = document.querySelector(".nextLine");
 const turnBack = document.querySelector(".modal-turn-back");
 const messageLogin = document.getElementById("messageLogin");
-const modalBody = document.getElementsByClassName("modal-body")[0];
+
+function resetInput() {
+    document.getElementById("modal-username-signup").value = '';
+    document.getElementById("modal-name").value = '';
+    document.getElementById("modal-date").value = '';
+    document.getElementById("modal-email-signup").value = '';
+    document.getElementById("modal-password-signup").value = '';
+    document.getElementById("modal-email").value = '';
+    document.getElementById("modal-password").value = '';
+}
+
+function removeNoficationSignup() {
+    let notifySignup = document.getElementsByClassName("notify-signup");
+    for(let i = 0; i < notifySignup.length; i++) {
+        if(notifySignup[i].hasChildNodes())
+            notifySignup[i].removeChild(notifySignup[i].firstElementChild);
+    }
+}
 
 loginbtn.onclick = () => {
     modalformlogin.style.display="block";
     modalformsingup.style.display="none";
-    messageLogin.removeChild(messageLogin.firstElementChild);
+    if(messageLogin.hasChildNodes())
+        messageLogin.removeChild(messageLogin.firstElementChild);
 }
 nextLink.addEventListener("click",() => {
     modalformlogin.style.display = "none";
     modalformsingup.style.display = "block";
+    removeNoficationSignup();
 })
 
 turnBack.addEventListener("click",()=>{
     modalformlogin.style.display="block";
     modalformsingup.style.display="none";
-    messageLogin.removeChild(messageLogin.firstElementChild);
+    if(messageLogin.hasChildNodes())
+        messageLogin.removeChild(messageLogin.firstElementChild);
 })
 
 loginbtn.addEventListener("click",()=>{
     if(localStorage.getItem('user')===null){
+        resetInput();
         modal.classList.add("open");
     }else {
         window.location="profile.html"
@@ -174,11 +195,21 @@ function messageAlert(messageAlert){
     return message;
 }
 function isCorrect(username,name,date,sex,email,password){
+    removeNoficationSignup();
     let check = true;
     if(username.value===''){
         let userNof=document.getElementById("userNofication");
         userNof.innerHTML=messageAlert("user name can't empty");
         check=false;
+    }
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    for(let i = 0; i <= userData.length; i++) {
+        if(username.value == userData[i].user) {
+            let userNof=document.getElementById("userNofication");
+            userNof.innerHTML=messageAlert("user name is duplicate");
+            check=false;
+            break;
+        }
     }
     if(name.value===''){
         let nameNof=document.getElementById("nameNofication");
