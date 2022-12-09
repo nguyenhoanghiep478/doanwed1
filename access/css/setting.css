@@ -34,7 +34,34 @@ header h2 {
     font-weight: bold;
     color: #fff;
 }
-
+/* pagination */
+.pagination-container {
+    grid-column: 1/-1;
+    width: 100%;
+  }
+  .pagination-list {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .pagination {
+    display: inline-block;
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  .pagination a.pagination-active {
+    background-color: rgb(82, 22, 12);
+    color: white;
+  }
+  
+  .pagination a:hover:not(.pagination-active) {
+    background-color: #ddd;
+  }
 
 /* =========== Menu ================= */
 

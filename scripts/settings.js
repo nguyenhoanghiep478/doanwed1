@@ -84,7 +84,7 @@ function updateProduct(product) {
     </td>
     <td style="width: 40%" class="fa__left"><input type="text" value="${settingProduct.name}"></td>
     <td style="width: 15%"><input type="text" value="${settingProduct.price}"></td>
-    <td style="width: 15%"><img src="${settingProduct.image}" style="max-width:80px"></td>
+    <td style="width: 15%"><input type="file"></td>
     <td style="width: 15%">
         <div  class="tooltip update" onclick="saveChange(${settingProduct.id})">
             <i class="ti-check"></i>
@@ -104,10 +104,13 @@ function saveChange(id) {
     let selectValue = document.getElementById("categories").value;
     let listProduct = JSON.parse(localStorage.getItem('products'));
     for (let i = 0; i < listProduct.length; i++) {
-        if (listProduct[i].id === id + "") {
+        if (listProduct[i].id == id) {
             listProduct[i].category = selectValue;
             listProduct[i].name = inputs[0].value;
+            const imgArr = inputs[2].value.split(/\/|\\/g)
+            const imgDir = "../access/img/" + imgArr[imgArr.length - 1]
             listProduct[i].price = inputs[1].value;
+            listProduct[i].image = imgDir;
             break;
         }
     }
@@ -179,7 +182,7 @@ function addProduct() {
         const type = typeProduct.selectedOptions[0].text;
         const name = nameProduct.value;
         const price = '£' + priceProduct.value
-        const id = arr[arr.length].id + 1;
+        const id = 1 + parseInt(arr[arr.length - 1].id);
         const category = type;
         if (img != "" && name != "" && price != "") {
             arr.push({
@@ -345,16 +348,24 @@ function getLocalStorage(localName) {
 function setLocalStorage(localName, localValue) {
     localStorage.setItem(localName, JSON.stringify(localValue));
 }
-function renderAdminCart() {
+function renderAdminCart(paginationIndex) {
+    if (typeof paginationIndex != "undefined") {
+        startIndex = 8 * Number(paginationIndex - 1);
+        finalIndex = startIndex + 4;
+    } else {
+        paginationIndex = 1;
+        startIndex = 0;
+        finalIndex = startIndex + 4;
+    }
     let temp = 1;
     let checkOuts = getCheckOutArray();
     let HTML = `<table> <tbody>`;
     let actionHTML = '';
     let rowSpanHTML = ``;
     let imageName = '';
-    let adminStatus='';
-    for (let i = 0; i < checkOuts.length; i++) {
-       
+    let adminStatus = '';
+    for (let i = startIndex; i < finalIndex; i++) {
+
         HTML += `
         <tr>
         <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
@@ -363,10 +374,10 @@ function renderAdminCart() {
         `
 
         for (let j = 0; j < checkOuts[i].length; j++) {
-            if(checkOuts[i][0].status=="Chờ lấy hàng"){
-                adminStatus="Chờ khách hàng xác nhận";
-            }else{
-                adminStatus=checkOuts[i][0].status;
+            if (checkOuts[i][0].status == "Chờ lấy hàng") {
+                adminStatus = "Chờ khách hàng xác nhận";
+            } else {
+                adminStatus = checkOuts[i][0].status;
             }
             if (checkOuts[i][j].status === "Chờ xác nhận") {
                 imageName = 'redpoint.png';
@@ -374,13 +385,13 @@ function renderAdminCart() {
                 imageName = 'greenpoint.png';
             }
             if (j == 0) {
-                rowSpanHTML+=`
+                rowSpanHTML += `
                     <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i][0].time}</td>
                     <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
                         <img src="../image/`+ imageName + `" style="max-width:10px"> ${adminStatus}
                     </td>
                 `
-                if (checkOuts[i][j].status != "Đã nhận hàng"&&checkOuts[i][j].status!="Chờ lấy hàng") {
+                if (checkOuts[i][j].status != "Đã nhận hàng" && checkOuts[i][j].status != "Chờ lấy hàng") {
                     actionHTML += `
                                     <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
                                         <div  id=${checkOuts[i][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i][j].checkOutId})">
@@ -400,11 +411,11 @@ function renderAdminCart() {
                         </tr> 
                         `
                 }
-            }else{
-                HTML+=`<tr>`
+            } else {
+                HTML += `<tr>`
             }
             if (typeof checkOuts[i][j].status != "undefined") {
-                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/`+ checkOuts[i][j].image + `" style="max-width:90px"></td>
+                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/` + checkOuts[i][j].image + `" style="max-width:90px"></td>
                     <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[i][j].price).split('£')[1]) * parseInt(checkOuts[i][j].soluong)).toFixed(2)}</td>  
                         ${rowSpanHTML}
                         ${actionHTML}
@@ -412,16 +423,39 @@ function renderAdminCart() {
                 `
             }
 
-            HTML+=`</tr>`;
+            HTML += `</tr>`;
             actionHTML = '';
-            rowSpanHTML=``;
+            rowSpanHTML = ``;
         }
     }
     HTML += `</tbody> <table>`;
+    let numberPagination = 0;
+    if (checkOuts.length % 8 == 0) {
+        numberPagination = parseInt(checkOuts.length / 8);
+    } else {
+        numberPagination = parseInt(checkOuts.length / 8) + 1;
+    }
+    HTML += `<div class="pagination-container">`
+    HTML += `<ul class="pagination-list">`
+    if (parseInt(paginationIndex) > 1) {
+        HTML += ` <li onclick=loadSearchProduct(${paginationIndex - 1}) class="pagination"><a  href="#"><<</a></li>`;
+    }
+    for (let i = 1; i <= numberPagination; i++) {
+        if (i == parseInt(paginationIndex)) {
+            HTML += `<li  class="pagination"><a class="pagination-active" onclick="loadSearchProduct(this.innerText)" href="#">${i}</a></li>`
+        } else {
+            HTML += `<li  class="pagination"><a onclick="loadSearchProduct(this.innerText)" href="#">${i}</a></li>`
+        }
+    }
+    if (parseInt(paginationIndex) < numberPagination) {
+        HTML += ` <li onclick=loadSearchProduct(${parseInt(paginationIndex) + 1}) class="pagination"><a  href="#">>></a></li>`;
+    }
+    HTML += `</ul>`
+    HTML += `</div>`
     document.getElementById('table-order').innerHTML = HTML;
 }
 function changeStatus(object, checkOutId) {
-    let currentLogin=getLocalStorage('user');
+    let currentLogin = getLocalStorage('user');
     let parentNode = object.parentElement;
     let checkOutIds = getLocalStorage('checkOutIds');
     let checkOuts = getCheckOutArray();
@@ -429,23 +463,23 @@ function changeStatus(object, checkOutId) {
     for (let i = 0; i < checkOuts[checkOutIndex].length; i++) {
         if (checkOuts[checkOutIndex][i].status == "Chờ xác nhận") {
             checkOuts[checkOutIndex][i].status = "Đang giao hàng";
-        }else if(checkOuts[checkOutIndex][i].status=="Đang giao hàng"){
+        } else if (checkOuts[checkOutIndex][i].status == "Đang giao hàng") {
             checkOuts[checkOutIndex][i].status = "Chờ lấy hàng";
             parentNode.innerHTML = '';
-        }else{
+        } else {
             checkOuts[checkOutIndex][i].status = "Đã nhận hàng";
             parentNode.innerHTML = '';
-            if(currentLogin.role=="admin"){
+            if (currentLogin.role == "admin") {
                 thongKe();
             }
         }
     }
     referenceCheckOutToCarts(checkOuts, checkOutIndex);
-    let adminStatus='';
-    if(checkOuts[checkOutIndex][0].status=="Chờ lấy hàng"){
-        adminStatus='Chờ khách hàng xác nhận';
-    }else{
-        adminStatus=checkOuts[checkOutIndex][0].status;
+    let adminStatus = '';
+    if (checkOuts[checkOutIndex][0].status == "Chờ lấy hàng") {
+        adminStatus = 'Chờ khách hàng xác nhận';
+    } else {
+        adminStatus = checkOuts[checkOutIndex][0].status;
     }
     let HTML = `<img src="../image/greenpoint.png" style="max-width:10px">  ${adminStatus}`
     parentNode.previousElementSibling.innerHTML = HTML;
@@ -458,23 +492,23 @@ function referenceCheckOutToCarts(checkOutArray, checkOutIndex) {
     let currentCartIndex = 0;
     checkOutArray[checkOutIndex].forEach(e => {
         currentUserId = listUser[listUser.findIndex(x => x.name == e.userName)].id;
-        currentCartIndex = listCart[currentUserId].findIndex(x => x.id == e.id && x.checkOutId==e.checkOutId);
+        currentCartIndex = listCart[currentUserId].findIndex(x => x.id == e.id && x.checkOutId == e.checkOutId);
         listCart[currentUserId][currentCartIndex].status = e.status;
     })
     setLocalStorage('carts', listCart);
 }
 function deleteAdminCart(checkOutId, object) {
-    let checkOuts=getCheckOutArray();
-    let checkOutIds=getLocalStorage('checkOutIds');
-    let currentCheckOutIndex=checkOutIds.findIndex(x=>x==checkOutId);
+    let checkOuts = getCheckOutArray();
+    let checkOutIds = getLocalStorage('checkOutIds');
+    let currentCheckOutIndex = checkOutIds.findIndex(x => x == checkOutId);
     let listCart = getLocalStorage('carts');
-    let listUser=getLocalStorage('userData');
-    let currentUserId=listUser.findIndex(x=>x.name==checkOuts[currentCheckOutIndex][0].userName);
-    checkOuts[currentCheckOutIndex].forEach(e=>{
-        let deleteIndex=listCart[currentUserId].findIndex(x=>x.id==e.id && x.checkOutId==e.checkOutId);
-        listCart[currentUserId].splice(deleteIndex,1);
+    let listUser = getLocalStorage('userData');
+    let currentUserId = listUser.findIndex(x => x.name == checkOuts[currentCheckOutIndex][0].userName);
+    checkOuts[currentCheckOutIndex].forEach(e => {
+        let deleteIndex = listCart[currentUserId].findIndex(x => x.id == e.id && x.checkOutId == e.checkOutId);
+        listCart[currentUserId].splice(deleteIndex, 1);
     })
-    setLocalStorage('carts',listCart);
+    setLocalStorage('carts', listCart);
     let tableOrder = document.getElementById('table-order');
     tableOrder.removeChild(object.parentElement.parentElement);
 }
@@ -517,7 +551,7 @@ function renderUserData() {
 }
 function changeStatusUser(user) {
     let userData = getLocalStorage('userData');
-    
+
     for (let i = 0; i < userData.length; i++) {
         if (userData[i].user === user) {
             if (userData[i].status == "blocked")

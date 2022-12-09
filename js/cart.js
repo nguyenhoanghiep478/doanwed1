@@ -67,7 +67,7 @@ function renderCart() {
       subCart.classList.remove('showCart');
       subCart.nextElementSibling.classList.remove('hiddenCart');
       listCart.map((x) => {
-        if (x.status != "Đã nhận hàng") {
+        if (typeof x.checkOutId=="undefined") {
           HTML += `
               <div class="product">
                 <ul class="title-cart">
@@ -138,7 +138,7 @@ function addNoneUserCartToUserCart(id) {
   let allCart = JSON.parse(localStorage.getItem('carts'));
   if (allCart[0].length > 0) {
     allCart[0].map(x => {
-      if ((duplicateIndex = findByProductId(x.id, allCart[id])) != -1) {
+      if ((duplicateIndex = findByProductIdWithoutCheckOutId(x.id, allCart[id])) != -1) {
         allCart[currentUserIndex][duplicateIndex].soluong += x.soluong;
       } else {
         x.userName = userData[currentUserIndex].name;

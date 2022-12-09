@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", loadSearchProduct(1));
 function loadSearchProduct(paginationIndex,findArray) {
+  
   let prefixObjectName='';
   if(localStorage.getItem('currentPage')=="search.html"){
     prefixObjectName='search';
@@ -117,12 +118,13 @@ function loadSearchProduct(paginationIndex,findArray) {
     }
   }
   if (parseInt(paginationIndex) < numberPagination) {
-    HTML += ` <li onclick=loadSearchProduct(${paginationIndex + 1}) class="pagination"><a  href="#">>></a></li>`;
+    HTML += ` <li onclick=loadSearchProduct(${parseInt(paginationIndex)+1}) class="pagination"><a  href="#">>></a></li>`;
   }
   HTML += `</ul>`
   HTML += `</div>`
   HTML += "</div>";
   productList.innerHTML = HTML;
+  window.scrollTo(0,200);
 }
 
 

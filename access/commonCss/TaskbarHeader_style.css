@@ -139,6 +139,7 @@
 }
 
 #header #requiredContainer {
+  z-index: 1;
   position: absolute;
   width: 90%;
   background-color: rgb(245, 242, 239);
