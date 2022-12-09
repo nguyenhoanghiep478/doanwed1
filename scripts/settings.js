@@ -417,8 +417,10 @@ function setLocalStorage(localName, localValue) {
 function renderAdminCart(array) {
     let temp = 1;
     let checkOuts;
+    let isFinding=false;
     if(typeof array!="undefined"){
         checkOuts=array;
+        isFinding=true;
     }else{
         checkOuts= getCheckOutArray();
     }
@@ -493,7 +495,9 @@ function renderAdminCart(array) {
             rowSpanHTML = ``;
         }
     }
-    HTML+=addCancelCheckOut(temp);
+    if(!isFinding){
+        HTML+=addCancelCheckOut(temp);
+    }
     HTML += `</tbody> <table>`;
     document.getElementById('table-order').innerHTML = HTML;
 }
@@ -597,7 +601,7 @@ function deleteAdminCart(checkOutId, object) {
     let listObject=Array(checkOuts[currentCheckOutIndex].length).fill([]);
     listObject[0]=object.parentElement.parentElement;
     for(let i=1;i<checkOuts[currentCheckOutIndex].length;i++){
-        listObject[i]=listObject[i-1].nextElementSibling;
+        listObject[i]=listObject[i].nextElementSibling;
     }
     checkOuts[currentCheckOutIndex].forEach(e => {
         let deleteIndex = listCart[currentUserId].findIndex(x => x.id == e.id && x.checkOutId == e.checkOutId);
