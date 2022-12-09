@@ -344,7 +344,7 @@ function addKeyBoardSearch() {
             localStorage.setItem("findProduct", JSON.stringify(controllerFindProduct(searchKeyboard.value, category, minPrice, maxPrice)));
             document.getElementById('requiredContainer').setAttribute('class', 'hidden');
             redirectPage('search.html');
-            loadSearchProduct(1);
+            renderProduct(category);
         }
     })
 };
@@ -360,11 +360,12 @@ function addHideListSearch() {
     // });
 }
 
-function renderProduct(category, object, paginationIndex) {
+function renderProduct(category, paginationIndex) {
     if(typeof paginationIndex =="undefined"){
         paginationIndex=1;
     }
     let listProducts = controllerFindProduct('', category, '', '');
+    setLocalStorage('findProduct',listProducts);
     let objectName='';
     if(localStorage.getItem('currentPage')=="thechocolates.html"){
             objectName="chocolate";
