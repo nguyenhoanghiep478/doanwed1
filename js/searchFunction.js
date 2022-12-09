@@ -2,56 +2,56 @@ var products = [
 
     {
         id: '1',
-        image: '../access/img/img_1.webp',
+        image: '../access/img/list-img-9.webp',
         name: 'Peruvian Organic Raw Cacao Butter (250g)',
         price: '£7.49',
-        category: 'BRANDS'
+        category: 'Ombar'
     },
     {
         id: '2',
-        image: '../access/img/img_1.webp',
+        image: '../access/img/list-img-40.webp',
         name: 'Peruvian Organic Raw Cacao Butter (250g)',
         price: '£7.49',
         category: 'BRANDS'
     },
     {
         id: '3',
-        image: '../access/img/img_1.webp',
+        image: '../access/img/list-img-1.webp',
         name: 'Peruvian Organic Raw Cacao Butter (250g)',
         price: '£7.49',
         category: 'Consious Chocolate'
     },
     {
         id: '4',
-        image: '../access/img/img_1.webp',
+        image: '../access/img/list-img-45.webp',
         name: 'Peruvian Organic Raw Cacao Butter (250g)',
         price: '£7.49',
         category: 'Element for life'
     },
     {
         id: '5',
-        image: '../access/img/img_1.webp',
+        image: '../access/img/list-img-14.webp',
         name: 'Peruvian Organic Raw Cacao Butter (250g)',
         price: '£7.49',
         category: 'Enjoy'
     },
     {
         id: '6',
-        image: '../access/img/img_1.webp',
+        image: '../access/img/list-img-19.webp',
         name: 'Peruvian Organic Raw Cacao Butter (250g)',
         price: '£7.49',
         category: 'Forever Cacao'
     },
     {
         id: '7',
-        image: '../access/img/img_1.webp',
+        image: '../access/img/list-img-20.webp',
         name: 'Peruvian Organic Raw Cacao Butter (250g)',
         price: '£7.49',
         category: 'Ombar'
     },
     {
         id: '8',
-        image: '../access/img/list-img-1.webp',
+        image: '../access/img/list-img-21.webp',
         name: 'Conscious Citrus Zest',
         weight: '60g',
         price: '£2.99',
@@ -59,23 +59,23 @@ var products = [
     },
     {
         id: '9',
-        image: '../access/img/list-img-2.webp',
+        image: '../access/img/list-img-34.jpg',
         name: 'Conscious Dark Side 85%',
         weight: '60g',
-        price: 'Sold out',
+        price: '£3.99',
         category: 'Forever Cacao'
     },
     {
         id: '10',
-        image: '../access/img/list-img-3.webp',
+        image: '../access/img/list-img-38.webp',
         name: 'Conscious Four Nuts',
         weight: '60g',
         price: '£2.99',
-        category: 'Element for life'
+        category: 'Consious Chocolate'
     },
     {
         id: '11',
-        image: '../access/img/list-img-4.webp',
+        image: '../access/img/list-img-15.webp',
         name: 'Conscious Goji and Coconut',
         weight: '60g',
         price: '£2.99',
@@ -83,7 +83,7 @@ var products = [
     },
     {
         id: '12',
-        image: '../access/img/list-img-5.webp',
+        image: '../access/img/list-img-2.webp',
         name: 'Conscious Love Potion No.9',
         weight: '60g',
         price: '£2.99',
@@ -91,90 +91,89 @@ var products = [
     },
     {
         id: '13',
-        image: '../access/img/list-img-6.webp',
+        image: '../access/img/list-img-22.webp',
         name: 'Conscious Maca & Sprirulina',
         weight: '60g',
         price: '£2.99',
-        category: 'BRANDS'
+        category: 'Ombar'
     },
     {
         id: '14',
-        image: '../access/img/list-img-7.webp',
+        image: '../access/img/list-img-29.webp',
         name: 'Conscious Orange & Tanregine',
         weight: '60g',
         price: '£2.99',
-        category: 'BRANDS'
+        category: 'Ombar'
     },
     {
         id: '15',
-        image: '../access/img/list-img-8.webp',
+        image: '../access/img/list-img-3.webp',
         name: 'Coracao 81% Cacao Bar',
         weight: '(2oz/57g)',
-        price: 'Sold out',
+        price: '£3.99',
         category: 'Consious Chocolate'
 
     },
     {
         id: '16',
-        image: '../access/img/list-img-9.avif',
+        image: '../access/img/list-img-4.webp',
         name: 'Coracao After Dark Bar',
         weight: '(2oz/57g)',
-        price: 'Sold out',
+        price: '£3.99',
         category: 'Consious Chocolate'
     },
     {
         id: '17',
-        image: '../access/img/list-img-10.webp',
+        image: '../access/img/list-img-39.webp',
         name: 'Coracao Berkeley Bar',
         weight: '(2.5oz/70g)',
-        price: 'Sold out',
-        category: 'Element for life'
+        price: '£2.99',
+        category: 'Consious Chocolate'
     },
     {
         id: '18',
-        image: '../access/img/list-img-11.webp',
+        image: '../access/img/list-img-16.webp',
         name: 'Coracao Caramel Bar',
         weight: '(2.5oz/70g)',
-        price: 'Sold out',
+        price: '£2.99',
         category: 'Enjoy'
     },
     {
         id: '19',
-        image: '../access/img/list-img-12.webp',
+        image: '../access/img/list-img-17.webp',
         name: 'Coracao Hazelnut Cream Bar',
         weight: '(2oz/56g)',
-        price: 'Sold out',
+        price: '£2.99',
         category: 'Enjoy'
     },
     {
         id: '20',
-        image: '../access/img/list-img-13.webp',
+        image: '../access/img/list-img-18.webp',
         name: 'Yummy Scrummy Raw Chocolate Brownie',
         price: 'from £2.99',
         category: 'Enjoy'
     },
     {
         id: '21',
-
-        image: '../access/img/list-img-14.webp',
+        image: '../access/img/list-img-31.webp',
         name: 'Enjoy! Coconut Milk',
         weight: '(70g)',
         price: 'from £2.99',
-        category: 'BRANDS'
+        category: 'Ombar'
     },
     {
         id: '22',
 
-        image: '../access/img/list-img-13.webp',
+        image: '../access/img/list-img-30.webp',
         name: 'Yummy Scrummy Raw Chocolate Brownie',
         weight: ' ',
         price: 'from £2.99',
-        category: 'BRANDS'
+        category: 'Ombar'
     },
     {
         id: '23',
 
-        image: '../access/img/list-img-14.webp',
+        image: '../access/img/list-img-41.webp',
         name: 'Enjoy! Daringly Darkest 85%',
         weight: '(70g)',
         price: 'from £2.99',
@@ -183,7 +182,7 @@ var products = [
     {
         id: '24',
 
-        image: '../access/img/list-img-15.webp',
+        image: '../access/img/list-img-5.webp',
         name: 'Enjoy! Delightfully Dark 70% (70g)',
         weight: ' ',
         price: 'from £2.99',
@@ -192,7 +191,7 @@ var products = [
     {
         id: '25',
 
-        image: '../access/img/list-img-16.webp',
+        image: '../access/img/list-img-6.webp',
         name: 'Enjoy! Delightfully Dark 70%',
         weight: 'Button (96g)',
         price: 'from £2.99',
@@ -201,7 +200,7 @@ var products = [
     {
         id: '26',
 
-        image: '../access/img/list-img-17.webp',
+        image: '../access/img/list-img-7.webp',
         name: 'Enjoy! Magical Mint',
         weight: 'Button (96g)',
         price: 'from £2.99',
@@ -210,7 +209,7 @@ var products = [
     {
         id: '27',
 
-        image: '../access/img/list-img-18.webp',
+        image: '../access/img/list-img-42.webp',
         name: 'Enjoy! Mint',
         weight: '(70g)',
         price: 'from £2.99',
@@ -218,8 +217,7 @@ var products = [
     },
     {
         id: '28',
-
-        image: '../access/img/list-img-19.webp',
+        image: '../access/img/list-img-43.webp',
         name: 'Forever Cacao: Bean to Bar 100%)',
         weight: ' ',
         price: 'from £3.99',
@@ -228,7 +226,7 @@ var products = [
     {
         id: '29',
 
-        image: '../access/img/list-img-19.webp',
+        image: '../access/img/list-img-44.webp',
         name: 'Forever Cacao: Bean to Bar 55%',
         weight: ' ',
         price: 'from £3.99',
@@ -236,24 +234,23 @@ var products = [
     },
     {
         id: '30',
-
-        image: '../access/img/list-img-19.webp',
+        image: '../access/img/list-img-46.webp',
         name: 'Forever Cacao: Bean to Bar 65%',
-        weight: ' ',
+        weight: '(70g)',
         price: 'from £3.99',
         category: 'Enjoy'
     },
     {
         id: '31',
-        image: '../access/img/list-img-19.webp',
+        image: '../access/img/list-img-47.webp',
         name: 'Forever Cacao: Bean to Bar 75%',
-        weight: ' ',
+        weight: '(70g)',
         price: 'from £3.99',
         category: 'Enjoy'
     },
     {
         id: '32',
-        image: '../access/img/list-img-20.webp',
+        image: '../access/img/list-img-26.webp',
         name: 'Ombar 100% Organic Chocolate ',
         weight: '(35g)',
         price: 'from £3.99',
@@ -261,28 +258,73 @@ var products = [
     },
     {
         id: '33',
-        image: '../access/img/list-img-21.webp',
+        image: '../access/img/list-img-27.webp',
         name: 'Ombar 72% Organic Chocolate ',
         weight: '(35g)',
-        price: 'Sold out',
-        category: 'Element for life'
+        price: '£3.99',
+        category: 'Enjoy'
     },
     {
         id: '34',
-        image: '../access/img/list-img-21.webp',
+        image: '../access/img/list-img-28.webp',
         name: 'Ombar 100% Organic Chocolate ',
         weight: '(70g)',
-        price: 'Sold out',
-        category: 'Element for life'
+        price: '£3.99',
+        category: 'Enjoy'
     },
     {
         id: '35',
-        image: '../access/img/list-img-22.webp',
-        name: 'Ombar Blueberry & Acai Organic Chocolate',
-        weight: '(35g)',
-        price: 'from £1.99',
-        category: 'Element for life'
+        image: '../access/img/list-img-23.webp',
+        name: 'Coracao 81% Cacao Bar',
+        weight: '(57g)',
+        price: '£6.99',
+        category: 'Coracao Confections'
+    },
+    {
+        id: '36',
+        image: '../access/img/list-img-24.webp',
+        name: 'Coracao Caramel Bar',
+        weight: '(70g)',
+        price: '£5.99',
+        category: 'Coracao Confections'
+    },
+    {
+        id: '37',
+        image: '../access/img/list-img-35.jpg',
+        name: 'Coracao Mint Fudge Bar',
+        weight: '(70g)',
+        price: '£6.49',
+        category: 'Forever Cacao'
+    },
+    {
+        id: '38',
+        image: '../access/img/list-img-25.webp',
+        name: 'Coracao Mint Fudge Bar',
+        weight: '(70g)',
+        price: '£6.49',
+        category: 'Coracao Confections'
+    },
+    {
+        id: '39',
+        image: '../access/img/list-img-36.webp',
+        name: 'Coracao Mint Fudge Bar',
+        weight: '(70g)',
+        price: '£6.49',
+        category: 'Forever Cacao'
+    },
+    {
+        id: '40',
+        image: '../access/img/list-img-37.jpg',
+        name: 'Coracao Mint Fudge Bar',
+        weight: '(70g)',
+        price: '£6.49',
+        category: 'Forever Cacao'
     }
+    
+
+    
+    
+    
 ]
 if (localStorage.getItem("products") == null) {
     products = localStorage.setItem("products", JSON.stringify(products));
