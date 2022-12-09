@@ -1,9 +1,19 @@
 window.onload=setDefaultUser();
 window.onload=getSession();
 window.onload=setCurrentPage();
+window.onload=addKeyBoardLogin();
 function setCurrentPage(){
     localStorage.setItem('currentPage','index.html');
-}
+};
+function addKeyBoardLogin(){
+    let passwordInput=document.getElementById('modal-password');
+    passwordInput.addEventListener('keypress',function(e){
+        if(e.key=="Enter"){
+            e.preventDefault();
+           checkLogin();
+        }
+    })
+};
 function setDefaultUser(){
     let carts=[[]];
     if(localStorage.getItem("userData")==null){

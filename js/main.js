@@ -25,7 +25,7 @@ function loadNumberProductInCart(){
     let listCart=JSON.parse(localStorage.getItem('carts'))[currentUserId];
     let totalProductInCart=0;
     listCart.map(x=>{
-        if(x.status!='Đã nhận hàng'){
+        if(typeof x.checkOutId =="undefined"){
             totalProductInCart+=parseInt(x.soluong);
         }
     })

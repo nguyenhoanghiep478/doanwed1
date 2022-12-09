@@ -1,17 +1,17 @@
 function renderTrade() {
     let temp = 1;
     let user = getLocalStorage('user');
-    if(user == undefined) {
+    if (user == undefined) {
         document.getElementById('table-trade').removeAttribute("class");
         return;
     }
-    let checkOuts = getLocalStorage('carts')[parseInt(user.id)];
-
-    if(checkOuts.length == 0) {
+    let userCart = getLocalStorage('carts')[parseInt(user.id)];
+    let checkOuts = getCheckOutArayByUserCart(userCart);
+    if (checkOuts.length == 0) {
         document.getElementById('table-trade').removeAttribute("class");
         return;
     }
-    if(!checkOuts[0].hasOwnProperty('status')) {
+    if (!checkOuts[0][0].hasOwnProperty('status')) {
         document.getElementById('table-trade').removeAttribute("class");
         return;
     }
@@ -52,42 +52,53 @@ function renderTrade() {
     // console.log(countOrder);
 
     // for (let i = 0; i < countOrder.length; i++) {
+    for (let i = 0; i < checkOuts.length; i++) {
         HTML += `
-        <tr>
-        <td rowspan="${checkOuts.length}" class="rowspanTable" style="width: 8%;border:1px solid">${temp++}</td>
-        <td rowspan="${checkOuts.length}" class="rowspanTable" style="width: 13%;border:1px solid">${checkOuts[0].checkOutId}</td>
-        <td rowspan="${checkOuts.length}" class="rowspanTable" style="width: 17%;border:1px solid" class="fa__left">${checkOuts[0].userName}</td>
-        `;
-        for (let j = 0; j < checkOuts.length; j++) {
+            <tr>
+            <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
+            <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 13%;border:1px solid">${checkOuts[i][0].checkOutId}</td>
+            <td rowspan="${checkOuts[i].length}" class="rowspanTable" style="width: 7%;border:1px solid" class="fa__left">${checkOuts[i][0].userName}</td>
+            `
 
-            if (checkOuts[j].status === "Chờ xác nhận") {
+        for (let j = 0; j < checkOuts[i].length; j++) {
+            if (checkOuts[i][j].status === "Chờ xác nhận") {
                 imageName = 'redpoint.png';
             } else {
                 imageName = 'greenpoint.png';
             }
             if (j == 0) {
                 rowSpanHTML += `
-                        <td rowspan=${checkOuts.length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[0].time}</td>
-                        <td rowspan=${checkOuts.length} class="rowspanTable" style="width: 10%;border:1px solid">
-                            <img src="../image/`+ imageName + `" style="max-width:10px"> ${checkOuts[0].status}
+                        <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i][0].time}</td>
+                        <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                            <img src="../image/`+ imageName + `" style="max-width:10px"> ${checkOuts[i][0].status}
                         </td>
                     `
-                if (checkOuts[j].status != "Đã nhận hàng") {
+                if (checkOuts[i][j].status == "Chờ lấy hàng") {
                     actionHTML += `
-                                        <td rowspan=${checkOuts.length} class="rowspanTable" style="width: 10%;border:1px solid">
-                                            <div  id=${checkOuts[j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[j].checkOutId})">
+                                        <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                                            <div  id=${checkOuts[i][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i][j].checkOutId})">
                                                 <i class="ti-check"></i>
                                                 <span class="tooltiptext">Xác nhận</span>
                                             </div>
-                                            <div class="tooltip delete" onclick="deleteAdminCart(${checkOuts[j].checkOutId},this)">
+                                            <div class="tooltip delete" onclick="deleteUserCart(${checkOuts[i][j].checkOutId},this)">
                                                 <i class="fa fa-trash"></i>  
                                                 <span class="tooltiptext">Xóa</span>
                                             </div>
                                         </td>
                                     </tr> 
                                 `
+                } else if (checkOuts[i][j].status != "Đã nhận hàng") {
+                    actionHTML += `
+                                <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
+                                <div class="tooltip delete" onclick="deleteUserCart(${checkOuts[i][j].checkOutId},this)">
+                                    <i class="fa fa-trash"></i>  
+                                    <span class="tooltiptext">Xóa</span>
+                                </div>
+                            </td>
+                        </tr> 
+                        `
                 } else {
-                    actionHTML += `<td rowspan=${checkOuts.length} class="rowspanTable" style="width: 10%;border:1px solid">
+                    actionHTML += `<td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
                             </td>
                             </tr> 
                             `
@@ -95,9 +106,9 @@ function renderTrade() {
             } else {
                 HTML += `<tr>`
             }
-            if (typeof checkOuts[j].status != "undefined") {
-                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/` + checkOuts[j].image + `" style="max-width:90px"></td>
-                        <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[j].price).split('£')[1]) * parseInt(checkOuts[j].soluong)).toFixed(2)}</td>  
+            if (typeof checkOuts[i][j].status != "undefined") {
+                HTML += `<td style="width: 20%;border:1px solid"><img src="../image/` + checkOuts[i][j].image + `" style="max-width:90px"></td>
+                        <td style="width: 15%;border:1px solid">£${(parseFloat((checkOuts[i][j].price).split('£')[1]) * parseInt(checkOuts[i][j].soluong)).toFixed(2)}</td>  
                             ${rowSpanHTML}
                             ${actionHTML}
                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
@@ -108,14 +119,29 @@ function renderTrade() {
             actionHTML = '';
             rowSpanHTML = ``;
         }
+    }
     // }
 
     HTML += `</tbody> <table>`;
     document.getElementById('table-order').innerHTML = HTML;
 }
-
+function getCheckOutArayByUserCart(userCart) {
+    let checkOutIds = [];
+    let checkOuts = [];
+    let checkOutIndex;
+    userCart.map(x => {
+        if ((checkOutIndex = checkOutIds.findIndex(id => id == x.checkOutId)) != -1) {
+            checkOuts[checkOutIndex].push(x);
+        } else {
+            checkOuts.push([]);
+            checkOutIds.push(x.checkOutId);
+            checkOuts[checkOutIds.length - 1].push(x);
+        }
+    })
+    return checkOuts;
+}
 function deleteUserCart() {
-    
+
 }
 
 function changeStatus() {

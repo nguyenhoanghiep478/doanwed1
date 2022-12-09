@@ -10,7 +10,18 @@
     text-align: center;
     text-transform: uppercase;
 }
-
+.update i:hover{
+    color:green;
+    cursor: pointer;
+}
+.delete i:hover{
+    color: red;
+    cursor: pointer;
+}
+.rowspanTable{
+    border: 1px solid !important;
+    vertical-align: middle !important;
+}
 .text-detail-trade {
     margin-top: 24px;
     text-align: center;

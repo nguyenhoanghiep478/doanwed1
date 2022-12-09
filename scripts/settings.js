@@ -352,7 +352,9 @@ function renderAdminCart() {
     let actionHTML = '';
     let rowSpanHTML = ``;
     let imageName = '';
+    let adminStatus='';
     for (let i = 0; i < checkOuts.length; i++) {
+       
         HTML += `
         <tr>
         <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
@@ -361,6 +363,11 @@ function renderAdminCart() {
         `
 
         for (let j = 0; j < checkOuts[i].length; j++) {
+            if(checkOuts[i][0].status=="Chờ lấy hàng"){
+                adminStatus="Chờ khách hàng xác nhận";
+            }else{
+                adminStatus=checkOuts[i][0].status;
+            }
             if (checkOuts[i][j].status === "Chờ xác nhận") {
                 imageName = 'redpoint.png';
             } else {
@@ -370,10 +377,10 @@ function renderAdminCart() {
                 rowSpanHTML+=`
                     <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">${checkOuts[i][0].time}</td>
                     <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
-                        <img src="../image/`+ imageName + `" style="max-width:10px"> ${checkOuts[i][0].status}
+                        <img src="../image/`+ imageName + `" style="max-width:10px"> ${adminStatus}
                     </td>
                 `
-                if (checkOuts[i][j].status != "Đã nhận hàng") {
+                if (checkOuts[i][j].status != "Đã nhận hàng"&&checkOuts[i][j].status!="Chờ lấy hàng") {
                     actionHTML += `
                                     <td rowspan=${checkOuts[i].length} class="rowspanTable" style="width: 10%;border:1px solid">
                                         <div  id=${checkOuts[i][j].id} class="tooltip update" onclick="changeStatus(this,${checkOuts[i][j].checkOutId})">
@@ -414,6 +421,7 @@ function renderAdminCart() {
     document.getElementById('table-order').innerHTML = HTML;
 }
 function changeStatus(object, checkOutId) {
+    let currentLogin=getLocalStorage('user');
     let parentNode = object.parentElement;
     let checkOutIds = getLocalStorage('checkOutIds');
     let checkOuts = getCheckOutArray();
@@ -421,16 +429,25 @@ function changeStatus(object, checkOutId) {
     for (let i = 0; i < checkOuts[checkOutIndex].length; i++) {
         if (checkOuts[checkOutIndex][i].status == "Chờ xác nhận") {
             checkOuts[checkOutIndex][i].status = "Đang giao hàng";
-        } else if (checkOuts[checkOutIndex][i].status == "Đang giao hàng") {
+        }else if(checkOuts[checkOutIndex][i].status=="Đang giao hàng"){
             checkOuts[checkOutIndex][i].status = "Chờ lấy hàng";
-        } else {
+            parentNode.innerHTML = '';
+        }else{
             checkOuts[checkOutIndex][i].status = "Đã nhận hàng";
             parentNode.innerHTML = '';
-            thongKe();
+            if(currentLogin.role=="admin"){
+                thongKe();
+            }
         }
     }
     referenceCheckOutToCarts(checkOuts, checkOutIndex);
-    let HTML = `<img src="../image/greenpoint.png" style="max-width:10px">  ${checkOuts[checkOutIndex][0].status}`
+    let adminStatus='';
+    if(checkOuts[checkOutIndex][0].status=="Chờ lấy hàng"){
+        adminStatus='Chờ khách hàng xác nhận';
+    }else{
+        adminStatus=checkOuts[checkOutIndex][0].status;
+    }
+    let HTML = `<img src="../image/greenpoint.png" style="max-width:10px">  ${adminStatus}`
     parentNode.previousElementSibling.innerHTML = HTML;
 }
 function referenceCheckOutToCarts(checkOutArray, checkOutIndex) {
@@ -500,6 +517,7 @@ function renderUserData() {
 }
 function changeStatusUser(user) {
     let userData = getLocalStorage('userData');
+    
     for (let i = 0; i < userData.length; i++) {
         if (userData[i].user === user) {
             if (userData[i].status == "blocked")
