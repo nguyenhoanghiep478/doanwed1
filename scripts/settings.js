@@ -29,7 +29,7 @@ navItems.forEach(function (navItem, index) {
         switch (index) {
             case 0:
                 document.querySelector('.section__stats').style.display = "flex";
-                document.querySelector('.section__stats').style.display = "flex";
+                document.querySelector('.section__stats-1').style.display = "flex";
                 document.querySelector('.section__stats-2').style.display = "flex";
                 window.onload = thongKe1();
                 let date = new Date();
@@ -429,8 +429,9 @@ function renderAdminCart(array) {
     let rowSpanHTML = ``;
     let imageName = '';
     let adminStatus = '';
-    for (let i = 0; i < checkOuts.length; i++) {
-        if(typeof checkOuts[i] == undefined) 
+    let listCart = JSON.parse(localStorage.getItem('carts'));
+    for (let i = 0; i < listCart.length; i++) {
+        if(typeof checkOuts[i] == "undefined") 
             continue;
         HTML += `
         <tr>
@@ -797,7 +798,7 @@ function thongKe1() {
     var yValues = getSubTotal1();
     var barColors = ["red", "green", "blue", "orange", "brown", "purple", "yellow"];
 
-    new Chart("myChart", {
+    new Chart("myChart-1", {
         type: "pie",
         data: {
             labels: xValues,

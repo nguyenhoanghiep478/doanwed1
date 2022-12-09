@@ -203,7 +203,7 @@ function isCorrect(username,name,date,sex,email,password){
         check=false;
     }
     let userData = JSON.parse(localStorage.getItem('userData'));
-    for(let i = 0; i <= userData.length; i++) {
+    for(let i = 0; i < userData.length; i++) {
         if(username.value == userData[i].user) {
             let userNof=document.getElementById("userNofication");
             userNof.innerHTML=messageAlert("user name is duplicate");
