@@ -222,14 +222,12 @@ body {
   display: none;
   justify-content: center;
   align-items: center;
+  max-width: 100%;
 }
-
 .modal-container {
   background-color: #fff;
-  width: 900px;
-  min-height: 200px;
+  max-width: 900px;
   position: relative;
-  max-height: 100%;
 }
 
 .modal-close {
@@ -296,9 +294,6 @@ body {
   padding-bottom: 16px;
   border-style: solid;
 }
-.modal-login {
-  max-height: 100%;
-}
 .modal-login-header {
   height: 45px;
   background: green;
@@ -314,7 +309,7 @@ body {
   font-size: 16px;
 }
 
-.countOrder{
+.countOrder {
   position: absolute;
   top: 17px;
   left: 70px;
@@ -475,11 +470,6 @@ hr {
   grid-column: 1/-2;
 }
 /* mobile */
-.nav-mobile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .btn-mobile-nav {
   border: none;
   background: none;
@@ -498,4 +488,106 @@ hr {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.quick-shop {
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+}
+.container-quick-shop {
+  position: relative;
+  max-width: 1097px;
+  height: 632px;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 12px 32px;
+}
+.content-quick-shop .title {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: 0.5px;
+  word-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.content-quick-shop {
+  grid-column: 2/-1;
+  margin-top: 26px;
+}
+.img-quick-shop {
+  grid-column: 1/-2;
+}
+.content-quick-shop .price {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 2.5;
+}
+.content-quick-shop .quantity {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.quick-cart {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.quick-cart input {
+  border: solid 1px #ccc;
+  width: 45px;
+  height: 35px;
+  padding: 0 5px;
+}
+.quick-cart .btn-submit {
+  border: solid 1px #ccc;
+  padding: 8px 14px;
+  border-radius: 5px;
+  background-color: #3e0707;
+  color: #ccc;
+  text-transform: uppercase;
+}
+.quick-cart .text {
+  font-weight: 500;
+  word-spacing: 0.5px;
+  letter-spacing: -0.8px;
+}
+.quick-cart .btn-submit:hover {
+  background-color: #a95700;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.recommend-product {
+  line-height: 1.8;
+  margin-top: 12px;
+}
+.capicity {
+  margin-top: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.btn-close-quick-shop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #3e0707;
+  color: #ccc;
+  transition: all 0.5s;
+}
+.btn-close-quick-shop:hover {
+  background-color: #a95700;
+  color: #fff;
+  cursor: pointer;
 }

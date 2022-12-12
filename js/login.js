@@ -1,56 +1,56 @@
-window.onload=setDefaultUser();
-window.onload=getSession();
-window.onload=setCurrentPage();
-window.onload=addKeyBoardLogin();
-function setCurrentPage(){
-    localStorage.setItem('currentPage','index.html');
+window.onload = setDefaultUser();
+window.onload = getSession();
+window.onload = setCurrentPage();
+window.onload = addKeyBoardLogin();
+function setCurrentPage() {
+    localStorage.setItem('currentPage', 'index.html');
 };
-function addKeyBoardLogin(){
-    let passwordInput=document.getElementById('modal-password');
-    passwordInput.addEventListener('keypress',function(e){
-        if(e.key=="Enter"){
+function addKeyBoardLogin() {
+    let passwordInput = document.getElementById('modal-password');
+    passwordInput.addEventListener('keypress', function (e) {
+        if (e.key == "Enter") {
             e.preventDefault();
-           checkLogin();
+            checkLogin();
         }
     })
 };
-function setDefaultUser(){
-    let carts=[[]];
-    if(localStorage.getItem("userData")==null){
-        let userData=[
-            {   
-                "id":'1',
-                "user":"hiep",
-                "password":"1",
-                "name":"Nguyễn Hoàng Hiệp",
-                "email":"nguyenhoanghiep478@gmail.com",
-                "Địa chỉ":"Sgu",
-                "phone":'0965478891',
-                "sex":"nam",
-                "Tôn giáo":'Phật giáo',
-                "status":"working",
-                "role":"user"
-            },  
+function setDefaultUser() {
+    let carts = [[]];
+    if (localStorage.getItem("userData") == null) {
+        let userData = [
             {
-                "user":"admin",
-                "password":"1",
-                "name":"admin",
-                "email":"nguyenhoanghiep478@gmail.com",
-                "date":"31/08/2003",
-                "phone":'0326991379',
-                "sex":"nam",
-                "role":"admin",
-                "status":"working"
+                "id": '1',
+                "user": "hiep",
+                "password": "1",
+                "name": "Nguyễn Hoàng Hiệp",
+                "email": "nguyenhoanghiep478@gmail.com",
+                "Địa chỉ": "Sgu",
+                "phone": '0965478891',
+                "sex": "nam",
+                "Tôn giáo": 'Phật giáo',
+                "status": "working",
+                "role": "user"
+            },
+            {
+                "user": "admin",
+                "password": "1",
+                "name": "admin",
+                "email": "nguyenhoanghiep478@gmail.com",
+                "date": "31/08/2003",
+                "phone": '0326991379',
+                "sex": "nam",
+                "role": "admin",
+                "status": "working"
             }
         ];
-        carts[1]=[];
-        localStorage.setItem("carts",JSON.stringify(carts));
-        localStorage.setItem("userData",JSON.stringify(userData));
+        carts[1] = [];
+        localStorage.setItem("carts", JSON.stringify(carts));
+        localStorage.setItem("userData", JSON.stringify(userData));
     }
 }
-function logOut(){
+function logOut() {
     localStorage.removeItem("user")
-    window.location="index.html"
+    window.location = "index.html"
 }
 
 const loginbtn = document.querySelector(".js-login");
@@ -74,55 +74,65 @@ function resetInput() {
 
 function removeNoficationSignup() {
     let notifySignup = document.getElementsByClassName("notify-signup");
-    for(let i = 0; i < notifySignup.length; i++) {
-        if(notifySignup[i].hasChildNodes())
+    for (let i = 0; i < notifySignup.length; i++) {
+        if (notifySignup[i].hasChildNodes())
             notifySignup[i].removeChild(notifySignup[i].firstElementChild);
     }
 }
 
+function removeNoficationLogin() {
+    let notifyLogin = document.getElementsByClassName("notify-login");
+    for (let i = 0; i < notifyLogin.length; i++) {
+        if (notifyLogin[i].hasChildNodes())
+            notifyLogin[i].removeChild(notifyLogin[i].firstElementChild);
+    }
+}
+
 loginbtn.onclick = () => {
-    modalformlogin.style.display="block";
-    modalformsingup.style.display="none";
-    if(messageLogin.hasChildNodes())
+    modalformlogin.style.display = "block";
+    modalformsingup.style.display = "none";
+    removeNoficationLogin();
+    if (messageLogin.hasChildNodes())
         messageLogin.removeChild(messageLogin.firstElementChild);
 }
-nextLink.addEventListener("click",() => {
+nextLink.addEventListener("click", () => {
     modalformlogin.style.display = "none";
     modalformsingup.style.display = "block";
     removeNoficationSignup();
 })
 
-turnBack.addEventListener("click",()=>{
-    modalformlogin.style.display="block";
-    modalformsingup.style.display="none";
-    if(messageLogin.hasChildNodes())
+turnBack.addEventListener("click", () => {
+    modalformlogin.style.display = "block";
+    modalformsingup.style.display = "none";
+    removeNoficationLogin();
+    if (messageLogin.hasChildNodes())
         messageLogin.removeChild(messageLogin.firstElementChild);
 })
 
-loginbtn.addEventListener("click",()=>{
-    if(localStorage.getItem('user')===null){
+loginbtn.addEventListener("click", () => {
+    if (localStorage.getItem('user') === null) {
         resetInput();
         modal.classList.add("open");
-    }else {
-        window.location="profile.html"
+    } else {
+        window.location = "profile.html"
     }
 })
 
-modal.addEventListener("click",()=>{
+modal.addEventListener("click", () => {
     modal.classList.remove("open");
 })
 
-modalclose.forEach((item)=>{
-    item.onclick = function() {
+modalclose.forEach((item) => {
+    item.onclick = function () {
         modal.classList.remove("open");
     }
 })
 
-modalformlogin.addEventListener("click",(e)=>{
+modalformlogin.addEventListener("click", (e) => {
     e.stopPropagation();
 })
 
-modalformsingup.addEventListener("click",(e)=>{
+modalformsingup.addEventListener("click", (e) => {
     e.stopPropagation();
 })
 
@@ -130,186 +140,197 @@ const overplaynotify = document.querySelector('.overplay-notify')
 const loginEmail = document.getElementById('modal-email');
 const loginPassword = document.getElementById('modal-password');
 
-function openFormLogin ()
-{
-    loginbtn.onclick = function() {
-        if(localStorage.getItem('user')===null){
+function openFormLogin() {
+    loginbtn.onclick = function () {
+        if (localStorage.getItem('user') === null) {
             const arr = JSON.parse(localStorage.getItem('account'));
-            if(arr[0].isAdmin == false && arr[0].isUser == false) {
-            modalformsingup.style.display = 'none';
-            modalformlogin.style.display = 'block';
-            modal.classList.add('open');
+            if (arr[0].isAdmin == false && arr[0].isUser == false) {
+                modalformsingup.style.display = 'none';
+                modalformlogin.style.display = 'block';
+                modal.classList.add('open');
+            }
         }
-     }
     }
 }
-function showPassword(){
-    let passwordInput=document.getElementById("modal-password");
-    if(passwordInput.getAttribute("type")=="password"){
-        passwordInput.setAttribute("type","text");
-    }else{
-        passwordInput.setAttribute("type","password");
+function showPassword() {
+    let passwordInput = document.getElementById("modal-password");
+    if (passwordInput.getAttribute("type") == "password") {
+        passwordInput.setAttribute("type", "text");
+    } else {
+        passwordInput.setAttribute("type", "password");
     }
 }
-function showPasswordSignUp(){
-    let passwordInput=document.getElementById("modal-password-signup");
-    if(passwordInput.getAttribute("type")=="password"){
-        passwordInput.setAttribute("type","text");
-    }else{
-        passwordInput.setAttribute("type","password");
+function showPasswordSignUp() {
+    let passwordInput = document.getElementById("modal-password-signup");
+    if (passwordInput.getAttribute("type") == "password") {
+        passwordInput.setAttribute("type", "text");
+    } else {
+        passwordInput.setAttribute("type", "password");
     }
 }
-function checkLogin(){
-    let user = document.getElementById("modal-email").value;
-    let password=document.getElementById("modal-password").value;
-    let passwordInput=document.getElementById("modal-password");
-    let userData=JSON.parse(localStorage.getItem("userData"));
-    let flag = false;
-    if(user!==''&&password!==''){
-        for(let i=0;i<userData.length;i++){
-            if(userData[i].user===user&&userData[i].password===password){
-                if(userData[i].status=="working") {
-                    localStorage.setItem("user",JSON.stringify(userData[i]));
-                    if(userData[i].role==="user"){
-                        addNoneUserCartToUserCart(userData[i].id);
-                        window.location="index.html";
 
-                    }else if(userData[i].role==="admin"){
-                        window.location="settings.html";
+function checkLogin() {
+    let user = document.getElementById("modal-email").value;
+    let password = document.getElementById("modal-password").value;
+    let passwordInput = document.getElementById("modal-password");
+    let userData = JSON.parse(localStorage.getItem("userData"));
+    let flag = false;
+    if (user !== '' && password !== '') {
+        for (let i = 0; i < userData.length; i++) {
+            if (userData[i].user === user && userData[i].password === password) {
+                if (userData[i].status == "working") {
+                    localStorage.setItem("user", JSON.stringify(userData[i]));
+                    if (userData[i].role === "user") {
+                        addNoneUserCartToUserCart(userData[i].id);
+                        window.location = "index.html";
+
+                    } else if (userData[i].role === "admin") {
+                        window.location = "settings.html";
                     }
                 }
                 else
-                    alert("Tài khoản này đã bị khóa"); 
+                    alert("Tài khoản này đã bị khóa");
             }
         }
-        if(localStorage.getItem("user")===null){
-            passwordInput.value='';
-            let message="<span class='warning-alert' style='margin-left:40%;margin-bottom:20px' > <strong>Your user or password incorrect</strong> </span>";
-            messageLogin.innerHTML=message;
+        if (localStorage.getItem("user") === null) {
+            passwordInput.value = '';
+            let message = "<span class='warning-alert' style='margin-left:40%;margin-bottom:20px' > <strong>Your user or password incorrect</strong> </span>";
+            messageLogin.innerHTML = message;
         }
+    }
+    else {
+        if(user == '') {
+            let userNof = document.getElementById("userNoficationLogin");
+            userNof.innerHTML = messageAlert("user name can't empty");
+        }
+        if(password == '') {
+            let passwordNof = document.getElementById("passwordNoficationLogin");
+            passwordNof.innerHTML = messageAlert("password can't empty");
+        }
+
     }
     
 }
-function messageAlert(messageAlert){
-    let message="<span class='warning-alert' style='margin-left:145px' > <strong>"+messageAlert+"</strong> </span>";
+function messageAlert(messageAlert) {
+    let message = "<span class='warning-alert' style='margin-left:145px' > <strong>" + messageAlert + "</strong> </span>";
     return message;
 }
-function isCorrect(username,name,date,sex,email,password){
+function isCorrect(username, name, date, sex, email, password) {
     removeNoficationSignup();
     let check = true;
-    if(username.value===''){
-        let userNof=document.getElementById("userNofication");
-        userNof.innerHTML=messageAlert("user name can't empty");
-        check=false;
+    if (username.value === '') {
+        let userNof = document.getElementById("userNofication");
+        userNof.innerHTML = messageAlert("user name can't empty");
+        check = false;
     }
     let userData = JSON.parse(localStorage.getItem('userData'));
-    for(let i = 0; i < userData.length; i++) {
-        if(username.value == userData[i].user) {
-            let userNof=document.getElementById("userNofication");
-            userNof.innerHTML=messageAlert("user name is duplicate");
-            check=false;
+    for (let i = 0; i < userData.length; i++) {
+        if (username.value == userData[i].user) {
+            let userNof = document.getElementById("userNofication");
+            userNof.innerHTML = messageAlert("user name is duplicate");
+            check = false;
             break;
         }
     }
-    if(name.value===''){
-        let nameNof=document.getElementById("nameNofication");
-        nameNof.innerHTML=messageAlert("full name can't empty");
-        check=false;
+    if (name.value === '') {
+        let nameNof = document.getElementById("nameNofication");
+        nameNof.innerHTML = messageAlert("full name can't empty");
+        check = false;
     }
-    if(date.value===''){
-        let dateNof=document.getElementById("dateNofication");
-        dateNof.innerHTML=messageAlert("date can't empty");
-        check=false;
+    if (date.value === '') {
+        let dateNof = document.getElementById("dateNofication");
+        dateNof.innerHTML = messageAlert("date can't empty");
+        check = false;
     }
-    if(email.value===''){
-        let emailNof=document.getElementById("emailNofication");
-        emailNof.innerHTML=messageAlert("email can't empty");
-        check=false;
+    if (email.value === '') {
+        let emailNof = document.getElementById("emailNofication");
+        emailNof.innerHTML = messageAlert("email can't empty");
+        check = false;
     }
     // let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
     let regex = new RegExp('[a-z0-9]+@gmail.com');
-    if (!(regex.test(email.value))){
-        let emailNof=document.getElementById("emailNofication");
-        emailNof.innerHTML=messageAlert("email is invalid");
-        check=false;
+    if (!(regex.test(email.value))) {
+        let emailNof = document.getElementById("emailNofication");
+        emailNof.innerHTML = messageAlert("email is invalid");
+        check = false;
     }
-    if(password.value===''){
-        let passwordNof=document.getElementById("passwordNofication");
-        passwordNof.innerHTML=messageAlert("password can't empty");
-        check=false;
+    if (password.value === '') {
+        let passwordNof = document.getElementById("passwordNofication");
+        passwordNof.innerHTML = messageAlert("password can't empty");
+        check = false;
     }
     return check;
 
 }
-function Register(){
-    let username=document.getElementById("modal-username-signup");
-    let name=document.getElementById("modal-name");
-    let date=document.getElementById("modal-date");
-    let sex=document.getElementById("modal-sex");
-    let email=document.getElementById("modal-email-signup");
-    let password=document.getElementById("modal-password-signup")
-    if(isCorrect(username,name,date,sex,email,password)){
-        let userData=JSON.parse(localStorage.getItem("userData"));
+function Register() {
+    let username = document.getElementById("modal-username-signup");
+    let name = document.getElementById("modal-name");
+    let date = document.getElementById("modal-date");
+    let sex = document.getElementById("modal-sex");
+    let email = document.getElementById("modal-email-signup");
+    let password = document.getElementById("modal-password-signup")
+    if (isCorrect(username, name, date, sex, email, password)) {
+        let userData = JSON.parse(localStorage.getItem("userData"));
         let role;
-        let id=userData.length;
-        if((username.value).includes("admin"))role="admin";
-        else role="user";
+        let id = userData.length;
+        if ((username.value).includes("admin")) role = "admin";
+        else role = "user";
         userData.push({
-            "id":id,
-            "user":username.value,
-            "name":name.value,
-            "date":date.value,
-            "sex":sex.value,
-            "email":email.value,
-            "password":password.value,
-            "role":role,
-            "status":"working"
+            "id": id,
+            "user": username.value,
+            "name": name.value,
+            "date": date.value,
+            "sex": sex.value,
+            "email": email.value,
+            "password": password.value,
+            "role": role,
+            "status": "working"
         })
-        let carts=JSON.parse(localStorage.getItem("carts"));
+        let carts = JSON.parse(localStorage.getItem("carts"));
         carts[parseInt(id)] = [];
-        localStorage.setItem('carts',JSON.stringify(carts));
-        localStorage.setItem("userData",JSON.stringify(userData));
-        window.location="index.html";
+        localStorage.setItem('carts', JSON.stringify(carts));
+        localStorage.setItem("userData", JSON.stringify(userData));
+        window.location = "index.html";
     };
 }
 function redirectAdminPage(page) {
     window.location = page;
 }
-function redirectPage(page){
+function redirectPage(page) {
     document.getElementById(localStorage.getItem('currentPage')).classList.add('hiddenPage');
     document.getElementById(page).classList.remove('hiddenPage');
-    localStorage.setItem('currentPage',page);
-    if(page=="cart.html"){
+    localStorage.setItem('currentPage', page);
+    if (page == "cart.html") {
         renderCart();
-    }else if(page=="search.html"){
+    } else if (page == "search.html") {
         loadSearchProduct();
     }
-    else if(page=="trade.html"){
+    else if (page == "trade.html") {
         renderTrade();
     }
-    window.scrollTo(0,0); 
+    window.scrollTo(0, 0);
 }
-function getSession(){
+function getSession() {
     let user;
-    if((user=JSON.parse(localStorage.getItem("user")))!==null){
-        let login_href=document.getElementById("login-href");
-        login_href.innerText="Hello,"+ JSON.parse(localStorage.getItem("user")).name;
-        let list=document.getElementById("contact-list");
-        let item=document.createElement("li");
-        let item2=document.createElement("li");
-        if(user.role==="admin"){
-            let childs=list.childNodes;
+    if ((user = JSON.parse(localStorage.getItem("user"))) !== null) {
+        let login_href = document.getElementById("login-href");
+        login_href.innerText = "Hello," + JSON.parse(localStorage.getItem("user")).name;
+        let list = document.getElementById("contact-list");
+        let item = document.createElement("li");
+        let item2 = document.createElement("li");
+        if (user.role === "admin") {
+            let childs = list.childNodes;
             list.removeChild(childs[3]);
-            childs=list.childNodes;
+            childs = list.childNodes;
             list.removeChild(childs[4]);
-            item2.innerHTML="Admin Page";
-            item2.setAttribute('onclick',"redirectAdminPage('settings.html')");
-            item2.setAttribute("cursor","pointer");
+            item2.innerHTML = "Admin Page";
+            item2.setAttribute('onclick', "redirectAdminPage('settings.html')");
+            item2.setAttribute("cursor", "pointer");
             list.appendChild(item2);
         }
-        item.innerHTML="LOG OUT";
-        item.setAttribute("onclick","logOut()");
-        item.setAttribute("cursor","pointer");
+        item.innerHTML = "LOG OUT";
+        item.setAttribute("onclick", "logOut()");
+        item.setAttribute("cursor", "pointer");
         list.appendChild(item);
     }
 }

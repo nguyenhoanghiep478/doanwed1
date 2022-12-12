@@ -66,7 +66,7 @@ function updateProduct(product) {
     let categories = JSON.parse(localStorage.getItem('categories'));
     let products = JSON.parse(localStorage.getItem('products'));
     for (let i = 0; i < products.length; i++) {
-        if (id === products[i].id) {
+        if (id == products[i].id) {
             settingProduct = products[i];
             break;
         }
@@ -91,9 +91,9 @@ function updateProduct(product) {
     </select>
     
     </td>
-    <td style="width: 40%" class="fa__left"><input type="text" value="${settingProduct.name}"></td>
-    <td style="width: 15%"><input type="text" value="${settingProduct.price}"></td>
-    <td style="width: 15%"><input type="file"></td>
+    <td style="width: 40%" class="fa__left"><input type="text" value="${settingProduct.name}" class="updateProduct"></td>
+    <td style="width: 15%"><input type="text" value="${settingProduct.price.split("£")[1]}" class="updateProduct"></td>
+    <td style="width: 15%"><input type="file" value="${settingProduct.image}" class="updateProduct"></td>
     <td style="width: 15%">
         <div  class="tooltip update" onclick="saveChange(${settingProduct.id})">
             <i class="ti-check"></i>
@@ -109,17 +109,21 @@ function updateProduct(product) {
     document.getElementById('table-product').innerHTML = HTML;
 }
 function saveChange(id) {
-    let inputs = document.getElementsByTagName('input');
+    let inputs = document.getElementsByClassName('updateProduct');
     let selectValue = document.getElementById("categories").value;
     let listProduct = JSON.parse(localStorage.getItem('products'));
     for (let i = 0; i < listProduct.length; i++) {
         if (listProduct[i].id == id) {
             listProduct[i].category = selectValue;
             listProduct[i].name = inputs[0].value;
-            const imgArr = inputs[2].value.split(/\/|\\/g)
-            const imgDir = "../access/img/" + imgArr[imgArr.length - 1]
-            listProduct[i].price = inputs[1].value;
-            listProduct[i].image = imgDir;
+            if(inputs[2].value != "") {
+                const imgArr = inputs[2].value.split(/\/|\\/g)
+                const imgDir = "../access/img/" + imgArr[imgArr.length - 1]
+                listProduct[i].image = imgDir;
+            }else{
+
+            }
+            listProduct[i].price = "£" + inputs[1].value;
             break;
         }
     }
