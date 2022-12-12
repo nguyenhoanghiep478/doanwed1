@@ -67,7 +67,7 @@ function loadSearchProduct(paginationIndex,findArray) {
           </li>
           <li>
             <a class="btn-addto-cart">
-                <span></span>
+              <span onclick="openQuickShop(${products[i].id})" class="ti-eye icon_hover" style="color:white;"></span>
             </a>
           </li>
           <li>

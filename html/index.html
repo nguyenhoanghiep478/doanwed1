@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../access//css//aboutus_style.css">
     <link rel="stylesheet" href="../access/css/blog_style.css">
     <link rel="stylesheet" href="../access/css/responsive.css">
+    <link rel="stylesheet" href="../access/icon/eye-solid.svg   ">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
         rel="stylesheet">
     <title>Welcome to The Raw Chocolate Shop</title>
@@ -228,7 +229,7 @@
                                     </li>
                                     <li>
                                         <a class="btn-addto-cart">
-                                            <span></span>
+                                           
                                         </a>
                                     </li>
                                     <li>
@@ -1251,28 +1252,28 @@
         </div>
     </form>
     <!-- quick-shop -->
-    <div class="quick-shop">
+    <div class="quick-shop hiddenPage">
         <div class="container-quick-shop">
-            <div class="btn-close-quick-shop">
+            <div onclick="closeQuickShop(this)" class=" btn-close-quick-shop">
                 <i class="ti-close"></i>
             </div>
             <img src="https://cdn.shopify.com/s/files/1/1092/6212/products/Booja-Booja-Dark-Ecuadorian-Chocolate-Truffles-Raw-69g-21121_b38a3f54-565d-4a94-a8dc-d374ed18afa3_grande.webp?v=1670514916"
-                alt="" class="img-quick-shop">
+                alt="" class="inforProduct img-quick-shop">
             <div class="content-quick-shop">
-                <p class="title">
+                <p class= " inforProduct title">
                     BOOJA - BOOJA DARK ECUADORIAN TRUFFLES (6)</p>
                 <hr>
-                <p class="price">£4.99</p>
-                <p class="quantity">Quantity</p>
-                <div class="quick-cart">
-                    <input type="number" value="1" min="0">
-                    <button type="submit" class="btn-submit"><span class="text">add to cart</span></button>
+                <p class="inforProduct price">£4.99</p>
+                <p class="inforProduct quantity">Quantity</p>
+                <div class="quick-cart inforProduct">
+                    <input onclick="changeCount(this)" type="number" class="inforProduct" value="1" min="0">
+                    <button onclick="addToCart(this)" type="submit" class="btn-submit inforProduct"><span class="text">add to cart</span></button>
                 </div>
                 <hr>
-                <p class="recommend-product">These sophisticated award winning truffles from Booja Booja are made with
+                <p class="recommend-product inforProduct">These sophisticated award winning truffles from Booja Booja are made with
                     pure Ecuadorian 100% dark chocolate which delivers an unadulterated, intense, and decadent flavour.
                 </p>
-                <p class="capicity">Nutrition Information (Per Unit): Energy 1709kj (411kcal), Fat 34.5g, of which
+                <p class="capicity inforProduct">Nutrition Information (Per Unit): Energy 1709kj (411kcal), Fat 34.5g, of which
                     saturates 24.2g, Carbohydrates 14.5g, of which sugars 8.9g, Protein 4.1g, Salt 0g.</p>
             </div>
         </div>

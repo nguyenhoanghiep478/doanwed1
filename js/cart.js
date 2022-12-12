@@ -1,6 +1,12 @@
 window.onload = renderCart();
-
-function addToCart(product) {
+function quickShopAdd(product){
+  let amount=document.getElementsByClassName('amountProduct')[0].value;
+  addToCart(product,parseInt(amount));
+}
+function addToCart(product,amount) {
+  if(typeof amount =="undefined"){
+    amount=1;
+  }
   let currentUser = JSON.parse(localStorage.getItem('user'));
   let currentUserId;
   if (currentUser != null) {
@@ -17,12 +23,12 @@ function addToCart(product) {
   let productId = product.getAttribute('id');
   let productIndex = listProduct.findIndex(element => element.id == productId);
   if ((duplicateIndex = findByProductIdWithoutCheckOutId(productId, listCart[currentUserId])) != -1 ) {
-    listCart[currentUserId][duplicateIndex].soluong = parseInt(listCart[currentUserId][duplicateIndex].soluong) + 1;
+    listCart[currentUserId][duplicateIndex].soluong = parseInt(listCart[currentUserId][duplicateIndex].soluong) + amount;
   } else {
     if (currentUser != null) {
       listProduct[productIndex].userName = currentUser.name;
     }
-    listProduct[productIndex].soluong = 1;
+    listProduct[productIndex].soluong = amount;
     listProduct[productIndex].time = time;
     listProduct[productIndex].cartId = cartId;
     listCart[currentUserId].push(listProduct[productIndex]);
