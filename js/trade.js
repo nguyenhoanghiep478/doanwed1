@@ -53,6 +53,8 @@ function renderTrade() {
 
     // for (let i = 0; i < countOrder.length; i++) {
     for (let i = 0; i < checkOuts.length; i++) {
+        if(!checkOuts[i][0].hasOwnProperty("status"))
+            continue;
         HTML += `
             <tr>
             <td rowspan="${checkOuts[i].length}" class="rowspanTable">${temp++}</td>
