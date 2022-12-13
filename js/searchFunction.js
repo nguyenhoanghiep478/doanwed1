@@ -344,6 +344,7 @@ function addKeyBoardSearch() {
             localStorage.setItem("findProduct", JSON.stringify(controllerFindProduct(searchKeyboard.value, category, minPrice, maxPrice)));
             document.getElementById('requiredContainer').setAttribute('class', 'hidden');
             redirectPage('search.html');
+            localStorage.setItem('isFinding',true);
             renderProduct(category);
         }
     })
@@ -354,78 +355,26 @@ function addHideListSearch() {
         let listRequired = document.getElementById("requiredContainer");
         listRequired.setAttribute('class', 'show-block');
     });
-    // listRequired.addEventListener('focusout',(event)=>{
-    //     let listRequired=document.getElementById("requiredContainer");
-    //     listRequired.setAttribute('class','hidden');
-    // });
 }
 
 function renderProduct(category, paginationIndex) {
     if(typeof paginationIndex =="undefined"){
         paginationIndex=1;
     }
-    let listProducts = controllerFindProduct('', category, '', '');
-    setLocalStorage('findProduct',listProducts);
+    let listProducts;
+    if(localStorage.getItem('isFinding')==false){
+         listProducts = controllerFindProduct('', category, '', '');
+        setLocalStorage('findProduct',listProducts);
+    }else{
+        listProducts=getLocalStorage('findProduct');
+        localStorage.setItem('isFinding',false);
+    }
     let objectName='';
     if(localStorage.getItem('currentPage')=="thechocolates.html"){
             objectName="chocolate";
     }else if(localStorage.getItem('currentPage')=="search.html"){
             objectName="search";
     }
-    // let listProductObject = document.getElementsByClassName('right-'+objectName)[0];
-    // let user = JSON.parse(localStorage.getItem('user'));
-    // let HTML = '';
-    // let functionHandle = '';
-    // if (user.role === "admin") {
-    //     iconHandle = 'ti-settings icon_hover';
-    //     functionHandle = 'redirectUpdateProduct(this)';
-    // } else {
-    //     iconHandle = 'ti-shopping-cart-full icon_hover';
-    //     functionHandle = 'addToCart(this);'
-    // }
-    // for (let i = 0; i < listProducts.length; i++) {
-    //     HTML += `
-    //     <div class="card">
-    //    <div class="card-header" style="position: relative;">
-    //      <img class="img-card" src="${listProducts[i].image}" alt="Sr error !" />
-    //      <ul class="product_hover">
-    //        <li>
-    //          <a href="${listProducts[i].image}">
-    //            <span class="ti-arrows-corner icon_hover" style="color: white;"></span>
-    //          </a>
-    //        </li>
-    //        <li>
-    //          <a href="#">
-    //              <span></span>
-    //          </a>
-    //        </li>
-    //        <li>
-    //          <a href="#">
-    //              <span id="${listProducts[i].id}" onclick="${functionHandle}" class="${iconHandle}"></span>
-    //          </a>
-    //        </li>
-    //      </ul>
-    //    </div>
-    //    <div class="card-body">
-    //      <div class="card-reviews">
-    //        <i class="ti-star"></i>
-    //        <i class="ti-star"></i>
-    //        <i class="ti-star"></i>
-    //        <i class="ti-star"></i>
-    //        <i class="ti-star"></i>
-    //        <p class="status-review">review</p>
-    //      </div>
-    //      <div class="card-infor">
-    //        <span class="infor-name">
-    //         ${listProducts[i].name}
-    //        </span>
-    //        <span class="infor-price">${listProducts[i].price}</span>
-    //      </div>
-    //    </div>
-    //  </div>`
-    // }
-    
-    // listProductObject.innerHTML = HTML;
     loadSearchProduct(paginationIndex,listProducts);
     let selectedObject = document.getElementsByClassName('title-left-'+objectName)[0];
     let title = document.getElementsByClassName('heading-'+objectName)[0];
@@ -447,6 +396,7 @@ function renderProductAndRedirect(category, object, link) {
     renderProduct(category, object);
 }
 function controllerFindProduct(productName, category, minPrice, maxPrice) {
+    
     return findProductByName(productName, findProductByRange(minPrice, maxPrice, findProductBycategory(category)));
 }
 //arrow funtion

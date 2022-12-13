@@ -434,7 +434,7 @@ function renderAdminCart(array) {
     let imageName = '';
     let adminStatus = '';
     let listCart = JSON.parse(localStorage.getItem('carts'));
-    for (let i = 0; i < listCart.length; i++) {
+    for (let i = 0; i < checkOuts.length; i++) {
         if(typeof checkOuts[i] == "undefined") 
             continue;
         HTML += `
